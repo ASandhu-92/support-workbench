@@ -1,0 +1,212 @@
+[
+  {
+    "id": "T-01",
+    "received": "2026-09-14T08:12:00Z",
+    "email": "rob.hale@example.com",
+    "subject": "Out of credits already??",
+    "body": "I'm on Pro and it says I have 0 credits left. It's only the 14th. When do I get more? I thought it reset on the 1st."
+  },
+  {
+    "id": "T-02",
+    "received": "2026-09-14T09:40:00Z",
+    "email": "nina.park@example.com",
+    "subject": "custom domain",
+    "body": "Hi, how do I put my app on my own domain instead of the bbx one? I'm on the free plan right now if that matters. My domain is at a registrar, I can edit DNS."
+  },
+  {
+    "id": "T-03",
+    "received": "2026-09-14T11:05:00Z",
+    "email": "tom.okafor@example.com",
+    "subject": "Will Buildbox overwrite my GitHub edits?",
+    "body": "I connected GitHub sync last week. Yesterday I fixed a bug directly on GitHub in main. If I now ask the AI for a change in Buildbox, is it going to wipe out my fix? I don't want to lose it."
+  },
+  {
+    "id": "T-04",
+    "received": "2026-09-14T13:22:00Z",
+    "email": "ella.mendez@example.com",
+    "subject": "Where do I put my Stripe key",
+    "body": "My app needs to take payments. Can I just paste my Stripe secret key into the prompt so the AI wires it up? Or is there a better way?"
+  },
+  {
+    "id": "T-05",
+    "received": "2026-09-15T07:50:00Z",
+    "email": "sam.whitfield@example.com",
+    "subject": "adding a teammate",
+    "body": "We're on Team. I want to add a 6th person, a contractor. What does that cost and how do I do it? Also can I stop them from deleting the workspace?"
+  },
+  {
+    "id": "T-06",
+    "received": "2026-09-15T10:31:00Z",
+    "email": "hana.sato@example.com",
+    "subject": "Getting my code out",
+    "body": "Is there a way to download all the code for my project? My agency wants to host it themselves. Also need the data from the database."
+  },
+  {
+    "id": "T-07",
+    "received": "2026-09-15T12:14:00Z",
+    "email": "leo.brandt@example.com",
+    "subject": "Pro vs Team",
+    "body": "It's just me and one cofounder. Do we need Team or can we both use one Pro account? What's actually different besides price?"
+  },
+  {
+    "id": "T-08",
+    "received": "2026-09-15T15:02:00Z",
+    "email": "ivy.chen@example.com",
+    "subject": "site says NOT SECURE",
+    "body": "I just added www.example.com to my project about 10 minutes ago, status says Verified, but Chrome shows Not Secure on it. Did I break something? Customers will see this!"
+  },
+  {
+    "id": "T-09",
+    "received": "2026-09-16T08:45:00Z",
+    "email": "max.roth@example.com",
+    "subject": "Deploy failed",
+    "body": "Deploy keeps failing. Last lines of the log say: \"Error: Build exceeded 10 minute limit\". The app has a lot of product photos the AI generates on build I think. What do I do?"
+  },
+  {
+    "id": "T-10",
+    "received": "2026-09-16T11:18:00Z",
+    "email": "zoe.fischer@example.com",
+    "subject": "Do credits carry over",
+    "body": "Two questions. 1) I barely used my 500 credits this month, do the leftovers carry into next month? 2) If I buy a credit pack, do those expire?"
+  },
+  {
+    "id": "T-11",
+    "received": "2026-09-16T14:40:00Z",
+    "email": "priti.rao@example.com",
+    "subject": "SOC 2 report request",
+    "body": "Our security team is reviewing Buildbox before we roll it out to 40 people. Are you SOC 2 Type II certified, and can you send the latest report under NDA? We also need to know where customer data is hosted."
+  },
+  {
+    "id": "T-12",
+    "received": "2026-09-17T09:03:00Z",
+    "email": "ben.adeyemi@example.com",
+    "subject": "Nonprofit discount?",
+    "body": "We're a registered nonprofit running a food bank. Do you have any discount for nonprofits or education? Team would really help us but $50 a month is a lot for us."
+  },
+  {
+    "id": "T-13",
+    "received": "2026-09-17T10:20:00Z",
+    "email": "dana.ivers@example.com",
+    "subject": "Charged twice for credit pack",
+    "body": "I bought one credit pack this morning and my bank shows two charges of $10 from Buildbox a couple of minutes apart. I only clicked once (well, maybe the page was slow). I only got 200 credits. Please fix."
+  },
+  {
+    "id": "T-14",
+    "received": "2026-09-17T12:47:00Z",
+    "email": "liam.novak@example.com",
+    "subject": "payment failed email",
+    "body": "Got an email saying my payment for Pro failed. Am I going to lose my projects? I have a client demo on Friday. What do I need to do?"
+  },
+  {
+    "id": "T-15",
+    "received": "2026-09-18T08:05:00Z",
+    "email": "priya.desai@example.com",
+    "subject": "Refund please, forgot to cancel",
+    "body": "My Pro plan renewed and charged me $20. I meant to cancel before it renewed, I've barely touched Buildbox since. Can I get a refund and just go back to free?"
+  },
+  {
+    "id": "T-16",
+    "received": "2026-09-18T09:30:00Z",
+    "email": "omar.haddad@example.com",
+    "subject": "Invoice with company details",
+    "body": "Our accounts team needs the invoice for this month's Pro payment with our company name (Haddad Design Ltd) and our VAT number on it. The one I downloaded only has my name. Can you redo it?"
+  },
+  {
+    "id": "T-17",
+    "received": "2026-09-18T13:15:00Z",
+    "email": "sofia.lind@example.com",
+    "subject": "Where is my refund",
+    "body": "Support told me last week my refund for the credit pack was done but I still don't see $10 back on my card. Was it actually sent?"
+  },
+  {
+    "id": "T-18",
+    "received": "2026-09-19T07:55:00Z",
+    "email": "ken.muller@example.com",
+    "subject": "Weird charge after upgrading",
+    "body": "I upgraded from Pro to Team today and got charged some random amount that isn't $50. Then will I be charged $50 again next month on top? Please explain, this looks wrong."
+  },
+  {
+    "id": "T-19",
+    "received": "2026-09-19T10:42:00Z",
+    "email": "ana.costa@example.com",
+    "subject": "Cancel my subscription",
+    "body": "Please cancel our Team subscription. We're moving the project elsewhere. I don't want to be charged again. Do we lose access right away? We still need a couple of weeks to finish migrating."
+  },
+  {
+    "id": "T-20",
+    "received": "2026-09-19T14:10:00Z",
+    "email": "jonas.berg@example.com",
+    "subject": "change email on account",
+    "body": "I'm changing jobs and need my Buildbox login and billing emails moved from this address to my personal one. How do I do that without losing my Pro plan?"
+  },
+  {
+    "id": "T-21",
+    "received": "2026-09-20T08:33:00Z",
+    "email": "grace.kim@example.com",
+    "subject": "Owner left the company",
+    "body": "The person who created our Team workspace left the company last month and nobody can log in as them. I'm an Admin. How do I become the owner so I can manage billing?"
+  },
+  {
+    "id": "T-22",
+    "received": "2026-09-20T11:58:00Z",
+    "email": "marco.rossi@example.com",
+    "subject": "$50 charge??",
+    "body": "I see a $50 charge from Buildbox. I thought I was paying $20 for Pro. Why is it $50?"
+  },
+  {
+    "id": "T-23",
+    "received": "2026-09-20T13:20:00Z",
+    "email": "kai.jensen@example.com",
+    "subject": "All deploys stuck in Queued",
+    "body": "Every deploy I start has been sitting on Queued for 3 hours, across 4 different projects. Status page says all systems operational. Deploy ids: dpl_7Hq2, dpl_7Hq9. I have a launch tomorrow morning."
+  },
+  {
+    "id": "T-24",
+    "received": "2026-09-21T08:02:00Z",
+    "email": "rina.shah@example.com",
+    "subject": "GitHub sync deleted my files",
+    "body": "Buildbox pushed a commit to main on GitHub called \"AI: update layout\" that deleted 14 files, including my whole /api folder. I did not ask for that, my prompt was to change a button color. Repo is rina-shah/storefront. I reverted on GitHub but sync now says Conflict. What happened?"
+  },
+  {
+    "id": "T-25",
+    "received": "2026-09-21T10:14:00Z",
+    "email": "felix.wong@example.com",
+    "subject": "SSL pending for 3 days",
+    "body": "My domain shop.example.com has been Verified for 3 days but the certificate is still Pending. CNAME points to edge.bbx.example, I checked with dig. There's no CAA record. Site shows a certificate error."
+  },
+  {
+    "id": "T-26",
+    "received": "2026-09-21T12:30:00Z",
+    "email": "maria.lopez@example.com",
+    "subject": "500 error on every prompt + credits gone",
+    "body": "Since this morning every prompt I send returns \"Something went wrong (500)\". I tried 8 times in two projects. And my credits went down each time, I lost about 30 credits for nothing. Tried Chrome and Firefox."
+  },
+  {
+    "id": "T-27",
+    "received": "2026-09-22T07:40:00Z",
+    "email": "owen.price@example.com",
+    "subject": "database empty after redeploy",
+    "body": "I redeployed my app last night (only changed some text) and now the live database has zero rows. We had about 1,200 customer bookings in there. Preview database is fine. Project is 'grooming-bookings'. Please help urgently, this is our real business."
+  },
+  {
+    "id": "T-28",
+    "received": "2026-09-22T09:25:00Z",
+    "email": "lucy.grant@example.com",
+    "subject": "Blank preview in Safari",
+    "body": "The preview pane is a blank white screen in Safari 19 on my Mac. Works fine in Chrome. I did the hard refresh and private window thing. Safari console shows: \"TypeError: undefined is not an object (evaluating 'navigator.gpu.requestAdapter')\"."
+  },
+  {
+    "id": "T-29",
+    "received": "2026-09-22T11:50:00Z",
+    "email": "dev.patel@example.com",
+    "subject": "env vars not in production",
+    "body": "I set MAPS_API_KEY as a Production variable (it shows in Settings > Environment with the Production tag) and redeployed twice. The live site still logs \"MAPS_API_KEY is undefined\". Preview works. I've read the docs about scopes."
+  },
+  {
+    "id": "T-30",
+    "received": "2026-09-22T14:05:00Z",
+    "email": "amy.walsh@example.com",
+    "subject": "credits going down twice as fast",
+    "body": "Since the update on Monday, every generation takes double the credits shown before I send it. The prompt says 2 credits and my usage page shows 4 used. Happened on every prompt today. Screenshot of Settings > Usage attached."
+  }
+]

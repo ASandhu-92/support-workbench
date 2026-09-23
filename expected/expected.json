@@ -1,0 +1,256 @@
+{
+  "_note": "Written by hand before the first pipeline run. tier: 1 platform Q&A, 2 billing and account, 3 needs engineering. action: reply | propose-billing-action | escalate-engineering | escalate-no-source. kb: articles a correct reply should cite (at least one). billing_action: the write a human should be asked to approve.",
+  "tickets": {
+    "T-01": {
+      "tier": 1,
+      "topic": "credits-and-usage",
+      "action": "reply",
+      "kb": [
+        "KB-02"
+      ],
+      "billing_action": null
+    },
+    "T-02": {
+      "tier": 1,
+      "topic": "custom-domains",
+      "action": "reply",
+      "kb": [
+        "KB-06",
+        "KB-03"
+      ],
+      "billing_action": null
+    },
+    "T-03": {
+      "tier": 1,
+      "topic": "github-sync",
+      "action": "reply",
+      "kb": [
+        "KB-07"
+      ],
+      "billing_action": null
+    },
+    "T-04": {
+      "tier": 1,
+      "topic": "environment-variables",
+      "action": "reply",
+      "kb": [
+        "KB-08"
+      ],
+      "billing_action": null
+    },
+    "T-05": {
+      "tier": 1,
+      "topic": "team-and-account",
+      "action": "reply",
+      "kb": [
+        "KB-09"
+      ],
+      "billing_action": null
+    },
+    "T-06": {
+      "tier": 1,
+      "topic": "data-and-backups",
+      "action": "reply",
+      "kb": [
+        "KB-11"
+      ],
+      "billing_action": null
+    },
+    "T-07": {
+      "tier": 1,
+      "topic": "plans-and-pricing",
+      "action": "reply",
+      "kb": [
+        "KB-03"
+      ],
+      "billing_action": null
+    },
+    "T-08": {
+      "tier": 1,
+      "topic": "custom-domains",
+      "action": "reply",
+      "kb": [
+        "KB-06"
+      ],
+      "billing_action": null
+    },
+    "T-09": {
+      "tier": 1,
+      "topic": "deploys",
+      "action": "reply",
+      "kb": [
+        "KB-05"
+      ],
+      "billing_action": null
+    },
+    "T-10": {
+      "tier": 1,
+      "topic": "credits-and-usage",
+      "action": "reply",
+      "kb": [
+        "KB-02"
+      ],
+      "billing_action": null
+    },
+    "T-11": {
+      "tier": 1,
+      "topic": "security-and-compliance",
+      "action": "escalate-no-source",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-12": {
+      "tier": 1,
+      "topic": "plans-and-pricing",
+      "action": "escalate-no-source",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-13": {
+      "tier": 2,
+      "topic": "billing-charges",
+      "action": "propose-billing-action",
+      "kb": [
+        "KB-13"
+      ],
+      "billing_action": "refund"
+    },
+    "T-14": {
+      "tier": 2,
+      "topic": "billing-payment-failed",
+      "action": "reply",
+      "kb": [
+        "KB-14"
+      ],
+      "billing_action": null
+    },
+    "T-15": {
+      "tier": 2,
+      "topic": "billing-refunds",
+      "action": "propose-billing-action",
+      "kb": [
+        "KB-13"
+      ],
+      "billing_action": "refund"
+    },
+    "T-16": {
+      "tier": 2,
+      "topic": "billing-invoices",
+      "action": "reply",
+      "kb": [
+        "KB-12"
+      ],
+      "billing_action": null
+    },
+    "T-17": {
+      "tier": 2,
+      "topic": "billing-refunds",
+      "action": "reply",
+      "kb": [
+        "KB-13"
+      ],
+      "billing_action": null
+    },
+    "T-18": {
+      "tier": 2,
+      "topic": "billing-plan-changes",
+      "action": "reply",
+      "kb": [
+        "KB-15"
+      ],
+      "billing_action": null
+    },
+    "T-19": {
+      "tier": 2,
+      "topic": "billing-plan-changes",
+      "action": "propose-billing-action",
+      "kb": [
+        "KB-15"
+      ],
+      "billing_action": "cancel"
+    },
+    "T-20": {
+      "tier": 2,
+      "topic": "team-and-account",
+      "action": "reply",
+      "kb": [
+        "KB-10"
+      ],
+      "billing_action": null
+    },
+    "T-21": {
+      "tier": 2,
+      "topic": "team-and-account",
+      "action": "reply",
+      "kb": [
+        "KB-09"
+      ],
+      "billing_action": null
+    },
+    "T-22": {
+      "tier": 2,
+      "topic": "billing-charges",
+      "action": "reply",
+      "kb": [
+        "KB-03"
+      ],
+      "billing_action": null
+    },
+    "T-23": {
+      "tier": 3,
+      "topic": "deploys",
+      "action": "escalate-engineering",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-24": {
+      "tier": 3,
+      "topic": "github-sync",
+      "action": "escalate-engineering",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-25": {
+      "tier": 3,
+      "topic": "custom-domains",
+      "action": "escalate-engineering",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-26": {
+      "tier": 3,
+      "topic": "editor-and-generation",
+      "action": "escalate-engineering",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-27": {
+      "tier": 3,
+      "topic": "data-and-backups",
+      "action": "escalate-engineering",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-28": {
+      "tier": 3,
+      "topic": "editor-and-generation",
+      "action": "escalate-engineering",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-29": {
+      "tier": 3,
+      "topic": "environment-variables",
+      "action": "escalate-engineering",
+      "kb": [],
+      "billing_action": null
+    },
+    "T-30": {
+      "tier": 3,
+      "topic": "credits-and-usage",
+      "action": "escalate-engineering",
+      "kb": [],
+      "billing_action": null
+    }
+  }
+}
