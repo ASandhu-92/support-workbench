@@ -1,0 +1,68 @@
+{
+  "products": {
+    "buildbox_pro": {
+      "product": "prod_EXAMPLE_buildbox_pro",
+      "price": "price_EXAMPLE_buildbox_pro"
+    },
+    "buildbox_team": {
+      "product": "prod_EXAMPLE_buildbox_team",
+      "price": "price_EXAMPLE_buildbox_team"
+    },
+    "buildbox_credits": {
+      "product": "prod_EXAMPLE_buildbox_credits",
+      "price": "price_EXAMPLE_buildbox_credits"
+    }
+  },
+  "customers": {
+    "dana.ivers@example.com": {
+      "customer": "cus_EXAMPLE_dana",
+      "ticket": "T-13",
+      "scenario": "double_credit_pack"
+    },
+    "liam.novak@example.com": {
+      "customer": "cus_EXAMPLE_liam",
+      "ticket": "T-14",
+      "scenario": "pro_card_declined"
+    },
+    "priya.desai@example.com": {
+      "customer": "cus_EXAMPLE_priya",
+      "ticket": "T-15",
+      "scenario": "pro_paid"
+    },
+    "omar.haddad@example.com": {
+      "customer": "cus_EXAMPLE_omar",
+      "ticket": "T-16",
+      "scenario": "pro_paid"
+    },
+    "sofia.lind@example.com": {
+      "customer": "cus_EXAMPLE_sofia",
+      "ticket": "T-17",
+      "scenario": "credit_pack_refunded"
+    },
+    "ken.muller@example.com": {
+      "customer": "cus_EXAMPLE_ken",
+      "ticket": "T-18",
+      "scenario": "pro_upgraded_to_team"
+    },
+    "ana.costa@example.com": {
+      "customer": "cus_EXAMPLE_ana",
+      "ticket": "T-19",
+      "scenario": "team_paid"
+    },
+    "jonas.berg@example.com": {
+      "customer": "cus_EXAMPLE_jonas",
+      "ticket": "T-20",
+      "scenario": "pro_paid"
+    },
+    "grace.kim@example.com": {
+      "customer": "cus_EXAMPLE_grace",
+      "ticket": "T-21",
+      "scenario": "team_paid"
+    },
+    "marco.rossi@example.com": {
+      "customer": "cus_EXAMPLE_marco",
+      "ticket": "T-22",
+      "scenario": "team_paid"
+    }
+  }
+}
