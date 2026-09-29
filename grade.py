@@ -3,19 +3,24 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-ESCALATIONS = {"escalate-engineering", "escalate-no-source"}
+ESCALATIONS = {"escalate-engineering", "escalate-no-source", "escalate-manual-review"}
 SENT = {"reply", "propose-billing-action"}
 
 
-def load_expected() -> dict:
-    return json.loads((HERE / "expected" / "expected.json").read_text())["tickets"]
+def load_expected(ticket_set: str = "main") -> dict:
+    name = "expected.json" if ticket_set == "main" else f"{ticket_set}.json"
+    return json.loads((HERE / "expected" / name).read_text())["tickets"]
 
 
 def final_action(tier: int, draft: dict | None) -> str:
     """The pipeline's routing rule, kept here so it is tested with the grading."""
     if tier == 3:
         return "escalate-engineering"
-    if draft is None or draft["status"] != "draft":
+    if draft is None:
+        return "escalate-no-source"
+    if draft["status"] == "manual review":
+        return "escalate-manual-review"
+    if draft["status"] != "draft":
         return "escalate-no-source"
     if draft["proposed_billing_action"].get("type", "none") != "none":
         return "propose-billing-action"

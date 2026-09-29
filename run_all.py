@@ -3,6 +3,7 @@
     ./run.sh run_all.py              (Stripe key from the encrypted env file; see README)
     python run_all.py --no-stripe    (skip the billing lookups; billing drafts will be weaker)
     python run_all.py --no-cache     (call the model again for every step)
+    python run_all.py --set heldout  (the 8 held-out tickets; results go to results/heldout/)
 
 For each ticket: classify -> (tier 2: read-only billing lookup) -> draft a cited reply, or
 (tier 3) write an engineering handoff. Then one digest over the week, then the grade.
@@ -26,7 +27,6 @@ import llm
 from tickets import load_tickets
 
 HERE = Path(__file__).resolve().parent
-RESULTS = HERE / "results"
 ID_RE = re.compile(r"\b(cus|ch|sub|in|re|pi|pm|prod|price)_[A-Za-z0-9]{8,}\b")
 
 
@@ -85,10 +85,11 @@ def read_audit(start_iso: str) -> list[dict]:
     return [r for r in rows if r["at"] >= start_iso]
 
 
-def write_results(rows, dig, dig_md, g, run):
-    RESULTS.mkdir(exist_ok=True)
-    (RESULTS / "escalations").mkdir(exist_ok=True)
-    exp = grade.load_expected()
+def write_results(rows, dig, dig_md, g, run, ticket_set="main"):
+    out_dir = HERE / "results" if ticket_set == "main" else HERE / "results" / ticket_set
+    out_dir.mkdir(exist_ok=True)
+    (out_dir / "escalations").mkdir(exist_ok=True)
+    exp = grade.load_expected(ticket_set)
 
     def yn(ok):
         return "yes" if ok else "**no**"
@@ -103,8 +104,8 @@ def write_results(rows, dig, dig_md, g, run):
         tier = f"{e['tier']}/{r['tier']}" if r["tier"] == e["tier"] else f"{e['tier']}/**{r['tier']}**"
         table.append(f"| {r['id']} | {r['subject']} | {tier} | {topic} | {action} | "
                      f"{', '.join(r['cited']) or '-'} | {yn(ok)} |")
-    (RESULTS / "tickets.md").write_text("# Per-ticket results\n\nBold marks a miss against "
-                                        "`expected/expected.json`.\n\n" + "\n".join(table) + "\n")
+    (out_dir / "tickets.md").write_text("# Per-ticket results\n\nBold marks a miss against "
+                                        "the answer key in `expected/`.\n\n" + "\n".join(table) + "\n")
 
     out = ["# Drafts and routing, ticket by ticket", "",
            "Every reply below is a draft for a human to review. Billing actions are proposals only; "
@@ -122,24 +123,32 @@ def write_results(rows, dig, dig_md, g, run):
             if d["status"] == draft.NO_SOURCE:
                 out += [f"`{draft.NO_SOURCE}`. Missing from the KB: {d['missing_from_kb']}", ""]
             else:
+                if d["status"] == draft.MANUAL_REVIEW:
+                    out += [f"`{draft.MANUAL_REVIEW}`: {d['manual_review_reason']}. The reply below is "
+                            "for a person to rework, not to send.", ""]
                 out += [f"Cites {', '.join(d['cited_articles'])}.", "",
                         "> " + d["reply"].replace("\n", "\n> "), ""]
             pa = d["proposed_billing_action"]
-            if pa.get("type") != "none":
+            if pa.get("type") != "none" and pa.get("blocked"):
+                out += [f"Proposed billing action **blocked**: {pa['type']} ${pa.get('amount_usd', 0):.2f}. "
+                        f"{pa['blocked']}. No command is offered.", ""]
+            elif pa.get("type") != "none":
                 cmd = (f"python billing.py {pa['type']} {pa['target_id']} --reason \"{pa['why']}\" "
                        f"--confirm --approved-by \"<your name>\"")
+                checks = pa.get("unverified_conditions") or []
                 out += [f"Proposed billing action, **waiting for a human**: {pa['type']} "
-                        f"${pa.get('amount_usd', 0):.2f}. Target found in account data: "
-                        f"{pa.get('target_in_account_data')}. Reason: {pa['why']}", "",
-                        f"`{cmd}`", ""]
+                        f"${pa.get('amount_usd', 0):.2f}. Reason: {pa['why']}", ""]
+                if checks:
+                    out += ["Check before approving (not in the account data): " + "; ".join(checks), ""]
+                out += [f"`{cmd}`", ""]
             if d.get("note_for_agent"):
                 out += [f"Note for the reviewer: {d['note_for_agent']}", ""]
-    (RESULTS / "replies.md").write_text(mask("\n".join(out)))
+    (out_dir / "replies.md").write_text(mask("\n".join(out)))
 
     for r in rows:
         if r.get("escalation_md"):
-            (RESULTS / "escalations" / f"{r['id']}.md").write_text(mask(r["escalation_md"]))
-    (RESULTS / "digest.md").write_text(dig_md)
+            (out_dir / "escalations" / f"{r['id']}.md").write_text(mask(r["escalation_md"]))
+    (out_dir / "digest.md").write_text(dig_md)
 
     w = g["wrong"]
     gm = ["# Grade", "", f"Run {run['started']}, model {', '.join(run['models'])}, "
@@ -155,10 +164,10 @@ def write_results(rows, dig, dig_md, g, run):
     for kind in ("tier", "topic", "action"):
         gm.append(f"**{kind}:** " + ("; ".join(w[kind]) if w[kind] else "none"))
         gm.append("")
-    (RESULTS / "grade.md").write_text("\n".join(gm))
+    (out_dir / "grade.md").write_text("\n".join(gm))
 
     slim = [{k: v for k, v in r.items() if k not in ("escalation_md", "body")} for r in rows]
-    (RESULTS / "run.json").write_text(mask(json.dumps({"run": run, "grade": g, "tickets": slim,
+    (out_dir / "run.json").write_text(mask(json.dumps({"run": run, "grade": g, "tickets": slim,
                                                        "digest": dig}, indent=2)) + "\n")
 
 
@@ -167,6 +176,7 @@ def main():
     ap.add_argument("--no-cache", action="store_true")
     ap.add_argument("--no-stripe", action="store_true")
     ap.add_argument("--workers", type=int, default=4)
+    ap.add_argument("--set", dest="ticket_set", choices=["main", "heldout"], default="main")
     a = ap.parse_args()
     use_cache, stripe_on = not a.no_cache, not a.no_stripe
     if stripe_on:
@@ -176,7 +186,7 @@ def main():
     started = dt.datetime.now(dt.UTC).replace(microsecond=0)
     start_ts = int(started.timestamp())
     t0 = time.monotonic()
-    tickets = list(load_tickets().values())
+    tickets = list(load_tickets(a.ticket_set).values())
     with ThreadPoolExecutor(max_workers=a.workers) as pool:
         rows = list(pool.map(lambda t: process(t, use_cache, stripe_on), tickets))
     for r in rows:
@@ -196,9 +206,9 @@ def main():
     audit = read_audit(started.isoformat()) if stripe_on else []
     refunds = refunds_since(start_ts) if stripe_on else None
     results = {r["id"]: r for r in rows}
-    g = grade.grade(results, grade.load_expected(), audit, refunds or 0)
+    g = grade.grade(results, grade.load_expected(a.ticket_set), audit, refunds or 0)
     run = {
-        "started": started.isoformat(), "wall_seconds": wall, "workers": a.workers,
+        "ticket_set": a.ticket_set, "started": started.isoformat(), "wall_seconds": wall, "workers": a.workers,
         "llm_calls": len(calls), "cached_calls": sum(c["cached"] for c in calls),
         "cost_usd_this_run": round(sum(c["cost_usd"] for c in calls if not c["cached"]), 4),
         "cost_usd_cold": round(sum(c["cost_usd"] for c in calls), 4),
@@ -207,7 +217,7 @@ def main():
         "stripe_lookups": sum(1 for r in rows if r.get("account_looked_up")),
         "errors": [r["id"] for r in rows if r["error"]],
     }
-    write_results(rows, d["digest"], dig_md, g, run)
+    write_results(rows, d["digest"], dig_md, g, run, a.ticket_set)
     print(json.dumps({"run": run, "grade": {k: v for k, v in g.items() if k != "wrong"}}, indent=2))
 
 

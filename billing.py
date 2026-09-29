@@ -11,7 +11,10 @@ Writes (never run by the pipeline; a person runs them after reading the draft):
 Guardrails:
 - Only a Stripe test-mode key is accepted. A live key is refused before any network call.
 - A write without --confirm and a named approver is refused, and the refusal is logged.
-- Every write attempt, allowed or refused, is appended to logs/billing_actions.jsonl.
+- --confirm with --approved-by is an operator acknowledgement, not authentication: the tool records
+  the name it is given and cannot check who typed it.
+- A refund amount, if given, must be a positive number of cents; 0 is not "the full amount".
+- Every write attempt, allowed, refused or failed at Stripe, is appended to logs/billing_actions.jsonl.
 """
 import argparse
 import datetime as dt
@@ -132,11 +135,21 @@ def guard(action: str, target: str, confirm: bool, approved_by: str | None, reas
 
 def refund(charge_id: str, *, reason: str, amount_cents: int | None = None,
            confirm: bool = False, approved_by: str | None = None) -> dict:
+    if amount_cents is not None and amount_cents <= 0:
+        audit({"action": "refund", "target": charge_id, "reason": reason, "approved_by": approved_by,
+               "executed": False, "refused": f"amount_cents must be positive, got {amount_cents}"})
+        raise BillingError(f"refused: refund amount must be a positive number of cents, got {amount_cents}. "
+                           "Leave it out to refund the full charge.")
     guard("refund", charge_id, confirm, approved_by, reason)
     kwargs = {"charge": charge_id, "metadata": {"approved_by": approved_by, "reason": reason}}
-    if amount_cents:
+    if amount_cents is not None:
         kwargs["amount"] = amount_cents
-    rf = stripe.Refund.create(**kwargs)
+    try:
+        rf = stripe.Refund.create(**kwargs)
+    except stripe.StripeError as exc:
+        audit({"action": "refund", "target": charge_id, "reason": reason, "approved_by": approved_by,
+               "executed": False, "failed": f"{type(exc).__name__}: {exc.user_message or exc}"})
+        raise BillingError(f"Stripe refused the refund on {charge_id}: {exc.user_message or exc}") from exc
     audit({"action": "refund", "target": charge_id, "reason": reason, "approved_by": approved_by,
            "executed": True, "stripe_id": rf.id, "amount_usd": _usd(rf.amount), "status": rf.status})
     return {"refund": rf.id, "amount_usd": _usd(rf.amount), "status": rf.status}
@@ -146,8 +159,13 @@ def cancel(subscription_id: str, *, reason: str, confirm: bool = False,
            approved_by: str | None = None) -> dict:
     """Cancel at period end (the customer keeps what they paid for; KB-15)."""
     guard("cancel", subscription_id, confirm, approved_by, reason)
-    sub = stripe.Subscription.modify(subscription_id, cancel_at_period_end=True,
-                                     metadata={"cancel_approved_by": approved_by, "cancel_reason": reason})
+    try:
+        sub = stripe.Subscription.modify(subscription_id, cancel_at_period_end=True,
+                                         metadata={"cancel_approved_by": approved_by, "cancel_reason": reason})
+    except stripe.StripeError as exc:
+        audit({"action": "cancel", "target": subscription_id, "reason": reason, "approved_by": approved_by,
+               "executed": False, "failed": f"{type(exc).__name__}: {exc.user_message or exc}"})
+        raise BillingError(f"Stripe refused the cancel on {subscription_id}: {exc.user_message or exc}") from exc
     audit({"action": "cancel", "target": subscription_id, "reason": reason, "approved_by": approved_by,
            "executed": True, "cancel_at_period_end": sub.cancel_at_period_end})
     return {"subscription": sub.id, "cancel_at_period_end": sub.cancel_at_period_end}

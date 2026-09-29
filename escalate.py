@@ -3,10 +3,12 @@
     python escalate.py T-23
 
 The model summarizes; the code checks that every "evidence" line is quoted word for word from the
-ticket, so the note cannot put words in the customer's mouth.
+ticket, so the note cannot put words in the customer's mouth, and flags a holding reply that claims
+support saw or checked something (this tool has no access to deploys, logs or projects).
 """
 import argparse
 import json
+import re
 
 import kb
 import llm
@@ -32,11 +34,19 @@ SCHEMA = {
     "additionalProperties": False,
 }
 
+# Phrases that claim support looked at the customer's systems. The tool never has.
+SEEN_CLAIM = re.compile(r"\bwe(?:'ve| have)? (?:can )?(?:see|seen|checked|looked|confirmed|noticed)\b", re.I)
+
 SYSTEM = """You write handoff notes from Buildbox support to engineering. Buildbox is an AI app
 builder. An engineer should be able to start work from the note without reading the ticket.
 
-- severity: sev1 = data loss, an outage for many customers, or money taken wrongly at scale;
-  sev2 = one customer blocked with no workaround; sev3 = degraded, a workaround exists.
+- severity, by impact:
+  sev1 = data loss, money taken wrongly at scale, or an outage that may affect many customers.
+    One report counts if it points past this customer (several projects stuck at once, a status
+    page that says all is well while it fails); keep sev1 until engineering rules it out.
+  sev2 = one customer blocked with no workaround, and nothing points to it being wider.
+  sev3 = degraded, a workaround exists.
+  Unclear wording alone is not a reason to raise severity.
 - evidence: short exact quotes copied character for character from the ticket (error messages, ids,
   counts, times). Do not paraphrase inside evidence.
 - already_tried: what the customer says they already did.
@@ -44,7 +54,8 @@ builder. An engineer should be able to start work from the note without reading 
   why the documented answer does not solve it.
 - questions_for_engineering: at most three, specific.
 - holding_reply_to_customer: under 80 words, honest, no promised fix time, no em dashes, signed
-  "Buildbox Support".
+  "Buildbox Support". Support cannot see the customer's deploys, logs or projects: say "you've
+  told us", never "we can see" or "we checked".
 Plain sentences. No em dashes."""
 
 
@@ -58,6 +69,7 @@ def escalate(ticket: dict, classification: dict, use_cache: bool = True) -> dict
     note = res["output"]
     note["evidence_verified"] = [q for q in note["evidence"] if q in ticket["body"] or q in ticket["subject"]]
     note["evidence_unverified"] = [q for q in note["evidence"] if q not in note["evidence_verified"]]
+    note["holding_reply_flags"] = [m.group(0) for m in SEEN_CLAIM.finditer(note["holding_reply_to_customer"])]
     return {**res, "note": note}
 
 
@@ -68,6 +80,10 @@ def to_markdown(ticket: dict, classification: dict, note: dict) -> str:
     if note["evidence_unverified"]:
         unverified = ("\n\nNot found word for word in the ticket (check before relying on it):\n"
                       + bullets(note["evidence_unverified"]))
+    flags = ""
+    if note.get("holding_reply_flags"):
+        flags = (" (rewrite before sending: claims support saw something: "
+                 + ", ".join(f'"{f}"' for f in note["holding_reply_flags"]) + ")")
     return f"""# {ticket['id']}: {note['title']}
 
 | | |
@@ -91,7 +107,7 @@ def to_markdown(ticket: dict, classification: dict, note: dict) -> str:
 **Questions for engineering**
 {bullets(note['questions_for_engineering'])}
 
-**Holding reply sent to the customer (draft)**
+**Holding reply sent to the customer (draft)**{flags}
 
 > {note['holding_reply_to_customer'].replace(chr(10), chr(10) + '> ')}
 """

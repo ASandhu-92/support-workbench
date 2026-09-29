@@ -32,14 +32,51 @@ def test_model_saying_it_cannot_answer_wins():
     assert d["status"] == draft.NO_SOURCE
 
 
-def test_billing_target_must_exist_in_account_data():
-    account = {"charges": [{"id": "ch_realone123"}]}
-    ok = draft.enforce(model_out(proposed_billing_action={"type": "refund", "target_id": "ch_realone123",
-                                                          "amount_usd": 10, "why": "dup"}), KB, account)
-    bad = draft.enforce(model_out(proposed_billing_action={"type": "refund", "target_id": "ch_madeup999",
-                                                           "amount_usd": 10, "why": "dup"}), KB, account)
-    assert ok["proposed_billing_action"]["target_in_account_data"] is True
-    assert bad["proposed_billing_action"]["target_in_account_data"] is False
+ACCOUNT = {"customer": {"id": "cus_dana0001"},
+           "charges": [{"id": "ch_realone123"}], "subscriptions": [{"id": "sub_realone123"}],
+           "invoices": [{"id": "in_realone123", "lines": [{"description": "ch_otherone99 mentioned in text"}]}]}
+
+
+def proposal(kind, target, conditions=()):
+    return model_out(proposed_billing_action={"type": kind, "target_id": target, "amount_usd": 10,
+                                              "why": "dup", "unverified_conditions": list(conditions)})
+
+
+def test_refund_on_the_customers_charge_is_ready_for_approval():
+    d = draft.enforce(proposal("refund", "ch_realone123"), KB, ACCOUNT)
+    pa = d["proposed_billing_action"]
+    assert d["status"] == "draft" and pa["blocked"] is None and pa["ready_for_approval"] is True
+
+
+@pytest.mark.parametrize("kind,target", [
+    ("refund", "ch_madeup999"),       # invented
+    ("refund", "sub_realone123"),     # real id, wrong type for a refund
+    ("cancel", "ch_realone123"),      # real id, wrong type for a cancel
+    ("refund", "ch_otherone99"),      # appears in the account data, but only inside free text
+    ("refund", "ch_realone12"),       # prefix of a real id
+    ("refund", ""),
+])
+def test_proposal_on_a_target_not_in_the_right_list_goes_to_manual_review(kind, target):
+    d = draft.enforce(proposal(kind, target), KB, ACCOUNT)
+    assert d["status"] == draft.MANUAL_REVIEW
+    assert d["proposed_billing_action"]["ready_for_approval"] is False
+    assert d["proposed_billing_action"]["blocked"]
+    import grade
+    assert grade.final_action(2, d) == "escalate-manual-review"
+
+
+def test_proposal_without_an_account_lookup_goes_to_manual_review():
+    d = draft.enforce(proposal("refund", "ch_realone123"), KB, None)
+    assert d["status"] == draft.MANUAL_REVIEW and "no customer account" in d["manual_review_reason"]
+
+
+def test_unverified_policy_condition_keeps_the_proposal_but_not_ready():
+    d = draft.enforce(proposal("refund", "ch_realone123", ["credits used since the charge", " "]), KB, ACCOUNT)
+    pa = d["proposed_billing_action"]
+    assert d["status"] == "draft" and pa["ready_for_approval"] is False
+    assert pa["unverified_conditions"] == ["credits used since the charge"]
+    import grade
+    assert grade.final_action(2, d) == "propose-billing-action"
 
 
 def fake_run(stdout, rc=0):
@@ -80,3 +117,28 @@ def test_command_has_no_tools_and_no_settings():
                  "--disable-slash-commands", "--json-schema"):
         assert flag in cmd
     assert cmd[cmd.index("--tools") + 1] == ""
+
+
+def test_holding_reply_that_claims_we_saw_something_is_flagged():
+    import escalate
+    for text, n in [("We can see your deploys have been queued.", 1), ("We've checked your logs.", 1),
+                    ("You've told us your deploys are queued. We have passed this on.", 0)]:
+        assert len(escalate.SEEN_CLAIM.findall(text)) == n, text
+
+
+def test_digest_flags_answered_how_to_filed_as_a_defect(monkeypatch):
+    import digest
+    rows = [{"id": "T-04", "subject": "s", "body": "where do I put my key", "tier": 1, "topic": "t",
+             "action": "reply"},
+            {"id": "T-29", "subject": "s", "body": "env var missing in prod", "tier": 3, "topic": "t",
+             "action": "escalate-engineering"}]
+    out = {"headline": "h", "themes": [{"theme": "Deploys fail", "kind": "product defect",
+                                        "ticket_ids": ["T-04", "T-29", "T-99"], "quote_ticket_id": "T-29",
+                                        "quote": "env var missing in prod", "proposed_product_action": "x",
+                                        "owner": "engineering"}]}
+    monkeypatch.setattr(llm, "ask", lambda *a, **k: {"output": out})
+    d = digest.build(rows)["digest"]
+    th = d["themes"][0]
+    assert th["ticket_ids"] == ["T-04", "T-29"] and th["count"] == 2 and th["quote_verified"]
+    assert th["answered_by_kb"] == ["T-04"]
+    assert "filed as a defect but answered from the help center" in digest.to_markdown(d, [], "w")

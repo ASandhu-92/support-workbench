@@ -72,3 +72,41 @@ def test_confirmed_refund_records_the_approver(monkeypatch, audit_log):
     assert seen["metadata"]["approved_by"] == "lead"
     [e] = entries(audit_log)
     assert e["executed"] is True and e["approved_by"] == "lead"
+
+
+@pytest.mark.parametrize("amount", [0, -500])
+def test_zero_or_negative_refund_amount_is_refused_not_a_full_refund(amount, audit_log, no_stripe_writes):
+    with pytest.raises(billing.BillingError, match="positive"):
+        billing.refund("ch_abc12345", reason="x", amount_cents=amount, confirm=True, approved_by="lead")
+    assert no_stripe_writes == []
+    [e] = entries(audit_log)
+    assert e["executed"] is False and "positive" in e["refused"]
+
+
+def test_partial_refund_passes_the_amount(monkeypatch, audit_log):
+    import stripe
+    seen = {}
+
+    def fake_create(**kw):
+        seen.update(kw)
+        return SimpleNamespace(id="re_fake0002", amount=kw["amount"], status="succeeded")
+    monkeypatch.setattr(stripe.Refund, "create", fake_create)
+    out = billing.refund("ch_abc12345", reason="x", amount_cents=1, confirm=True, approved_by="lead")
+    assert seen["amount"] == 1 and out["amount_usd"] == 0.01
+
+
+@pytest.mark.parametrize("write", ["refund", "cancel"])
+def test_a_write_stripe_rejects_is_logged_as_failed(write, monkeypatch, audit_log):
+    import stripe
+
+    def reject(*a, **k):
+        raise stripe.InvalidRequestError("No such charge", param="charge")
+    monkeypatch.setattr(stripe.Refund, "create", reject)
+    monkeypatch.setattr(stripe.Subscription, "modify", reject)
+    with pytest.raises(billing.BillingError, match="Stripe refused"):
+        if write == "refund":
+            billing.refund("ch_gone0001", reason="x", confirm=True, approved_by="lead")
+        else:
+            billing.cancel("sub_gone0001", reason="x", confirm=True, approved_by="lead")
+    [e] = entries(audit_log)
+    assert e["executed"] is False and "InvalidRequestError" in e["failed"] and e["approved_by"] == "lead"
