@@ -1,0 +1,3 @@
+# Versions the offline tests were last run with (2026-09-29). CI installs requirements.txt with these.
+stripe==15.6.1
+pytest==9.1.1

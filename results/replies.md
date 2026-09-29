@@ -4,434 +4,467 @@ Every reply below is a draft for a human to review. Billing actions are proposal
 
 ## T-01: Out of credits already??
 
-Tier 1, credits-and-usage, urgency normal. Outcome: **reply**. The customer is asking how and when Pro plan credits reset, which is explained in documentation.
+Tier 1, credits-and-usage, urgency low. Outcome: **reply**. Customer on Pro ran out of credits mid-cycle and asks when credits reset, which is a documented question about credit allowances and renewal.
 
-Cites KB-02.
+Cites KB-02, KB-03.
 
 > Hi Rob,
 > 
-> Thanks for reaching out. Credits don't reset on the 1st of the month for everyone. They reset on your billing date, which is the day your subscription renews each month. So if your Pro plan started or renewed on, say, the 14th, that's when your 500 credits will refresh, not the 1st.
+> Thanks for getting in touch. Credits don't reset on the 1st of the month. Monthly credits reset on your billing date, so your 500 Pro credits will come back on that date. Unused monthly credits don't roll over.
 > 
-> You can check your exact renewal date in Settings under Billing, or see your day-by-day usage in Settings > Usage to confirm when you used up your credits.
+> If you'd like more credits before then, you can buy a credit pack on your plan. A pack is 200 credits for $10. Pack credits never expire and are used only after your monthly credits run out.
 > 
-> If you need more credits before then, you can also buy a credit pack of 200 for $10 at any time, and those never expire.
-> 
-> Let us know if anything looks off once you check your renewal date.
+> You can see where your credits went under Settings > Usage, per day and per project. If you think you were charged credits for a generation that failed with an error, send us the project name and the time, and we'll look into it.
 > 
 > Buildbox Support
 
-Note for the reviewer: No account data was looked up, so I couldn't confirm Rob's actual billing/renewal date; reply explains the general policy from KB-02. May want to check his account for exact renewal date if he follows up.
+Note for the reviewer: No account data was looked up, so the billing date and usage are unverified. The reply does not state the customer's reset date.
 
 ## T-02: custom domain
 
-Tier 1, custom-domains, urgency low. Outcome: **reply**. Customer wants how-to instructions for connecting a custom domain and whether free plan supports it.
+Tier 1, custom-domains, urgency low. Outcome: **reply**. Customer on the free plan asks how to connect their own domain via DNS, which is a documented how-to question with no impact.
 
-Cites KB-06, KB-03.
+Cites KB-03, KB-06, KB-15.
 
-> Hi Nina, thanks for reaching out! Custom domains are available on our Pro and Team plans, so you'll need to upgrade from Free first. Once you're on Pro or Team, here's how to connect your domain:
+> Hi Nina,
 > 
-> 1. Go to Settings > Domains > Add domain, and enter your domain (like www.example.com).
-> 2. At your registrar's DNS settings, add the record Buildbox shows you. For a subdomain like www, that's a CNAME record pointing to edge.bbx.example. For a root domain, it's an A record pointing to 192.0.2.10.
-> 3. Wait for the status to show Verified. DNS changes can take up to an hour to show up.
+> Thanks for asking. Custom domains are only available on the Pro and Team plans, so on Free your app can only use the bbx subdomain for now. Pro is $20 per month, and upgrading takes effect right away.
 > 
-> After it's verified, Buildbox automatically sets up HTTPS, which usually takes up to 30 minutes. Your browser might show a "not secure" warning during that short window, which is normal.
+> Once you're on Pro, here's how to connect your domain:
 > 
-> Let us know if you run into any trouble along the way!
+> 1. Go to Settings > Domains > Add domain and type your domain (for example www.example.com).
+> 2. At your registrar, add the record Buildbox shows. For a subdomain like www, that's a CNAME to edge.bbx.example. For a root domain like example.com, it's an A record to 192.0.2.10.
+> 3. Wait for the status to turn Verified. DNS changes can take up to an hour.
 > 
+> After that, we set up HTTPS automatically, which usually takes up to 30 minutes. Your browser may say "not secure" until then, which is expected.
+> 
+> Best,
 > Buildbox Support
 
-Note for the reviewer: Customer is on Free plan and needs to upgrade to Pro or Team before custom domains work; reply explains this along with the DNS setup steps from KB-06.
+Note for the reviewer: No account data was looked up. The plan is based on the customer's own report that they are on Free. The reply mentions the Pro upgrade only as the requirement for custom domains, and no upgrade is offered or proposed.
 
 ## T-03: Will Buildbox overwrite my GitHub edits?
 
-Tier 1, github-sync, urgency normal. Outcome: **reply**. The customer is asking how GitHub sync handles conflicts between manual edits and AI generated changes, which is a documented behavior question.
+Tier 1, github-sync, urgency normal. Outcome: **reply**. Customer asks how GitHub sync handles edits made directly on main versus AI changes in Buildbox, which is a documented how-to question, with some concern about losing work but no current loss.
 
 Cites KB-07.
 
-> Good news, your fix is safe. GitHub sync is two-way on the main branch, so the commit you pushed yesterday gets pulled into Buildbox within about a minute, if it hasn't already. Once it's in, any new AI generation you ask for builds on top of that code, including your fix.
+> Hi Tom,
 > 
-> The only time Buildbox holds back is if you edit the exact same file in Buildbox and on GitHub at the same moment. In that case it won't overwrite your GitHub commit, it just pauses syncing and marks the project as a conflict so you can choose which version to keep.
+> Your fix should be safe. Commits pushed to main on GitHub are pulled into Buildbox within about a minute, so the AI will work on top of your fix once it has synced. Given you made the fix yesterday, it should already be in.
 > 
-> So as long as your fix was committed before you send the next prompt, you're good to go.
+> Buildbox also does not overwrite your GitHub commit. If the same file is edited in Buildbox and on GitHub at the same time, syncing stops and shows "Conflict". You are then asked to pick which version to keep, so nothing is lost without your say-so.
+> 
+> Before you send your next prompt, you may want to check that the fix appears in your Buildbox code view. If you see "Conflict" or "Unauthorized" in Settings > GitHub, choose the version with your fix, or reconnect if it shows Unauthorized.
 > 
 > Buildbox Support
 
-Note for the reviewer: Straightforward KB-07 question, no account data needed, no action required.
+Note for the reviewer: No account data was looked up; the answer relies only on KB-07. The customer's claim that they pushed to main yesterday is unverified.
 
 ## T-04: Where do I put my Stripe key
 
-Tier 1, environment-variables, urgency low. Outcome: **reply**. Customer is asking how to properly configure a Stripe secret key, which is a documented environment variables usage question.
+Tier 1, environment-variables, urgency low. Outcome: **reply**. Customer asks how to store a Stripe secret key safely, which is a how-to answered by documentation on environment variables (secrets should not be pasted into prompts).
 
 Cites KB-08.
 
-> Great question, and please don't paste your Stripe secret key into the prompt box. Prompts aren't the right place for private keys.
+> Hi Ella,
 > 
-> Instead, go to Settings > Environment and add your Stripe secret key there as a Production variable (use Stripe's test key in Preview). These values are encrypted and hidden after saving, and team members can't read them back later.
+> Please don't paste your Stripe secret key into the prompt. There's a safer way.
 > 
-> The AI can see the variable's name but never its actual value, so you can just ask it to "read the Stripe key from the environment variable STRIPE_SECRET_KEY" and it will wire things up correctly without the key itself ever being exposed.
+> 1. Go to Settings > Environment and add a variable named STRIPE_SECRET_KEY with your key as the value. Set its scope to Production. Values are encrypted and hidden after you save.
+> 2. Add your Stripe test key as a Preview variable, so you can try payments safely in the preview.
+> 3. In the prompt box, write: "read the Stripe key from the environment variable STRIPE_SECRET_KEY".
+> 4. Deploy again after any change to a variable, so the live site picks it up.
 > 
-> One more thing: after adding or changing an environment variable, you'll need to deploy again for it to take effect on your live site.
+> The AI can see the variable name, so it can write the code, but it never sees the value.
 > 
 > Buildbox Support
 
-Note for the reviewer: Standard question fully covered by KB-08; no account-specific action needed.
+Note for the reviewer: No account data needed for this question. Answer is based on KB-08.
 
 ## T-05: adding a teammate
 
-Tier 1, team-and-account, urgency low. Outcome: **reply**. The customer is asking how team seat pricing and permission roles work, which is documented product information.
+Tier 1, team-and-account, urgency low. Outcome: **reply**. Customer asks how to add a sixth seat on Team, its cost, and how to restrict workspace deletion, which are documented how-to and permissions questions.
 
-Cites KB-09.
+Cites KB-03, KB-09.
 
-> Adding a 6th person to your Team workspace costs an extra $10 per month for that seat. This gets added to your next invoice, prorated for the rest of the current month.
+> Hi,
 > 
-> To add them, go to Settings > Members > Invite and enter their email. The invite link stays valid for 7 days.
+> Thanks for reaching out. Your Team plan includes 5 seats, and each extra seat is $10 per month. A 6th person would be added to your next invoice, prorated for the rest of the month. Prices don't include sales tax or VAT where it applies.
 > 
-> As for permissions, only the workspace Owner can delete the workspace. If you invite your contractor as an Admin or Member (not Owner), they will not be able to delete it. Admins can manage members and settings, while Members can build and deploy but not touch billing or deletion, so Member is likely the safer role for a contractor.
+> To add them, go to Settings > Members > Invite and enter their email. The invite link is valid for 7 days.
 > 
-> Let us know if you need help with anything else!
+> On deleting the workspace: only the Owner can delete it (along with handling billing). Admins manage members and settings, and Members can build and deploy. So if you invite your contractor as a Member, they can build and deploy but can't delete the workspace.
 > 
 > Buildbox Support
 
-Note for the reviewer: Straightforward informational request about Team seat pricing and roles, fully covered by KB-09. No account data lookup or billing action needed.
+Note for the reviewer: No account data was looked up. The answer comes from KB-03 and KB-09 only. KB-09 says the Owner role covers deleting the workspace, so the Member role limit on deletion is inferred from the role list.
 
 ## T-06: Getting my code out
 
-Tier 1, data-and-backups, urgency low. Outcome: **reply**. The customer is asking how to export their project code and database data, which is a documented how-to question.
+Tier 1, data-and-backups, urgency low. Outcome: **reply**. Customer asks how to export their project code and database data for self-hosting, which is a how-to question documentation can answer.
 
-Cites KB-11.
+Cites KB-11, KB-07.
 
 > Hi Hana,
 > 
-> Yes, you can download everything easily.
+> Yes, you can take everything with you. The code is yours to run anywhere.
 > 
-> For the code: open your project, go to the Project menu, then Export, and choose Download ZIP. This gives you the full source code, which you own and can host anywhere.
+> Code: open your project, then go to the Project menu > Export > Download ZIP. You get the full source code.
 > 
-> For the database: go to Project menu > Database > Export. This gives you one CSV file per table.
+> Database: go to Project menu > Database > Export. You get one CSV file per table.
 > 
-> If it helps, you can also connect the project to GitHub sync so the code stays in a repository automatically, which can make handing off to your agency simpler.
+> If your project is on a Pro or Team plan, you can also connect it to a GitHub repository (Settings > GitHub > Connect). Your agency could then pull the code from there, and it stays in sync with your project.
 > 
-> Let us know if you run into any trouble with the downloads.
+> Let us know if anything looks off with the export.
 > 
 > Buildbox Support
 
-Note for the reviewer: Straightforward export question, fully covered by KB-11. No account-specific lookup was needed.
+Note for the reviewer: No account data was looked up, so the customer's plan is unknown. The GitHub option is only offered as available on Pro and Team.
 
 ## T-07: Pro vs Team
 
-Tier 1, plans-and-pricing, urgency low. Outcome: **reply**. The customer is asking about documented differences between Pro and Team plans to decide which to use.
+Tier 1, plans-and-pricing, urgency low. Outcome: **reply**. Customer asks a general question about the differences between Pro and Team plans and whether two people can share one Pro account, which documentation can answer.
 
-Cites KB-03.
+Cites KB-03, KB-02, KB-09.
 
-> Great question. The main difference between Pro and Team is seats. A Pro account has one seat, so only one person can log in to that account. Team comes with 5 seats included, so you and your cofounder could each have your own login within the same workspace.
+> Hi Leo,
 > 
-> Outside of that, Pro and Team give you the same things: unlimited projects, custom domains, and GitHub sync. Team just costs more ($50 vs $20 a month) and gives you a shared pool of 2,000 monthly credits instead of 500, plus slightly faster email support.
+> Thanks for asking. Pro includes 1 seat, so for two of you working in Buildbox, Team is the plan built for that. Team includes 5 seats, and each of you would get your own login and role in a shared workspace.
 > 
-> If you both need your own login and access, Team is the way to go. If one of you is fine sharing a single login, Pro would work and save you money.
+> Here is what differs:
+> 
+> Price: Pro is $20 per month, Team is $50 per month (before any sales tax or VAT).
+> Credits: Pro has 500 per month. Team has 2,000 per month, shared by the whole workspace.
+> Seats: 1 on Pro, 5 on Team (extra seats are $10 per month each).
+> Support: Email on both, with a faster first response on Team.
+> 
+> Some things are the same on both: unlimited projects, custom domains, and GitHub sync.
+> 
+> If you would like to start on Pro and move up later, you can change plan at any time.
 > 
 > Buildbox Support
 
-Note for the reviewer: Straightforward plan comparison question, fully answered from KB-03. No account data needed.
+Note for the reviewer: Pricing question only, no account lookup needed. Reply is based on KB-03 seat limits; KB-15 covers upgrade proration if they ask.
 
 ## T-08: site says NOT SECURE
 
-Tier 1, custom-domains, urgency normal. Outcome: **reply**. SSL certificates typically take some time to provision after a custom domain is verified, which documentation covers as expected behavior.
+Tier 1, custom-domains, urgency normal. Outcome: **reply**. A newly verified custom domain showing Not Secure 10 minutes after adding it is most likely the SSL certificate still being issued, which is documented behavior, and the customer has not yet tried any fix.
 
 Cites KB-06.
 
-> Nothing is broken on your end! Once a domain shows Verified, Buildbox automatically requests an HTTPS certificate for it, and that can take up to 30 minutes to finish. Until it's ready, browsers will show a Not Secure warning, which is expected during that window.
+> Hi,
 > 
-> Since you added the domain about 10 minutes ago, just give it a little more time. Try loading the site again in 20 to 30 minutes and the warning should be gone.
+> You haven't broken anything. Once a domain shows Verified, Buildbox requests the HTTPS certificate automatically. This normally takes up to 30 minutes, and until it's ready Chrome may show "Not secure". That's expected in the first 30 minutes.
 > 
-> If it's still showing Not Secure after 24 hours, let us know and we'll take a closer look.
-
-Note for the reviewer: Straightforward KB-06 case; domain was verified only ~10 minutes ago, well within the normal 30-minute certificate issuance window. No action needed unless it persists past 24 hours.
-
-## T-09: Deploy failed
-
-Tier 1, deploys, urgency normal. Outcome: **reply**. The deploy is hitting the documented 10 minute build time limit likely due to AI image generation happening during build, which documentation can explain how to avoid.
-
-Cites KB-05.
-
-> Thanks for sending the log, that detail helps a lot.
+> You said you added the domain about 10 minutes ago, so it should be well within that window. Please check again in around 20 to 30 minutes, and the warning should be gone.
 > 
-> That error means your build is taking longer than the 10 minute limit, and generating a lot of product photos during the build is a common cause of this.
-> 
-> The fix is to have those images uploaded as assets instead of generated at build time. You can ask the AI in your project to do this by prompting something like: "upload the product photos as static assets instead of generating them during build." You can also ask it to remove any unused packages, since that also helps reduce build time.
-> 
-> Once that change is made, try deploying again. Your app is still live on the last successful deploy, so nothing is down in the meantime.
-> 
-> Let us know if the build still fails after that and we will take a closer look.
+> If it still shows "Not secure" after that, reply with your domain name and we'll take a closer look.
 > 
 > Buildbox Support
 
-Note for the reviewer: Straightforward KB-05 case (build time limit, likely caused by image generation at build time). No account data was needed or looked up.
+Note for the reviewer: No account data was looked up. The reply relies on the customer's report of timing and Verified status, which is unchecked.
+
+## T-09: Deploy failed
+
+Tier 1, deploys, urgency normal. Outcome: **reply**. The build hit the documented 10 minute limit, likely because images are generated during build, so this is a how-to question about moving that work out of the build step.
+
+Cites KB-05.
+
+> Hi Max,
+> 
+> Thanks for the details. That log line means your build took longer than the 10 minute limit. Since you mention the app generates product photos during the build, that is a likely cause. Here is what to try:
+> 
+> 1. Upload your product photos as files instead of generating them at build time.
+> 2. Remove any packages the app no longer uses. You can ask the AI to "reduce build time by removing unused dependencies".
+> 
+> Then deploy again. A failed deploy never replaces your live site, so the previous version keeps running in the meantime.
+> 
+> If the build still fails after that, reply with your project name and the deploy id from Deploy history, and we will take a closer look.
+> 
+> Buildbox Support
+
+Note for the reviewer: No account lookup was needed. The customer's guess about image generation is unverified, so the reply presents it as a likely cause.
 
 ## T-10: Do credits carry over
 
-Tier 1, credits-and-usage, urgency low. Outcome: **reply**. The customer is asking a general documentation question about whether monthly credits and purchased credit packs expire or roll over.
+Tier 1, credits-and-usage, urgency low. Outcome: **reply**. Customer asks a general documented question about whether monthly credits roll over and whether purchased credit packs expire, with no account issue or impact.
 
 Cites KB-02.
 
 > Hi Zoe,
 > 
-> Great questions.
+> Thanks for getting in touch. Here are the answers to your two questions.
 > 
-> 1) Unused monthly credits do not carry over. Your 500 credits reset each month on your billing date, and whatever is left unused just resets rather than rolling forward.
+> 1) No, unused monthly credits do not roll over. Your monthly credits reset on your billing date, so any leftovers from your 500 credits will not carry into next month.
 > 
-> 2) Credit packs are different. The 200 credits you buy in a pack never expire, and they are only used after your monthly credits run out. So if you have leftover monthly credits, the pack sits untouched until those are used up.
+> 2) No, credit packs do not expire. A pack of 200 credits costs $10 and can be bought on any paid plan. Pack credits are only used after your monthly credits run out, so they stay available until you need them.
 > 
-> Let us know if you have any other questions!
+> You can check your usage any time under Settings > Usage.
 > 
 > Buildbox Support
 
-Note for the reviewer: Straightforward factual question fully covered by KB-02; no account-specific data needed.
+Note for the reviewer: No account lookup was needed. Answer comes directly from KB-02. Zoe says she is on 500 credits (Pro), which I did not verify.
 
 ## T-11: SOC 2 report request
 
-Tier 2, security-and-compliance, urgency normal. Outcome: **escalate-no-source**. The customer needs a human to provide SOC 2 certification status, share the audit report under NDA, and confirm data hosting location.
+Tier 1, security-and-compliance, urgency low. Outcome: **escalate-no-source**. Customer asks about SOC 2 Type II status, report access under NDA, and data hosting location, which are general security and compliance questions with no stated deadline or impact.
 
-`escalate: no source`. Missing from the KB: The knowledge base has no information about SOC 2 or other compliance certifications, availability of audit reports under NDA, or the physical/cloud location where customer data is hosted. This is a security/compliance question that needs input from the security or compliance team, not something covered in product KB articles.
+`escalate: no source`. Missing from the KB: The KB has nothing on SOC 2 or other security certifications, sharing compliance reports under NDA, or where customer data is hosted (region or cloud provider). Only KB-11 mentions daily database snapshots, with no location details.
 
-Note for the reviewer: Customer is doing a security review before a 40-seat rollout and is asking about SOC 2 Type II certification, NDA report access, and data hosting location. None of this is in the KB, please route to security/compliance team or whoever handles NDA and audit report requests.
+Note for the reviewer: No account data was looked up and none is needed. Please route this to security/compliance for SOC 2 status, the NDA process for the report, and data hosting location, and reply to the customer (40-person rollout).
 
 ## T-12: Nonprofit discount?
 
-Tier 1, plans-and-pricing, urgency low. Outcome: **escalate-no-source**. Customer is asking whether a nonprofit or education discount exists for a paid plan.
+Tier 1, plans-and-pricing, urgency low. Outcome: **escalate-no-source**. Customer asks whether a nonprofit or education discount exists for the Team plan, which is a pricing question documentation can answer.
 
-`escalate: no source`. Missing from the KB: The knowledge base has no information about nonprofit or education discounts, or any discount programs beyond the standard Free/Pro/Team pricing in KB-03. I cannot confirm whether such a discount exists.
+`escalate: no source`. Missing from the KB: The knowledge base has no information on whether Buildbox offers nonprofit or education discounts, or how to apply for one. It only lists standard prices (KB-03).
 
-Note for the reviewer: Customer is asking about a nonprofit/education discount for the Team plan. Nothing in the KB covers this, so please check if there's an internal nonprofit discount policy before replying.
+Note for the reviewer: No KB article covers nonprofit or education discounts, so no reply was drafted. Please check with a support lead whether a discount exists and reply to the customer directly.
 
 ## T-13: Charged twice for credit pack
 
-Tier 2, billing-charges, urgency high. Outcome: **propose-billing-action**. The customer was charged twice for a single credit pack purchase and only received credits for one, indicating a billing error that needs account investigation.
+Tier 2, billing-charges, urgency normal. Outcome: **reply**. Customer was charged $10 twice for one credit pack and received only 200 credits, so someone must review the account and refund or correct the duplicate charge.
 
 Cites KB-13.
 
 > Hi Dana,
 > 
-> Thanks for flagging this, and sorry for the trouble. I can see two $10 charges for a credit pack posted just minutes apart, but only one pack's worth of 200 credits was applied to your account. That matches a duplicate charge, which we refund in full.
+> Thanks for writing, and sorry about the double charge. I checked your account and can see two $10 credit pack charges. One of them has already been refunded in full ($10). The other is the one you meant to buy, and it stays in place for your 200 credits.
 > 
-> A teammate will confirm the refund for the extra charge shortly. Once it's issued, you'll get a confirmation email with the amount and date, and the refund should show on your statement within 5 to 10 business days depending on your bank.
+> Duplicate charges are refunded in full, and the refund goes back to your original card. It can take 5 to 10 business days to show on your statement, depending on your bank. You should also get a confirmation email with the refund amount and date.
 > 
-> Let us know if you have any other questions in the meantime.
+> If your bank still shows two charges after that time, reply here and we will look into it.
 > 
 > Buildbox Support
 
-Proposed billing action, **waiting for a human**: refund $10.00. Target found in account data: True. Reason: Two identical $10 credit pack charges posted minutes apart but only one 200-credit pack was granted; KB-13 treats duplicate charges as always refunded in full for the duplicate charge.
-
-`python billing.py refund ch_****WSpd --reason "Two identical $10 credit pack charges posted minutes apart but only one 200-credit pack was granted; KB-13 treats duplicate charges as always refunded in full for the duplicate charge." --confirm --approved-by "<your name>"`
-
-Note for the reviewer: Confirmed both charges are $10 credit packs, same timestamp window, unrefunded, and only 200 credits (one pack) were granted. Please verify which charge id is the duplicate before issuing the refund and confirm only one pack's credits were actually applied.
+Note for the reviewer: Account data shows the duplicate charge (ch_...0TVaWSpd) was already refunded in full ($10, status succeeded) and the other charge is intact, so no new refund is proposed. Customer may be seeing the pending bank statement.
 
 ## T-14: payment failed email
 
-Tier 2, billing-payment-failed, urgency high. Outcome: **reply**. The customer's Pro payment failed and they need billing help resolved before a client demo on Friday to avoid losing access to their projects.
+Tier 2, billing-payment-failed, urgency normal. Outcome: **reply**. Customer received a failed Pro payment notice and worries about losing projects before a Friday client demo, which needs someone to review their account's payment status.
 
-Cites KB-14.
+Cites KB-14, KB-15, KB-03, KB-11.
 
-> Thanks for reaching out, and no need to worry right away. When a payment fails, we email you and automatically retry the card three times over the next 7 days. Your Pro plan stays active during this time, so nothing will be lost or paused yet.
+> Hi Liam,
 > 
-> To make sure everything is ready for your demo on Friday, the safest step is to update your card now rather than wait for the retries. Go to Settings > Billing > Manage billing and enter a working card there. The open invoice will be charged right away once you do, and your Pro plan will be fully confirmed.
+> Thanks for writing. I checked your account. The $20 payment for Pro on your account was declined ("Your card was declined"), so nothing was charged and the Pro plan never started. That means the retry and downgrade steps for failed renewals don't apply to you.
 > 
-> If all the retries fail before you update the card, the account would move to the Free plan, and any projects over the Free limit would become read only until you upgrade again. Updating your card now avoids that entirely.
+> To get Pro before Friday, upgrade again from Free to Pro and use a card that works. It takes effect right away. Only your bank can tell you why the card was declined, so it's worth asking them too.
 > 
-> Let us know if you run into any trouble updating the card.
+> I can't see anything in your account that removes projects. The Free plan allows 3 projects, so I'd like a teammate to confirm how yours are affected. As a precaution, you can download your code any time from Project menu > Export > Download ZIP.
 > 
 > Buildbox Support
 
-Note for the reviewer: Account shows the Pro subscription as 'incomplete' with the initial charge failed (card_declined) and invoice still open; customer needs to update payment method before Friday to avoid disruption. No refund/cancel action needed here.
+Note for the reviewer: Checked: subscription is incomplete_expired, the invoice is void (subscription_create), and the only charge failed with card_declined, so this is a failed first payment, not a renewal. Please confirm the state of the customer's projects if they have more than 3.
 
 ## T-15: Refund please, forgot to cancel
 
-Tier 2, billing-refunds, urgency normal. Outcome: **propose-billing-action**. The customer wants a refund for an unintended Pro plan renewal charge and to downgrade to the free plan.
+Tier 2, billing-refunds, urgency normal. Outcome: **propose-billing-action**. Customer was charged $20 for a Pro renewal they meant to cancel and wants a refund and a downgrade to free, which needs account review.
 
-Cites KB-13.
+Cites KB-13, KB-15.
 
 > Hi Priya,
 > 
-> Thanks for reaching out, and sorry for the mix-up with the renewal. Since your Pro plan just renewed and you've used very little since then, this qualifies for our refund policy. A teammate will confirm and process the refund on our side shortly. Once approved, the $20 charge will be refunded to your original card (usually showing within 5 to 10 business days), and your account will move to the Free plan, so you won't be charged again for Pro. You'll also get a confirmation email once the refund is issued.
+> Thanks for writing, and sorry for the surprise charge. I can see one $20 payment for your Pro plan, from the day you signed up (September 23). It's the first payment on the plan rather than a renewal.
 > 
-> If you have any projects or usage that go beyond the Free plan's limits, it's worth checking those before the switch happens.
+> Pro subscription charges can be refunded if you ask within 7 days of the charge and have used fewer than 50 credits since. If a refund goes ahead, your plan is cancelled and your account moves to Free, which is what you're asking for.
 > 
-> Let us know if you have any other questions.
+> I can't confirm that you qualify yet. A teammate will check your credit usage and reply with the outcome. If a refund is approved, it goes back to your original card and can take 5 to 10 business days to show on your statement.
 > 
 > Buildbox Support
 
-Proposed billing action, **waiting for a human**: refund $20.00. Target found in account data: True. Reason: Customer requested refund within 7 days of the subscription renewal charge per KB-13. Account data confirms the charge and that it is unrefunded, but credit usage since the charge is not shown in account data and should be checked to confirm the under-50-credit condition before approving.
+Proposed billing action, **waiting for a human**: refund $20.00. Reason: Customer asked for a refund of the $20 Pro subscription charge and to return to Free. The charge is within 7 days, but the credit condition is not shown in the data.
 
-`python billing.py refund ch_****UdgA --reason "Customer requested refund within 7 days of the subscription renewal charge per KB-13. Account data confirms the charge and that it is unrefunded, but credit usage since the charge is not shown in account data and should be checked to confirm the under-50-credit condition before approving." --confirm --approved-by "<your name>"`
+Check before approving (not in the account data): Fewer than 50 credits used since the charge
 
-Note for the reviewer: Please verify credit usage since the 2026-09-23 charge (not visible in account data) to confirm it's under 50 before approving the refund, per KB-13. If eligible, refunding this charge also cancels the plan and moves the account to Free per policy, so no separate cancel action is needed.
+`python billing.py refund ch_****UdgA --reason "Customer asked for a refund of the $20 Pro subscription charge and to return to Free. The charge is within 7 days, but the credit condition is not shown in the data." --confirm --approved-by "<your name>"`
+
+Note for the reviewer: Customer calls it a renewal, but the account shows only the initial subscription_create charge (paid, attempt 1) from 6 days ago, so the 7-day window looks met. Please check credit usage since the charge (under 50) before approving; the refund also cancels the plan.
 
 ## T-16: Invoice with company details
 
-Tier 2, billing-invoices, urgency normal. Outcome: **reply**. Customer needs their invoice reissued with company name and VAT number, which requires account admin action.
+Tier 2, billing-invoices, urgency normal. Outcome: **reply**. Customer wants this month's Pro invoice reissued with their company name and VAT number, which needs someone to edit the invoice on their account.
 
 Cites KB-12.
 
 > Hi Omar,
 > 
-> Thanks for reaching out. Past invoices can't be edited directly since they're tax documents, but since this one was issued within the last 90 days, we're able to issue a copy with Haddad Design Ltd and your VAT number added. A teammate will take care of this shortly and send the updated copy your way.
+> Thanks for getting in touch. Invoices can't be edited once they're issued, because they are tax documents. But your Pro payment is from the last 90 days, so we can issue a copy with your company details added.
 > 
-> To make sure all your future invoices show these details automatically, please add your company name and VAT number in Settings > Billing > Manage billing, under "Billing information." That way you won't need to ask us again going forward.
+> To do that, could you reply with your VAT number? You mentioned the company name as Haddad Design Ltd. Please also tell us if the address should appear on the copy, and what it should be.
 > 
-> Let us know if you need anything else.
+> For future invoices, you can add the company name, address and VAT number yourself. Go to Settings > Billing > Manage billing, then "Billing information". They will appear on all invoices from then on.
+> 
+> Once we have your VAT number, we'll get the copy sorted for you.
 > 
 > Buildbox Support
 
-Note for the reviewer: Customer's only invoice (in_****iWIV, $20 Pro subscription) is well within the 90-day window per KB-12, so a corrected copy with company name and VAT can be issued. Customer didn't provide the VAT number in the ticket, so please request it before reissuing.
+Note for the reviewer: Checked account data: one paid $20 Pro invoice from 2026-09-23, within the 90-day window, currently showing only Omar's name. VAT number still needed before a copy can be issued.
 
 ## T-17: Where is my refund
 
-Tier 2, billing-refunds, urgency normal. Outcome: **reply**. Customer wants confirmation on a previously promised refund that has not appeared on their card.
+Tier 2, billing-refunds, urgency normal. Outcome: **reply**. Customer was told a $10 credit pack refund was issued but has not received it, so someone must check the refund status on their account.
 
 Cites KB-13.
 
 > Hi Sofia,
 > 
-> Yes, your refund was sent. We can confirm the $10 for your credit pack was successfully refunded to your original card.
+> Thanks for checking in. I looked at your account, and the $10 refund for your credit pack (200 credits) shows as succeeded, so it has been sent back to your original card.
 > 
-> Refunds can take 5 to 10 business days to show up on your statement, depending on your bank, so if it has been less than that it should appear soon. If it still is not showing after 10 business days, let us know and we will look into it further.
+> Refunds can take 5 to 10 business days to show on your statement, depending on your bank. If it has been longer than that, please contact your bank with the refund amount and date from our confirmation email, since they can see where the funds are on their side.
+> 
+> If it still hasn't appeared after that time, reply here and a teammate will look into it with you.
 > 
 > Buildbox Support
 
-Note for the reviewer: Account data confirms refund re_****spZS for charge ch_****UFy2 succeeded, full $10 already refunded. No action needed unless customer reports still missing after 10 business days.
+Note for the reviewer: Account data shows the $10 refund as succeeded, created 2026-09-23. The customer says support told her last week it was done, so the 5 to 10 business day window may not have passed. Please check the date before sending. I did not offer any new refund.
 
 ## T-18: Weird charge after upgrading
 
-Tier 2, billing-plan-changes, urgency normal. Outcome: **reply**. The customer needs an account specific explanation of a prorated charge and future billing after upgrading from Pro to Team.
+Tier 2, billing-charges, urgency normal. Outcome: **reply**. Customer upgraded from Pro to Team and was charged an unexpected amount (likely proration), and asks about next month's billing, which needs someone to review their account charges.
 
-Cites KB-15.
+Cites KB-15, KB-03.
 
-> Thanks for reaching out, and sorry for the confusion! What you saw is expected. When you upgrade from Pro to Team, Buildbox charges you right away for the new plan, but gives you credit for the unused time left on your old plan. That is why the amount was not a round $50: it was the Team price minus a credit for the Pro time you had not used yet, which comes out to an odd number rather than the full $50.
+> Hi Ken,
 > 
-> Going forward, you will not be charged twice. Your next regular charge will simply be the normal $50 Team plan renewal, once a month, nothing extra on top. If anything on your invoice still looks off, let us know and we will take a closer look.
+> Thanks for asking. The charge looks right to me. When you upgrade, you are charged right away for the rest of the current month at the new price, minus a credit for the unused part of your old plan. This is called proration.
+> 
+> On your account, the upgrade invoice was $30.00. It was $50.00 for the remaining time on Team, minus a $20.00 credit for the unused time on Pro.
+> 
+> You won't be charged twice. Your Team plan renews on 23 October 2026 at the regular $50 per month, plus any tax that applies where you are. There is no extra $50 on top of the $30.
+> 
+> If anything still looks off, reply and we'll take a closer look.
 > 
 > Buildbox Support
 
-Note for the reviewer: Verified the $30 charge matches proration math in the account data (-$20 unused Pro + $50 Team = $30), consistent with KB-15. No billing action needed; next renewal will be the standard $50/month Team charge.
+Note for the reviewer: Checked the account: the $30 invoice is a subscription_update with a -$20 Pro credit and a $50 Team line, and the next renewal is 2026-10-23 at $50. The customer did not ask for a refund, so no billing action is proposed.
 
 ## T-19: Cancel my subscription
 
-Tier 2, billing-plan-changes, urgency normal. Outcome: **propose-billing-action**. Customer wants to cancel their Team subscription and asks about access timing, which requires account administration.
+Tier 2, billing-plan-changes, urgency normal. Outcome: **propose-billing-action**. Customer wants to cancel their Team subscription to avoid future charges and asks about access during a two-week migration, which needs account-level action.
 
 Cites KB-15.
 
 > Hi Ana,
 > 
-> Thanks for letting us know. We will cancel your Team subscription so it does not renew again. A teammate will confirm this shortly.
+> Thanks for letting us know. We've passed your request to cancel the Team subscription to a teammate, who will confirm it shortly.
 > 
-> You will not lose access right away. Cancelling stops the next charge, but you keep full Team access until the end of your current billing period, which gives you plenty of time to finish your migration. After that date your account moves to the Free plan, and nothing is deleted.
+> Cancelling stops the next renewal, so you won't be charged again. You don't lose access right away. You keep the Team plan until the end of the period you've already paid for, which runs to October 23, 2026 on our records. That should give you the couple of weeks you need to finish migrating. After that date your account moves to the Free plan.
 > 
-> If you need more time beyond that, just let us know before the period ends.
+> If you'd like a copy of your code, you can download it any time from the Project menu under Export.
 > 
 > Buildbox Support
 
-Proposed billing action, **waiting for a human**: cancel $0.00. Target found in account data: True. Reason: Customer requested cancellation of Team subscription to stop future renewal; per KB-15 access continues until end of current billing period.
+Proposed billing action, **waiting for a human**: cancel $0.00. Reason: Customer asked to cancel the Team subscription to stop future renewals. Per KB-15, cancelling keeps the plan until period end (2026-10-23) and is not a refund. No refund was requested.
 
-`python billing.py cancel sub_****vfuW --reason "Customer requested cancellation of Team subscription to stop future renewal; per KB-15 access continues until end of current billing period." --confirm --approved-by "<your name>"`
+`python billing.py cancel sub_****vfuW --reason "Customer asked to cancel the Team subscription to stop future renewals. Per KB-15, cancelling keeps the plan until period end (2026-10-23) and is not a refund. No refund was requested." --confirm --approved-by "<your name>"`
 
-Note for the reviewer: Customer wants a couple weeks to migrate; current_period_end in account data is about a month out (sandbox dates), so timing should comfortably cover their need. Please confirm the cancellation in the billing system.
+Note for the reviewer: Active Team subscription, period ends 2026-10-23, cancel_at_period_end is currently false. Cancel at period end, no refund requested or offered. I mentioned the ZIP export, which is in KB-11 but not cited, so please check that line or add the citation.
 
 ## T-20: change email on account
 
-Tier 2, team-and-account, urgency normal. Outcome: **reply**. The customer needs account administration help to change their login and billing email while retaining their Pro plan.
+Tier 2, team-and-account, urgency normal. Outcome: **reply**. Customer wants their login and billing emails changed to a personal address while keeping their Pro plan, which is an account email change that needs staff to review the account.
 
 Cites KB-10.
 
 > Hi Jonas,
 > 
-> You can update this yourself and it will not affect your Pro plan. Go to Settings > Account > Email and enter your personal address. We will send a confirmation link to that new address, and once you click it, your login and billing email both switch over automatically.
+> Good news: you can change this yourself, and your Pro plan stays as it is. The change only moves your login and billing email.
 > 
-> Your Pro subscription and billing stay exactly as they are, just under the new email. No need to cancel or re-subscribe.
+> 1. Go to Settings > Account > Email.
+> 2. Enter your new personal email address.
+> 3. We send a confirmation link to that new address. Click it and the change happens.
 > 
-> Let us know if you run into any trouble with the confirmation email.
+> Your billing email on the subscription changes at the same time, so receipts will go to the new address afterwards. Make sure you can open the new inbox before you start, because the link has to be clicked from there.
+> 
+> If anything goes wrong, reply here and we will help.
 > 
 > Buildbox Support
 
-Note for the reviewer: Straightforward email-change question fully covered by KB-10; no account action needed. Account is active Pro, no delinquency, so nothing else to flag.
+Note for the reviewer: Account shows an active Pro subscription. KB-10 says the email change also updates the billing email. The KB does not say explicitly that the plan is unaffected, but the subscription stays on the same account.
 
 ## T-21: Owner left the company
 
-Tier 2, team-and-account, urgency normal. Outcome: **reply**. The customer needs account administration support to transfer workspace ownership since the original owner is no longer accessible.
+Tier 2, team-and-account, urgency normal. Outcome: **reply**. Admin needs workspace ownership transferred from a departed owner, which requires staff to verify and act on the account.
 
 Cites KB-09.
 
-> Thanks for reaching out, Grace. Since the workspace owner can no longer log in, our support team can transfer ownership to you.
+> Hi Grace,
 > 
-> To do this, we need to verify the request with a second Admin on your workspace, along with the billing email on file. Once you can confirm those, a teammate will process the ownership transfer for you.
+> Sorry to hear about the trouble. Normally only the current Owner can make someone else the owner. Since the Owner can't log in, our support team can transfer ownership for you, but we need to verify the request first.
 > 
-> Could you let us know who the second Admin is, or have them reach out to confirm as well? That will let us move forward quickly.
+> To do that, we need two things from you:
+> 
+> 1. A second Admin of your workspace to confirm the request. Please ask them to reply to us, or send us their name and the email they use in the workspace.
+> 2. Confirmation of the billing email address on file for the subscription.
+> 
+> Once we have both, a teammate will check them and move ownership to you. We'll reply here as soon as that's done, so please don't expect the change until then.
 > 
 > Buildbox Support
 
-Note for the reviewer: Customer needs ownership transfer per KB-09 since prior owner cannot log in. Requires verification with a second Admin and the billing email on file before proceeding; please confirm those details with Grace before transferring ownership.
+Note for the reviewer: Account data shows an active Team subscription under grace.kim@example.com but not workspace members or roles. Verify Grace is an Admin, the second Admin's confirmation and the billing email before transferring ownership.
 
 ## T-22: $50 charge??
 
-Tier 2, billing-charges, urgency normal. Outcome: **reply**. The customer was charged more than the expected plan price and needs an account specific billing review.
+Tier 2, billing-charges, urgency normal. Outcome: **reply**. Customer was charged $50 instead of the expected $20 Pro price, so someone needs to review their account charges.
 
-Cites KB-03, KB-15, KB-13.
+Cites KB-03, KB-15.
 
 > Hi Marco,
 > 
-> Thanks for reaching out. Looking at your account, you're currently on the Team plan, which is $50 a month, rather than Pro which is $20 a month. That's why the charge came through at $50.
+> Thanks for reaching out. I checked your account, and the $50 charge is for the Team plan, not Pro. Your subscription is Team at $50 per month, and the charge was a single payment of $50 for the first month. Pro is $20 per month, and Team is $50 per month with 2,000 shared credits and 5 seats.
 > 
-> If you meant to be on Pro instead, you can switch any time from Settings > Billing > Manage billing. Since this would be a downgrade from Team to Pro, it takes effect at the end of your current billing period and you'd keep Team access until then, with no partial refund for the difference.
-> 
-> If you'd rather switch right away and get a refund of this charge, that's possible since it's within 7 days of the charge, as long as you've used fewer than 50 credits since then. Just let us know and a teammate will check your usage and confirm.
-> 
-> Let us know how you'd like to proceed.
+> If you meant to pick Pro, we can look at switching you. Just let me know what you'd like. Please note that a downgrade from Team to Pro takes effect at the end of the current billing period, with no partial refund. If you'd like to ask about a refund, tell us and a teammate will review it.
 > 
 > Buildbox Support
 
-Note for the reviewer: Customer is on Team ($50/mo), charged correctly per account data, but may have intended Pro ($20). Charge is within 7 days so refund eligibility depends on credit usage since the charge, which I could not check - please verify usage under Settings > Usage if customer requests a refund/switch.
+Note for the reviewer: Account shows an active Team subscription with one paid $50 charge, no duplicates. Customer did not ask for a refund, so none proposed; I only mentioned the option. Confirm which plan they intended.
 
 ## T-23: All deploys stuck in Queued
 
-Tier 3, deploys, urgency high. Outcome: **escalate-engineering**. Deploys are stuck in Queued for hours across multiple projects despite the status page showing normal operation, indicating a stuck job that needs engineering investigation.
+Tier 3, deploys, urgency high. Outcome: **escalate-engineering**. All deploys across four projects have been stuck in Queued for 3 hours with no incident on the status page, and the customer has a launch tomorrow morning, so an engineer needs to investigate now.
 
 Handoff note: [escalations/T-23.md](escalations/T-23.md)
 
 ## T-24: GitHub sync deleted my files
 
-Tier 3, github-sync, urgency high. Outcome: **escalate-engineering**. A simple color change prompt caused Buildbox to delete an entire folder of files via GitHub sync and the repo is now stuck in a conflict state, indicating a bug that needs engineering investigation.
+Tier 3, github-sync, urgency high. Outcome: **escalate-engineering**. GitHub sync pushed an unrequested commit deleting 14 files including /api on main, and sync now shows Conflict after the customer's revert, so an engineer must investigate the data loss and sync state.
 
 Handoff note: [escalations/T-24.md](escalations/T-24.md)
 
 ## T-25: SSL pending for 3 days
 
-Tier 3, custom-domains, urgency high. Outcome: **escalate-engineering**. The customer verified DNS is correctly configured with no CAA blocking issue, yet the SSL certificate has been stuck in Pending for 3 days causing a live certificate error on their site.
+Tier 3, custom-domains, urgency normal. Outcome: **escalate-engineering**. Domain is verified with correct CNAME and no CAA record, yet the certificate has been stuck Pending for 3 days, so an engineer needs to investigate the provisioning.
 
 Handoff note: [escalations/T-25.md](escalations/T-25.md)
 
 ## T-26: 500 error on every prompt + credits gone
 
-Tier 3, editor-and-generation, urgency high. Outcome: **escalate-engineering**. The user is getting repeated 500 errors on prompt generation across browsers and projects while still being charged credits, indicating a bug that needs engineering investigation.
+Tier 3, editor-and-generation, urgency normal. Outcome: **escalate-engineering**. Every prompt returns a 500 error across two projects and browsers while credits are still deducted, which is a product fault needing engineering investigation.
 
 Handoff note: [escalations/T-26.md](escalations/T-26.md)
 
 ## T-27: database empty after redeploy
 
-Tier 3, data-and-backups, urgency high. Outcome: **escalate-engineering**. The customer's live database lost all 1,200 rows after a redeploy, indicating a possible data loss bug that requires engineering investigation and is actively harming their business.
+Tier 3, data-and-backups, urgency high. Outcome: **escalate-engineering**. Live production database lost about 1,200 customer bookings after a redeploy, which is data loss affecting a real business now and needs an engineer to investigate and attempt recovery.
 
 Handoff note: [escalations/T-27.md](escalations/T-27.md)
 
 ## T-28: Blank preview in Safari
 
-Tier 3, editor-and-generation, urgency normal. Outcome: **escalate-engineering**. The preview crashes in Safari with an unhandled WebGPU API error even after standard troubleshooting, indicating a compatibility bug that needs engineering investigation.
+Tier 3, editor-and-generation, urgency normal. Outcome: **escalate-engineering**. Preview pane is blank in Safari 19 with a navigator.gpu (WebGPU) TypeError, and the customer already tried a hard refresh and a private window, so an engineer needs to investigate.
 
 Handoff note: [escalations/T-28.md](escalations/T-28.md)
 
 ## T-29: env vars not in production
 
-Tier 3, environment-variables, urgency high. Outcome: **escalate-engineering**. The user correctly configured a Production-scoped environment variable and redeployed but it still is not available on the live site, indicating a bug affecting their production app.
+Tier 3, environment-variables, urgency normal. Outcome: **escalate-engineering**. Production variable is set with the correct scope and redeployed twice, yet it is undefined on the live site while preview works, so the documented fix failed and an engineer must investigate.
 
 Handoff note: [escalations/T-29.md](escalations/T-29.md)
 
 ## T-30: credits going down twice as fast
 
-Tier 3, credits-and-usage, urgency high. Outcome: **escalate-engineering**. The customer reports that every generation is consistently consuming double the credits shown in the prompt since a recent update, which is a product bug causing ongoing credit loss.
+Tier 3, credits-and-usage, urgency normal. Outcome: **escalate-engineering**. Credits deducted are double the amount shown before each generation since Monday's update, which looks like a product bug needing engineering investigation.
 
 Handoff note: [escalations/T-30.md](escalations/T-30.md)
