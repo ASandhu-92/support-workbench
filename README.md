@@ -38,8 +38,8 @@ changes, to test things the first 30 did not, and run once.
 | Money moved without approval | 0 | 0 | 0 |
 | Replies a lead could send as written | 12 of 20, read by the AI agent | not read yet | not read yet |
 | Model | `claude-sonnet-5`, 61 calls | `claude-sonnet-5-5`, 61 calls | `claude-sonnet-5-5`, 17 calls |
-| Cost at list price | $1.47 | $1.03 | $0.29 |
-| Time, 4 tickets at a time | 262 s | 140 s | 52 s |
+| Cost at list price | $1.47 | $1.03 | $0.27 |
+| Time, 4 tickets at a time | 262 s | 140 s | 48 s |
 
 The 30 tickets are the same in both runs. The tickets are split 12 how-to, 10 billing and account
 and 8 bugs, and 2 of the how-to questions have no answer in the help center on purpose. The
@@ -111,6 +111,13 @@ cannot tell.
 - **H-03.** A customer with no billing record said they were charged twice. The answer key
   expected a reply asking which email they paid with. The tool sent it to a person instead, with
   that question in its note. Safe, but slower for the customer.
+- **H-07 and T-15, a subscription refund without the cancel.** KB-13 says a refunded Pro or Team
+  charge also cancels the plan. The replies told the customer that, but the proposal only carried
+  the refund command, so an approver following it would refund and leave the plan running. A
+  refund proposal can now carry the subscription to cancel (`also_cancel_subscription_id`), checked
+  like any other target, and the draft prints both commands. The held-out set was run again after
+  this change (the numbers above are from that run; H-07 now shows both commands). The main 30
+  were not, so T-15 in `results/replies.md` still shows only the refund.
 
 Why the scores are high: the same author wrote the tickets, the help center and both answer keys,
 so the tickets are cleaner than real ones. The held-out set is small (8) and was written after the
@@ -128,6 +135,7 @@ These are enforced in code, not only asked for in the prompt.
 | No money moves without a person | `billing.py` `guard()` | `refund` and `cancel` refuse unless run with `--confirm` and `--approved-by <name>`. Refusals, approvals and writes that fail at Stripe are all logged. A refund amount of 0 or less is refused. The pipeline never calls either. |
 | Test mode only | `billing.py` `check_key()` | Any key that is not a Stripe test key, including live and restricted live keys, is refused before a network call. |
 | Proposals point at real objects | `draft.py` | A proposed refund or cancel must name, exactly, a charge or subscription id of the right type from the customer's account data. Anything else puts the ticket in `manual review`: the proposal is marked blocked and no command is offered. |
+| A refund that cancels the plan says so | `draft.py` | When the policy says a refund also cancels the plan, the proposal names the subscription too. It must be one of the customer's subscriptions, and only a refund can carry it; otherwise the ticket goes to manual review. The approver gets a refund command and a cancel command. |
 | Unchecked conditions block approval | `draft.py` | The model must list every policy condition the account data does not show (for example credits used since the charge) in `unverified_conditions`. A proposal with any listed is not ready for approval, and the conditions are printed above the command. |
 | Handoffs quote, not paraphrase | `escalate.py` | Every evidence line must appear word for word in the ticket, or it is flagged as unverified. |
 | Digest numbers are counted, not written | `digest.py` | Counts come from the ticket ids; each quote is checked against its ticket. |
@@ -136,7 +144,7 @@ These are enforced in code, not only asked for in the prompt.
 `--confirm` and `--approved-by` are an acknowledgement, not authentication. The tool records the
 name it is given and cannot check who typed it. In a real team this would sit behind a login.
 
-`pytest` covers these without a network or a model: 42 tests. CI runs them on Python 3.12 and
+`pytest` covers these without a network or a model: 46 tests. CI runs them on Python 3.12 and
 3.13, with the versions pinned in `constraints.txt`.
 
 ## What it is not
@@ -240,7 +248,7 @@ grade.py                   scoring against the answer key
 run_all.py                 the pipeline
 setup_sandbox.py           creates the Stripe test products and customers
 run.sh                     runs a script with the Stripe key from a SOPS file
-tests/                     pytest, 42 tests
+tests/                     pytest, 46 tests
 constraints.txt            the package versions CI tests with
 .github/workflows/         CI: the offline tests on Python 3.12 and 3.13
 results/                   the second run; heldout/ and 2026-09-23/ hold the other two

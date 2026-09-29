@@ -1,6 +1,6 @@
 # Grade
 
-Run 2026-09-29T20:36:11+00:00, model claude-sonnet-5-5, 17 model calls, cost $0.2873 (list price), wall time 52.0s with 4 tickets in parallel.
+Run 2026-09-29T21:26:29+00:00, model claude-sonnet-5-5, 17 model calls, cost $0.2725 (list price), wall time 47.6s with 4 tickets in parallel.
 
 | Measure | Result |
 |---|---|
