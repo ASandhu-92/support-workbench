@@ -79,6 +79,30 @@ def test_unverified_policy_condition_keeps_the_proposal_but_not_ready():
     assert grade.final_action(2, d) == "propose-billing-action"
 
 
+def refund_then_cancel(sub_id, kind="refund"):
+    out = proposal(kind, "ch_realone123" if kind == "refund" else "sub_realone123")
+    out["proposed_billing_action"]["also_cancel_subscription_id"] = sub_id
+    return out
+
+
+def test_refund_can_carry_the_customers_subscription_as_a_follow_up_cancel():
+    d = draft.enforce(refund_then_cancel("sub_realone123"), KB, ACCOUNT)
+    pa = d["proposed_billing_action"]
+    assert d["status"] == "draft" and pa["ready_for_approval"] is True
+    assert pa["also_cancel_subscription_id"] == "sub_realone123"
+
+
+@pytest.mark.parametrize("sub_id,kind", [
+    ("sub_madeup999", "refund"),      # invented
+    ("ch_realone123", "refund"),      # real id, but a charge
+    ("sub_realone123", "cancel"),     # a cancel cannot carry a second cancel
+])
+def test_bad_follow_up_cancel_goes_to_manual_review(sub_id, kind):
+    d = draft.enforce(refund_then_cancel(sub_id, kind), KB, ACCOUNT)
+    assert d["status"] == draft.MANUAL_REVIEW
+    assert d["proposed_billing_action"]["ready_for_approval"] is False
+
+
 def fake_run(stdout, rc=0):
     def run(*a, **k):
         return subprocess.CompletedProcess(a, rc, stdout=stdout, stderr="")

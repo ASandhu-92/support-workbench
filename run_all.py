@@ -141,6 +141,10 @@ def write_results(rows, dig, dig_md, g, run, ticket_set="main"):
                 if checks:
                     out += ["Check before approving (not in the account data): " + "; ".join(checks), ""]
                 out += [f"`{cmd}`", ""]
+                if pa.get("also_cancel_subscription_id"):
+                    out += ["The policy also cancels the plan. After the refund, run:", "",
+                            f"`python billing.py cancel {pa['also_cancel_subscription_id']} --reason \"{pa['why']}\" "
+                            f"--confirm --approved-by \"<your name>\"`", ""]
             if d.get("note_for_agent"):
                 out += [f"Note for the reviewer: {d['note_for_agent']}", ""]
     (out_dir / "replies.md").write_text(mask("\n".join(out)))

@@ -7,7 +7,9 @@ The model is told to answer only from the KB articles and the account data it is
 then enforces it: a reply with no valid KB article id is thrown away and the ticket becomes
 "escalate: no source". A proposed refund or cancellation is only a proposal. A refund must name a
 charge and a cancel a subscription that belongs to the customer looked up; anything else sends the
-ticket to manual review with the proposal blocked. Nothing is executed here.
+ticket to manual review with the proposal blocked. A refund that the policy says also cancels the
+plan carries that subscription as also_cancel_subscription_id, checked the same way. Nothing is
+executed here.
 """
 import argparse
 import json
@@ -36,8 +38,10 @@ SCHEMA = {
                 "amount_usd": {"type": "number"},
                 "why": {"type": "string"},
                 "unverified_conditions": {"type": "array", "items": {"type": "string"}},
+                "also_cancel_subscription_id": {"type": "string"},
             },
-            "required": ["type", "target_id", "amount_usd", "why", "unverified_conditions"],
+            "required": ["type", "target_id", "amount_usd", "why", "unverified_conditions",
+                         "also_cancel_subscription_id"],
             "additionalProperties": False,
         },
         "note_for_agent": {"type": "string"},
@@ -60,7 +64,11 @@ Rules:
    shows it already happened. If one is needed, put it in proposed_billing_action (target_id must
    be a charge id "ch_..." for a refund or a subscription id "sub_..." for a cancel, copied from the
    account data) and tell the customer a teammate will confirm it shortly. Otherwise set type
-   "none", target_id "", amount_usd 0, why "", unverified_conditions [].
+   "none", target_id "", amount_usd 0, why "", unverified_conditions [],
+   also_cancel_subscription_id "".
+   If the policy says the refund also cancels the plan (a Pro or Team subscription refund under
+   KB-13), set also_cancel_subscription_id to that subscription's id "sub_..." from the account
+   data, so the approver gets both commands. Otherwise leave it "".
    In unverified_conditions list every condition the policy sets that the account data does not
    show (for example credit usage since the charge). If the list is not empty, do not tell the
    customer they qualify; say a teammate will check eligibility and reply.
@@ -96,6 +104,13 @@ def target_problem(action: dict, account: dict | None) -> str | None:
     ids = {o.get("id") for o in account.get(TARGET_LIST[kind]) or []}
     if target not in ids:
         return f"{target or 'no target'} is not one of this customer's {TARGET_LIST[kind]}"
+    also = action.get("also_cancel_subscription_id") or ""
+    if also:
+        if kind != "refund":
+            return "only a refund can carry a follow-up cancel"
+        subs = {o.get("id") for o in account.get("subscriptions") or []}
+        if also not in subs:
+            return f"{also} is not one of this customer's subscriptions"
     return None
 
 
@@ -111,6 +126,7 @@ def enforce(out: dict, kb_ids: set, account: dict | None) -> dict:
     if grounded and action.get("type", "none") != "none":
         problem = target_problem(action, account)
         action["unverified_conditions"] = [c for c in action.get("unverified_conditions") or [] if c.strip()]
+        action["also_cancel_subscription_id"] = (action.get("also_cancel_subscription_id") or "").strip()
         action["blocked"] = problem
         action["ready_for_approval"] = problem is None and not action["unverified_conditions"]
         if problem:
