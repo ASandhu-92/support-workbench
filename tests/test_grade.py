@@ -51,3 +51,19 @@ def test_final_action_routing():
     assert grade.final_action(1, draft) == "reply"
     assert grade.final_action(2, {**draft, "proposed_billing_action": {"type": "refund"}}) == "propose-billing-action"
     assert grade.final_action(1, {**draft, "status": "escalate: no source"}) == "escalate-no-source"
+
+
+def test_manual_review_counts_as_an_escalation_not_a_proposal():
+    exp = grade.load_expected()
+    res = perfect(exp)
+    res["T-13"] = {**res["T-13"], "action": "escalate-manual-review", "billing_action": None}
+    g = grade.grade(res, exp, [], 0)
+    assert g["billing_proposals_correct"] == "2/3 (67%)"
+    assert g["escalations_not_needed"] == ["T-13"]
+
+
+def test_heldout_answer_key_matches_its_tickets():
+    from tickets import load_tickets
+    exp = grade.load_expected("heldout")
+    assert sorted(exp) == sorted(load_tickets("heldout")) and len(exp) == 8
+    assert set(load_tickets("heldout")).isdisjoint(load_tickets("main"))
