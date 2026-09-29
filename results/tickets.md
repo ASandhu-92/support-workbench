@@ -16,7 +16,7 @@ Bold marks a miss against the answer key in `expected/`.
 | T-10 | Do credits carry over | 1/1 | credits-and-usage | reply | KB-02 | yes |
 | T-11 | SOC 2 report request | 1/1 | security-and-compliance | escalate-no-source | - | yes |
 | T-12 | Nonprofit discount? | 1/1 | plans-and-pricing | escalate-no-source | - | yes |
-| T-13 | Charged twice for credit pack | 2/2 | billing-charges | propose-billing-action / **reply** | KB-13 | **no** |
+| T-13 | Charged twice for credit pack | 2/2 | billing-charges / **billing-refunds** | propose-billing-action / **reply** | KB-13 | **no** |
 | T-14 | payment failed email | 2/2 | billing-payment-failed | reply | KB-14, KB-15, KB-03, KB-11 | yes |
 | T-15 | Refund please, forgot to cancel | 2/2 | billing-refunds | propose-billing-action | KB-13, KB-15 | yes |
 | T-16 | Invoice with company details | 2/2 | billing-invoices | reply | KB-12 | yes |

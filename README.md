@@ -24,13 +24,14 @@ The answer key `expected/expected.json` was written and committed before the fir
 `expected/heldout.json` before any run on the held-out tickets (see the git history). The first run
 found problems in the replies (below). The prompts and guardrails were changed, and the same 30
 tickets were run again from scratch, with no cache. The 8 held-out tickets were written after those
-changes, to test things the first 30 did not, and run once.
+changes, to test things the first 30 did not. Both sets were run again, from scratch, after
+one more fix (H-07 and T-15 below); the numbers are from those runs.
 
 | | 2026-09-23, first run | 2026-09-29, after the fixes | 2026-09-29, held-out |
 |---|---|---|---|
 | Tickets | 30 | 30 | 8 |
 | Tier correct | 29 of 30 | 30 of 30 | 8 of 8 |
-| Topic correct | 30 of 30 | 29 of 30 | 7 of 8 |
+| Topic correct | 30 of 30 | 28 of 30 (T-13, T-18) | 7 of 8 |
 | Outcome correct (reply / propose billing action / escalate to engineering / escalate: no source) | 30 of 30 | 29 of 30 (T-13, see below) | 7 of 8 |
 | Replies that cite an article the answer key expected | 20 of 20 | 20 of 20 | 6 of 6 |
 | Tickets that needed escalating and were escalated | 10 of 10 | 10 of 10 | 1 of 1, plus one not needed (H-03) |
@@ -39,7 +40,7 @@ changes, to test things the first 30 did not, and run once.
 | Replies a lead could send as written | 12 of 20, read by the AI agent | not read yet | not read yet |
 | Model | `claude-sonnet-5`, 61 calls | `claude-sonnet-5-5`, 61 calls | `claude-sonnet-5-5`, 17 calls |
 | Cost at list price | $1.47 | $1.03 | $0.27 |
-| Time, 4 tickets at a time | 262 s | 140 s | 48 s |
+| Time, 4 tickets at a time | 262 s | 131 s | 48 s |
 
 The 30 tickets are the same in both runs. The tickets are split 12 how-to, 10 billing and account
 and 8 bugs, and 2 of the how-to questions have no answer in the help center on purpose. The
@@ -102,10 +103,10 @@ cannot tell.
 
 ### Second run and held-out
 
-- **T-13 outcome.** Not a model error. The duplicate charge was refunded in the sandbox during the
+- **T-13 outcome and topic.** Not a model error. The duplicate charge was refunded in the sandbox during the
   approval demo on 2026-09-23 and is still refunded. The draft saw that, proposed nothing and told
-  the customer. The answer key describes the account before the refund and was left as it was, so
-  the grader counts a miss. Note in [`results/grade.md`](results/grade.md).
+  the customer, and filed it under refunds. The answer key describes the account before the refund
+  and was left as it was, so the grader counts two misses. Note in [`results/grade.md`](results/grade.md).
 - **T-18 topic.** A charge after an upgrade was filed as `billing-charges` instead of
   `billing-plan-changes`. The reply was still the expected one.
 - **H-03.** A customer with no billing record said they were charged twice. The answer key
@@ -115,9 +116,8 @@ cannot tell.
   charge also cancels the plan. The replies told the customer that, but the proposal only carried
   the refund command, so an approver following it would refund and leave the plan running. A
   refund proposal can now carry the subscription to cancel (`also_cancel_subscription_id`), checked
-  like any other target, and the draft prints both commands. The held-out set was run again after
-  this change (the numbers above are from that run; H-07 now shows both commands). The main 30
-  were not, so T-15 in `results/replies.md` still shows only the refund.
+  like any other target, and the draft prints both commands. Both sets were run again after this
+  change, and H-07 and T-15 now show both commands.
 
 Why the scores are high: the same author wrote the tickets, the help center and both answer keys,
 so the tickets are cleaner than real ones. The held-out set is small (8) and was written after the
@@ -153,8 +153,8 @@ name it is given and cannot check who typed it. In a real team this would sit be
   and writes markdown.
 - Not tested on real tickets. All 38 are invented.
 - Not live billing. The Stripe side is a sandbox, and the code refuses anything else.
-- Not a measure of how fast a person works with it. The machine side of the second run took 140
-  seconds for 30 tickets, about 5 seconds each with four running at once. The human side has not
+- Not a measure of how fast a person works with it. The machine side of the second run took 131
+  seconds for 30 tickets, about 4 seconds each with four running at once. The human side has not
   been timed yet; the checklist has a minutes column for it.
 
 ## How a ticket moves through it

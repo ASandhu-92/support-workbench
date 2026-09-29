@@ -1,14 +1,14 @@
 {
   "run": {
     "ticket_set": "main",
-    "started": "2026-09-29T19:57:05+00:00",
-    "wall_seconds": 140.3,
+    "started": "2026-09-29T21:29:25+00:00",
+    "wall_seconds": 131.1,
     "workers": 4,
     "llm_calls": 61,
     "cached_calls": 0,
-    "cost_usd_this_run": 1.0325,
-    "cost_usd_cold": 1.0325,
-    "model_seconds_total": 269.0,
+    "cost_usd_this_run": 1.0253,
+    "cost_usd_cold": 1.0253,
+    "model_seconds_total": 269.2,
     "models": [
       "claude-sonnet-5-5"
     ],
@@ -18,7 +18,7 @@
   "grade": {
     "tickets": 30,
     "tier_accuracy": "30/30 (100%)",
-    "topic_accuracy": "29/30 (97%)",
+    "topic_accuracy": "28/30 (93%)",
     "action_accuracy": "29/30 (97%)",
     "drafts_sent_for_review": 20,
     "drafts_citing_a_kb_article": "20/20 (100%)",
@@ -34,6 +34,7 @@
     "wrong": {
       "tier": [],
       "topic": [
+        "T-13: expected billing-charges, got billing-refunds",
         "T-18: expected billing-plan-changes, got billing-charges"
       ],
       "action": [
@@ -49,11 +50,11 @@
       "tier": 1,
       "topic": "credits-and-usage",
       "urgency": "low",
-      "reason": "Customer on Pro ran out of credits mid-cycle and asks when credits reset, which is a documented question about credit allowances and renewal.",
+      "reason": "Pro customer asks when credits refresh after running out mid-month, which is a documented question about credit limits and reset timing.",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi Rob,\n\nThanks for getting in touch. Credits don't reset on the 1st of the month. Monthly credits reset on your billing date, so your 500 Pro credits will come back on that date. Unused monthly credits don't roll over.\n\nIf you'd like more credits before then, you can buy a credit pack on your plan. A pack is 200 credits for $10. Pack credits never expire and are used only after your monthly credits run out.\n\nYou can see where your credits went under Settings > Usage, per day and per project. If you think you were charged credits for a generation that failed with an error, send us the project name and the time, and we'll look into it.\n\nBuildbox Support",
+        "reply": "Hi Rob,\n\nThanks for getting in touch. Monthly credits reset on your billing date, not on the 1st of the month. So your 500 Pro credits will refill on the date your plan renews. You can find that date under Settings > Billing > Manage billing.\n\nUnused monthly credits don't roll over, so you start fresh each cycle.\n\nIf you'd like more credits before then, you can buy a credit pack on your paid plan. A pack is 200 credits for $10. Pack credits never expire, and they're used only after your monthly credits run out.\n\nTo see where your credits went, open Settings > Usage. It shows usage per day and per project. If you were charged credits for a generation that failed with an error, send us the project name and the time. That shouldn't happen and we'll look into it.\n\nBuildbox Support",
         "cited_articles": [
           "KB-02",
           "KB-03"
@@ -66,9 +67,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account data was looked up, so the billing date and usage are unverified. The reply does not state the customer's reset date."
+        "note_for_agent": "No account data was looked up, so I did not check Rob's plan, billing date or credit usage. The reply gives the general reset rule and the pack option."
       },
       "action": "reply",
       "cited": [
@@ -78,23 +80,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0038334,
-          "duration_ms": 3155,
+          "cost_usd": 0.0037634,
+          "duration_ms": 5874,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.024741199999999998,
-          "duration_ms": 3149,
+          "cost_usd": 0.025479199999999997,
+          "duration_ms": 4047,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 16.9
+      "seconds": 14.5
     },
     {
       "id": "T-02",
@@ -103,11 +105,11 @@
       "tier": 1,
       "topic": "custom-domains",
       "urgency": "low",
-      "reason": "Customer on the free plan asks how to connect their own domain via DNS, which is a documented how-to question with no impact.",
+      "reason": "Customer asks how to connect a custom domain to their app via DNS and mentions the free plan, which documentation on custom domains and plan limits can answer.",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi Nina,\n\nThanks for asking. Custom domains are only available on the Pro and Team plans, so on Free your app can only use the bbx subdomain for now. Pro is $20 per month, and upgrading takes effect right away.\n\nOnce you're on Pro, here's how to connect your domain:\n\n1. Go to Settings > Domains > Add domain and type your domain (for example www.example.com).\n2. At your registrar, add the record Buildbox shows. For a subdomain like www, that's a CNAME to edge.bbx.example. For a root domain like example.com, it's an A record to 192.0.2.10.\n3. Wait for the status to turn Verified. DNS changes can take up to an hour.\n\nAfter that, we set up HTTPS automatically, which usually takes up to 30 minutes. Your browser may say \"not secure\" until then, which is expected.\n\nBest,\nBuildbox Support",
+        "reply": "Hi Nina,\n\nThanks for asking. Custom domains are only available on the Pro and Team plans, so you would need to upgrade from Free first. Pro is $20 per month, and an upgrade takes effect right away.\n\nOnce you're on Pro, here's how to connect your domain:\n\n1. Go to Settings > Domains > Add domain and type your domain (for example www.example.com).\n2. At your registrar, add the record Buildbox shows you. For a subdomain like www, that's a CNAME to edge.bbx.example. For the root domain, it's an A record to 192.0.2.10.\n3. Wait for the status to turn Verified. DNS changes can take up to an hour.\n\nAfter that, we request an HTTPS certificate automatically. This normally takes up to 30 minutes, and your browser may show \"not secure\" until it's done.\n\nBuildbox Support",
         "cited_articles": [
           "KB-03",
           "KB-06",
@@ -121,9 +123,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account data was looked up. The plan is based on the customer's own report that they are on Free. The reply mentions the Pro upgrade only as the requirement for custom domains, and no upgrade is offered or proposed."
+        "note_for_agent": "No account lookup was done. The reply relies on the customer's own statement that they are on Free. Custom domains need Pro or Team per KB-03 and KB-06."
       },
       "action": "reply",
       "cited": [
@@ -134,23 +137,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0037694,
-          "duration_ms": 2512,
+          "cost_usd": 0.0038794000000000003,
+          "duration_ms": 2479,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0259532,
-          "duration_ms": 4242,
+          "cost_usd": 0.025841199999999998,
+          "duration_ms": 4320,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 17.2
+      "seconds": 12.0
     },
     {
       "id": "T-03",
@@ -159,11 +162,11 @@
       "tier": 1,
       "topic": "github-sync",
       "urgency": "normal",
-      "reason": "Customer asks how GitHub sync handles edits made directly on main versus AI changes in Buildbox, which is a documented how-to question, with some concern about losing work but no current loss.",
+      "reason": "Customer asks how GitHub sync handles edits made directly on main versus AI changes in Buildbox, which is a documented how-to question, though they worry about losing work.",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi Tom,\n\nYour fix should be safe. Commits pushed to main on GitHub are pulled into Buildbox within about a minute, so the AI will work on top of your fix once it has synced. Given you made the fix yesterday, it should already be in.\n\nBuildbox also does not overwrite your GitHub commit. If the same file is edited in Buildbox and on GitHub at the same time, syncing stops and shows \"Conflict\". You are then asked to pick which version to keep, so nothing is lost without your say-so.\n\nBefore you send your next prompt, you may want to check that the fix appears in your Buildbox code view. If you see \"Conflict\" or \"Unauthorized\" in Settings > GitHub, choose the version with your fix, or reconnect if it shows Unauthorized.\n\nBuildbox Support",
+        "reply": "Hi Tom,\n\nYour fix should be safe. Commits you push to main on GitHub are pulled into Buildbox within about a minute, so the AI will work on top of your fix once it has synced.\n\nIf the same file is edited in Buildbox and on GitHub at the same time, Buildbox does not overwrite your GitHub commit. It stops syncing, shows \"Conflict\", and asks you to pick which version to keep. Choose the GitHub version if you want to keep your fix.\n\nSince you pushed yesterday, it should already be in Buildbox. It's worth a quick look at the code view to confirm before you send your next prompt.\n\nBuildbox Support",
         "cited_articles": [
           "KB-07"
         ],
@@ -175,9 +178,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account data was looked up; the answer relies only on KB-07. The customer's claim that they pushed to main yesterday is unverified."
+        "note_for_agent": "No account data was looked up; the answer relies only on KB-07. I did not verify that the customer's sync is connected or currently healthy."
       },
       "action": "reply",
       "cited": [
@@ -186,23 +190,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0075120000000000004,
-          "duration_ms": 3226,
+          "cost_usd": 0.0040534,
+          "duration_ms": 2472,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.025435199999999998,
-          "duration_ms": 4520,
+          "cost_usd": 0.0250932,
+          "duration_ms": 3708,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 17.1
+      "seconds": 12.1
     },
     {
       "id": "T-04",
@@ -211,11 +215,11 @@
       "tier": 1,
       "topic": "environment-variables",
       "urgency": "low",
-      "reason": "Customer asks how to store a Stripe secret key safely, which is a how-to answered by documentation on environment variables (secrets should not be pasted into prompts).",
+      "reason": "Customer asks how to safely supply a Stripe secret key, which is a documented how-to answered by using environment variables rather than pasting it into the prompt.",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi Ella,\n\nPlease don't paste your Stripe secret key into the prompt. There's a safer way.\n\n1. Go to Settings > Environment and add a variable named STRIPE_SECRET_KEY with your key as the value. Set its scope to Production. Values are encrypted and hidden after you save.\n2. Add your Stripe test key as a Preview variable, so you can try payments safely in the preview.\n3. In the prompt box, write: \"read the Stripe key from the environment variable STRIPE_SECRET_KEY\".\n4. Deploy again after any change to a variable, so the live site picks it up.\n\nThe AI can see the variable name, so it can write the code, but it never sees the value.\n\nBuildbox Support",
+        "reply": "Hi Ella,\n\nPlease don't paste your Stripe secret key into the prompt. There's a safer way.\n\n1. Go to Settings > Environment and add a variable named STRIPE_SECRET_KEY with your key as the value. Set its scope to Production.\n2. Add your Stripe test key as a Preview variable, so you can try payments without real charges.\n3. In the prompt box, ask the AI to \"read the Stripe key from the environment variable STRIPE_SECRET_KEY\".\n\nThe AI can see the variable name, so it can write the code, but it never sees the value. Saved values are encrypted and hidden. Changes take effect on your next deploy, so deploy again after adding or editing them.\n\nBuildbox Support",
         "cited_articles": [
           "KB-08"
         ],
@@ -227,9 +231,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account data needed for this question. Answer is based on KB-08."
+        "note_for_agent": ""
       },
       "action": "reply",
       "cited": [
@@ -238,23 +243,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.007298000000000001,
-          "duration_ms": 2523,
+          "cost_usd": 0.0038694000000000003,
+          "duration_ms": 1997,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.030504,
-          "duration_ms": 3730,
+          "cost_usd": 0.0247692,
+          "duration_ms": 3845,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 16.1
+      "seconds": 11.5
     },
     {
       "id": "T-05",
@@ -263,11 +268,11 @@
       "tier": 1,
       "topic": "team-and-account",
       "urgency": "low",
-      "reason": "Customer asks how to add a sixth seat on Team, its cost, and how to restrict workspace deletion, which are documented how-to and permissions questions.",
+      "reason": "Customer asks how to add a sixth seat on the Team plan, its cost, and how to restrict workspace deletion via roles, all of which documentation covers.",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi,\n\nThanks for reaching out. Your Team plan includes 5 seats, and each extra seat is $10 per month. A 6th person would be added to your next invoice, prorated for the rest of the month. Prices don't include sales tax or VAT where it applies.\n\nTo add them, go to Settings > Members > Invite and enter their email. The invite link is valid for 7 days.\n\nOn deleting the workspace: only the Owner can delete it (along with handling billing). Admins manage members and settings, and Members can build and deploy. So if you invite your contractor as a Member, they can build and deploy but can't delete the workspace.\n\nBuildbox Support",
+        "reply": "Hi Sam,\n\nThanks for getting in touch. Team includes 5 seats, so a 6th person is an extra seat at $10 per month. It is added to your next invoice, prorated for the rest of the month. Prices don't include sales tax or VAT where it applies.\n\nTo add them: go to Settings > Members > Invite and enter their email. The invite link is valid for 7 days.\n\nOn deleting the workspace: only the Owner can delete it (along with handling billing). Admins manage members and settings, and Members can build and deploy. If you invite your contractor as a Member, they won't be able to delete the workspace.\n\nBuildbox Support",
         "cited_articles": [
           "KB-03",
           "KB-09"
@@ -280,9 +285,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account data was looked up. The answer comes from KB-03 and KB-09 only. KB-09 says the Owner role covers deleting the workspace, so the Member role limit on deletion is inferred from the role list."
+        "note_for_agent": "No account data was looked up. The reply assumes Sam is on Team, as they reported. KB-09 says the Owner role covers deleting the workspace, so I inferred that Members can't delete it."
       },
       "action": "reply",
       "cited": [
@@ -292,23 +298,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0038654,
-          "duration_ms": 2329,
+          "cost_usd": 0.0038754,
+          "duration_ms": 2519,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0250812,
-          "duration_ms": 3909,
+          "cost_usd": 0.0251492,
+          "duration_ms": 5308,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 10.4
+      "seconds": 11.3
     },
     {
       "id": "T-06",
@@ -317,11 +323,11 @@
       "tier": 1,
       "topic": "data-and-backups",
       "urgency": "low",
-      "reason": "Customer asks how to export their project code and database data for self-hosting, which is a how-to question documentation can answer.",
+      "reason": "Customer asks how to export their project code and database data for self-hosting, which is a how-to question that documentation can answer.",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi Hana,\n\nYes, you can take everything with you. The code is yours to run anywhere.\n\nCode: open your project, then go to the Project menu > Export > Download ZIP. You get the full source code.\n\nDatabase: go to Project menu > Database > Export. You get one CSV file per table.\n\nIf your project is on a Pro or Team plan, you can also connect it to a GitHub repository (Settings > GitHub > Connect). Your agency could then pull the code from there, and it stays in sync with your project.\n\nLet us know if anything looks off with the export.\n\nBuildbox Support",
+        "reply": "Hi Hana,\n\nYes, you can take everything with you. You own the code, and your agency can run it anywhere.\n\nCode: open your project, then choose Project menu > Export > Download ZIP. This gives you the full source code.\n\nDatabase: choose Project menu > Database > Export. You get one CSV file per table.\n\nIf your project is on a Pro or Team plan, you can also connect it to a GitHub repository (Settings > GitHub > Connect). Your code is then kept in that repository, which your agency can use directly.\n\nLet us know if anything doesn't work as expected.\n\nBuildbox Support",
         "cited_articles": [
           "KB-11",
           "KB-07"
@@ -334,9 +340,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account data was looked up, so the customer's plan is unknown. The GitHub option is only offered as available on Pro and Team."
+        "note_for_agent": "No account lookup was done. The GitHub option is mentioned as a Pro/Team extra, and the customer's plan is unknown."
       },
       "action": "reply",
       "cited": [
@@ -346,23 +353,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0036794,
-          "duration_ms": 2048,
+          "cost_usd": 0.0036894,
+          "duration_ms": 2274,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0244872,
-          "duration_ms": 3666,
+          "cost_usd": 0.0247252,
+          "duration_ms": 3650,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 11.2
+      "seconds": 12.2
     },
     {
       "id": "T-07",
@@ -375,7 +382,7 @@
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi Leo,\n\nThanks for asking. Pro includes 1 seat, so for two of you working in Buildbox, Team is the plan built for that. Team includes 5 seats, and each of you would get your own login and role in a shared workspace.\n\nHere is what differs:\n\nPrice: Pro is $20 per month, Team is $50 per month (before any sales tax or VAT).\nCredits: Pro has 500 per month. Team has 2,000 per month, shared by the whole workspace.\nSeats: 1 on Pro, 5 on Team (extra seats are $10 per month each).\nSupport: Email on both, with a faster first response on Team.\n\nSome things are the same on both: unlimited projects, custom domains, and GitHub sync.\n\nIf you would like to start on Pro and move up later, you can change plan at any time.\n\nBuildbox Support",
+        "reply": "Hi Leo,\n\nThanks for asking. Pro includes 1 seat, so for two people working in the same workspace, Team is the plan built for that. Team includes 5 seats.\n\nHere is what differs between the two:\n\n1. Price: Pro is $20 per month, Team is $50 per month (before any sales tax or VAT).\n2. Seats: Pro has 1, Team has 5 included, with extra seats at $10 per month each.\n3. Credits: Pro has 500 per month. Team has 2,000 per month, shared by everyone in the workspace.\n4. Support: both get email support, and Team gets a faster first response.\n\nProjects, deploys, custom domains and GitHub sync are the same on both. You can also change plan at any time, so you can start on one and switch later.\n\nBuildbox Support",
         "cited_articles": [
           "KB-03",
           "KB-02",
@@ -389,9 +396,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Pricing question only, no account lookup needed. Reply is based on KB-03 seat limits; KB-15 covers upgrade proration if they ask."
+        "note_for_agent": "No account lookup was done. The answer comes from the KB-03 plan table. The KB says Pro has 1 seat, and I did not suggest sharing a login."
       },
       "action": "reply",
       "cited": [
@@ -403,22 +411,22 @@
       "calls": [
         {
           "cost_usd": 0.0037814000000000003,
-          "duration_ms": 1819,
+          "duration_ms": 2012,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.027443199999999997,
-          "duration_ms": 6063,
+          "cost_usd": 0.027211199999999998,
+          "duration_ms": 6014,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 12.8
+      "seconds": 13.9
     },
     {
       "id": "T-08",
@@ -427,11 +435,11 @@
       "tier": 1,
       "topic": "custom-domains",
       "urgency": "normal",
-      "reason": "A newly verified custom domain showing Not Secure 10 minutes after adding it is most likely the SSL certificate still being issued, which is documented behavior, and the customer has not yet tried any fix.",
+      "reason": "Domain was added only 10 minutes ago and is Verified, so the Not Secure warning is most likely the SSL certificate still being issued, which documentation covers, and the customer has not yet waited or tried any fix.",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi,\n\nYou haven't broken anything. Once a domain shows Verified, Buildbox requests the HTTPS certificate automatically. This normally takes up to 30 minutes, and until it's ready Chrome may show \"Not secure\". That's expected in the first 30 minutes.\n\nYou said you added the domain about 10 minutes ago, so it should be well within that window. Please check again in around 20 to 30 minutes, and the warning should be gone.\n\nIf it still shows \"Not secure\" after that, reply with your domain name and we'll take a closer look.\n\nBuildbox Support",
+        "reply": "Hi Ivy,\n\nYou haven't broken anything. Once a domain shows Verified, Buildbox requests the HTTPS certificate automatically. That normally takes up to 30 minutes, and until it finishes the browser may show \"not secure\". You said you added the domain about 10 minutes ago, so this is what we'd expect at this stage.\n\nPlease check again in around 20 to 30 minutes, ideally after a hard refresh or in a private window. The warning should be gone by then.\n\nIf it still shows \"not secure\" after that, reply with your domain name and we'll look into it.\n\nBuildbox Support",
         "cited_articles": [
           "KB-06"
         ],
@@ -443,9 +451,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account data was looked up. The reply relies on the customer's report of timing and Verified status, which is unchecked."
+        "note_for_agent": "No account data was looked up; the reply relies on the customer's report of timing and Verified status and on KB-06. The hard refresh or private window tip comes from KB-01, which is not cited."
       },
       "action": "reply",
       "cited": [
@@ -454,23 +463,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0050414,
-          "duration_ms": 2873,
+          "cost_usd": 0.004111399999999999,
+          "duration_ms": 2724,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.024483199999999997,
-          "duration_ms": 3148,
+          "cost_usd": 0.0249612,
+          "duration_ms": 4066,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 11.3
+      "seconds": 11.0
     },
     {
       "id": "T-09",
@@ -479,11 +488,11 @@
       "tier": 1,
       "topic": "deploys",
       "urgency": "normal",
-      "reason": "The build hit the documented 10 minute limit, likely because images are generated during build, so this is a how-to question about moving that work out of the build step.",
+      "reason": "The build hit the documented 10 minute limit, likely from generating many images at build time, so this is a how-to question that docs can answer (pre-generate or optimize assets).",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi Max,\n\nThanks for the details. That log line means your build took longer than the 10 minute limit. Since you mention the app generates product photos during the build, that is a likely cause. Here is what to try:\n\n1. Upload your product photos as files instead of generating them at build time.\n2. Remove any packages the app no longer uses. You can ask the AI to \"reduce build time by removing unused dependencies\".\n\nThen deploy again. A failed deploy never replaces your live site, so the previous version keeps running in the meantime.\n\nIf the build still fails after that, reply with your project name and the deploy id from Deploy history, and we will take a closer look.\n\nBuildbox Support",
+        "reply": "Hi Max,\n\nThanks for sending the log line. \"Build exceeded 10 minute limit\" means the build took longer than 10 minutes. Your live site is not affected, because a failed deploy never replaces the version that is already running.\n\nHere are two things to try:\n\n1. Upload your product photos instead of having them generated at build time. Large image assets are a common reason builds run long.\n2. Ask the AI to \"reduce build time by removing unused dependencies\". You can also remove unused packages yourself.\n\nAfter that, deploy again. If it still fails, reply with the project name and the deploy id from Deploy history, and we will take a closer look.\n\nBuildbox Support",
         "cited_articles": [
           "KB-05"
         ],
@@ -495,9 +504,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account lookup was needed. The customer's guess about image generation is unverified, so the reply presents it as a likely cause."
+        "note_for_agent": "No account lookup was needed. The reply follows the build time limit row in KB-05. The photo cause is the customer's own guess, so the reply frames it as a likely factor."
       },
       "action": "reply",
       "cited": [
@@ -506,23 +516,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0050674000000000005,
-          "duration_ms": 3129,
+          "cost_usd": 0.0039474,
+          "duration_ms": 2910,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0247912,
-          "duration_ms": 3394,
+          "cost_usd": 0.0250992,
+          "duration_ms": 4526,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 10.2
+      "seconds": 11.7
     },
     {
       "id": "T-10",
@@ -531,11 +541,11 @@
       "tier": 1,
       "topic": "credits-and-usage",
       "urgency": "low",
-      "reason": "Customer asks a general documented question about whether monthly credits roll over and whether purchased credit packs expire, with no account issue or impact.",
+      "reason": "Customer asks a general documented question about whether unused monthly credits roll over and whether purchased credit packs expire.",
       "account_looked_up": false,
       "draft": {
         "status": "draft",
-        "reply": "Hi Zoe,\n\nThanks for getting in touch. Here are the answers to your two questions.\n\n1) No, unused monthly credits do not roll over. Your monthly credits reset on your billing date, so any leftovers from your 500 credits will not carry into next month.\n\n2) No, credit packs do not expire. A pack of 200 credits costs $10 and can be bought on any paid plan. Pack credits are only used after your monthly credits run out, so they stay available until you need them.\n\nYou can check your usage any time under Settings > Usage.\n\nBuildbox Support",
+        "reply": "Hi Zoe,\n\nThanks for asking. Here are the answers:\n\n1) No, unused monthly credits do not roll over. Your monthly credits reset on your billing date, so any leftovers from your 500 will not carry into next month.\n\n2) No, credit packs do not expire. A pack of 200 credits costs $10 and is a one-time purchase. Pack credits are only used after your monthly credits run out, so they stay available until you need them. Packs can be bought on any paid plan.\n\nYou can see your usage any time under Settings > Usage.\n\nBuildbox Support",
         "cited_articles": [
           "KB-02"
         ],
@@ -547,9 +557,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "No account lookup was needed. Answer comes directly from KB-02. Zoe says she is on 500 credits (Pro), which I did not verify."
+        "note_for_agent": "Answered from KB-02 only. No account lookup was needed. The customer says she is on a 500-credit plan (Pro), which was not checked."
       },
       "action": "reply",
       "cited": [
@@ -558,23 +569,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0038374000000000004,
-          "duration_ms": 2109,
+          "cost_usd": 0.0037674,
+          "duration_ms": 2528,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0245432,
-          "duration_ms": 3749,
+          "cost_usd": 0.0247212,
+          "duration_ms": 3199,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 10.2
+      "seconds": 10.5
     },
     {
       "id": "T-11",
@@ -583,42 +594,42 @@
       "tier": 1,
       "topic": "security-and-compliance",
       "urgency": "low",
-      "reason": "Customer asks about SOC 2 Type II status, report access under NDA, and data hosting location, which are general security and compliance questions with no stated deadline or impact.",
+      "reason": "Customer asks about SOC 2 Type II status, obtaining the report under NDA, and data hosting location, which are general security and compliance questions with no stated deadline or impact.",
       "account_looked_up": false,
       "draft": {
         "status": "escalate: no source",
         "reply": "",
         "cited_articles": [],
         "invented_citations": [],
-        "missing_from_kb": "The KB has nothing on SOC 2 or other security certifications, sharing compliance reports under NDA, or where customer data is hosted (region or cloud provider). Only KB-11 mentions daily database snapshots, with no location details.",
+        "missing_from_kb": "The knowledge base has nothing on SOC 2 Type II certification status, sharing audit reports under NDA, or where customer data is hosted (region or cloud provider). KB-11 only covers backups and exports.",
         "manual_review_reason": "",
         "proposed_billing_action": {
           "type": "none"
         },
-        "note_for_agent": "No account data was looked up and none is needed. Please route this to security/compliance for SOC 2 status, the NDA process for the report, and data hosting location, and reply to the customer (40-person rollout)."
+        "note_for_agent": "No billing data was needed. Please route to security/compliance for SOC 2 status, the NDA process and data hosting location, then reply to the customer (40-person rollout)."
       },
       "action": "escalate-no-source",
       "cited": [],
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0039994,
-          "duration_ms": 1755,
+          "cost_usd": 0.0040394,
+          "duration_ms": 1833,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.023667200000000003,
-          "duration_ms": 3427,
+          "cost_usd": 0.0236652,
+          "duration_ms": 2896,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 9.9
+      "seconds": 9.6
     },
     {
       "id": "T-12",
@@ -627,55 +638,55 @@
       "tier": 1,
       "topic": "plans-and-pricing",
       "urgency": "low",
-      "reason": "Customer asks whether a nonprofit or education discount exists for the Team plan, which is a pricing question documentation can answer.",
+      "reason": "Customer asks whether a nonprofit or education discount exists for the Team plan, which is a general pricing question that documentation can answer.",
       "account_looked_up": false,
       "draft": {
         "status": "escalate: no source",
         "reply": "",
         "cited_articles": [],
         "invented_citations": [],
-        "missing_from_kb": "The knowledge base has no information on whether Buildbox offers nonprofit or education discounts, or how to apply for one. It only lists standard prices (KB-03).",
+        "missing_from_kb": "The KB has no information about any nonprofit or education discount or program. It only lists standard prices (KB-03) and does not say whether discounts exist or how to apply for one.",
         "manual_review_reason": "",
         "proposed_billing_action": {
           "type": "none"
         },
-        "note_for_agent": "No KB article covers nonprofit or education discounts, so no reply was drafted. Please check with a support lead whether a discount exists and reply to the customer directly."
+        "note_for_agent": "The customer asked about a nonprofit/education discount and the KB is silent, so no draft was written. Please confirm with a support lead whether such a discount exists before replying. No account data was looked up."
       },
       "action": "escalate-no-source",
       "cited": [],
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0038254,
-          "duration_ms": 1785,
+          "cost_usd": 0.0038454,
+          "duration_ms": 2014,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.023265200000000003,
-          "duration_ms": 2938,
+          "cost_usd": 0.0235432,
+          "duration_ms": 3584,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 9.2
+      "seconds": 11.3
     },
     {
       "id": "T-13",
       "subject": "Charged twice for credit pack",
       "error": null,
       "tier": 2,
-      "topic": "billing-charges",
+      "topic": "billing-refunds",
       "urgency": "normal",
-      "reason": "Customer was charged $10 twice for one credit pack and received only 200 credits, so someone must review the account and refund or correct the duplicate charge.",
+      "reason": "Customer was charged $10 twice for one credit pack but received only 200 credits, so someone needs to review the account and refund the duplicate charge.",
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Dana,\n\nThanks for writing, and sorry about the double charge. I checked your account and can see two $10 credit pack charges. One of them has already been refunded in full ($10). The other is the one you meant to buy, and it stays in place for your 200 credits.\n\nDuplicate charges are refunded in full, and the refund goes back to your original card. It can take 5 to 10 business days to show on your statement, depending on your bank. You should also get a confirmation email with the refund amount and date.\n\nIf your bank still shows two charges after that time, reply here and we will look into it.\n\nBuildbox Support",
+        "reply": "Hi Dana,\n\nThanks for letting us know. I checked your account and see two $10 credit pack charges from the same morning. One of them has already been refunded in full ($10.00), and that refund shows as succeeded on our side. The other charge is the one that stays, and it matches the single 200 credit pack you received.\n\nRefunds go back to your original card and usually show on your statement within 5 to 10 business days, depending on your bank. If your bank still shows both charges after that time, reply here and we will take another look.\n\nBuildbox Support",
         "cited_articles": [
           "KB-13"
         ],
@@ -687,9 +698,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Account data shows the duplicate charge (ch_...0TVaWSpd) was already refunded in full ($10, status succeeded) and the other charge is intact, so no new refund is proposed. Customer may be seeing the pending bank statement."
+        "note_for_agent": "Account data shows the duplicate charge was already refunded ($10, succeeded) so no new action is proposed. Please confirm the customer's bank pending charge is not just the not-yet-posted refund."
       },
       "action": "reply",
       "cited": [
@@ -699,22 +711,22 @@
       "calls": [
         {
           "cost_usd": 0.003963400000000001,
-          "duration_ms": 2149,
+          "duration_ms": 1994,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.027295200000000002,
-          "duration_ms": 4023,
+          "cost_usd": 0.0270832,
+          "duration_ms": 4631,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 12.4
+      "seconds": 14.1
     },
     {
       "id": "T-14",
@@ -723,11 +735,11 @@
       "tier": 2,
       "topic": "billing-payment-failed",
       "urgency": "normal",
-      "reason": "Customer received a failed Pro payment notice and worries about losing projects before a Friday client demo, which needs someone to review their account's payment status.",
+      "reason": "Customer received a failed Pro payment notice and worries about losing projects before a Friday client demo, which needs a look at their account's payment status.",
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Liam,\n\nThanks for writing. I checked your account. The $20 payment for Pro on your account was declined (\"Your card was declined\"), so nothing was charged and the Pro plan never started. That means the retry and downgrade steps for failed renewals don't apply to you.\n\nTo get Pro before Friday, upgrade again from Free to Pro and use a card that works. It takes effect right away. Only your bank can tell you why the card was declined, so it's worth asking them too.\n\nI can't see anything in your account that removes projects. The Free plan allows 3 projects, so I'd like a teammate to confirm how yours are affected. As a precaution, you can download your code any time from Project menu > Export > Download ZIP.\n\nBuildbox Support",
+        "reply": "Hi Liam,\n\nThanks for getting in touch. I checked your account. Your first Pro payment of $20 was declined by your card, so the Pro plan never started and nothing was taken from you. Because it was never an active plan, there is no downgrade happening and the automatic retries for renewals don't apply here. Only your bank can tell you why the card was declined.\n\nTo get Pro before Friday, start the upgrade again in Settings > Billing, using a different card or after checking with your bank. Pro takes effect straight away once the payment goes through.\n\nIn the meantime you are on the Free plan, which includes 3 projects. If you want a safe copy of anything, you can download your code any time from Project menu > Export > Download ZIP.\n\nBuildbox Support",
         "cited_articles": [
           "KB-14",
           "KB-15",
@@ -742,9 +754,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Checked: subscription is incomplete_expired, the invoice is void (subscription_create), and the only charge failed with card_declined, so this is a failed first payment, not a renewal. Please confirm the state of the customer's projects if they have more than 3."
+        "note_for_agent": "Checked: the subscription is incomplete_expired, the invoice is void (subscription_create) and the charge failed with card_declined, so this is a failed first payment, not a renewal. The customer did not say how many projects they have; check that before confirming they are not affected by the Free limit of 3."
       },
       "action": "reply",
       "cited": [
@@ -756,23 +769,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0038454000000000006,
-          "duration_ms": 1980,
+          "cost_usd": 0.0038354,
+          "duration_ms": 2409,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0346892,
-          "duration_ms": 10004,
+          "cost_usd": 0.0343372,
+          "duration_ms": 9734,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 17.6
+      "seconds": 18.9
     },
     {
       "id": "T-15",
@@ -781,11 +794,11 @@
       "tier": 2,
       "topic": "billing-refunds",
       "urgency": "normal",
-      "reason": "Customer was charged $20 for a Pro renewal they meant to cancel and wants a refund and a downgrade to free, which needs account review.",
+      "reason": "Customer was charged $20 for a Pro renewal they meant to cancel and wants a refund and a downgrade to free, which needs account-level review.",
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Priya,\n\nThanks for writing, and sorry for the surprise charge. I can see one $20 payment for your Pro plan, from the day you signed up (September 23). It's the first payment on the plan rather than a renewal.\n\nPro subscription charges can be refunded if you ask within 7 days of the charge and have used fewer than 50 credits since. If a refund goes ahead, your plan is cancelled and your account moves to Free, which is what you're asking for.\n\nI can't confirm that you qualify yet. A teammate will check your credit usage and reply with the outcome. If a refund is approved, it goes back to your original card and can take 5 to 10 business days to show on your statement.\n\nBuildbox Support",
+        "reply": "Hi Priya,\n\nThanks for writing, and sorry about the surprise charge. I can see a $20 Pro payment on your account.\n\nPro charges can be refunded if you ask within 7 days of the charge and have used fewer than 50 credits since. If a refund goes ahead, your plan is cancelled and your account moves to Free, which is what you're asking for.\n\nI've passed your request to a teammate. They will check your credit usage and reply to confirm whether the refund can go ahead. Refunds are approved by a person on our team, so nothing has been refunded or cancelled yet. If it is approved, it goes back to your original card and can take 5 to 10 business days to show on your statement.\n\nBuildbox Support",
         "cited_articles": [
           "KB-13",
           "KB-15"
@@ -797,14 +810,15 @@
           "type": "refund",
           "target_id": "ch_****UdgA",
           "amount_usd": 20,
-          "why": "Customer asked for a refund of the $20 Pro subscription charge and to return to Free. The charge is within 7 days, but the credit condition is not shown in the data.",
+          "why": "Customer asked for a refund of the $20 Pro charge and a return to Free. Charge is within 7 days of today's date; refund under KB-13 also cancels the Pro plan.",
           "unverified_conditions": [
-            "Fewer than 50 credits used since the charge"
+            "Fewer than 50 credits used since the charge (usage not shown in account data)"
           ],
+          "also_cancel_subscription_id": "sub_****5FrG",
           "blocked": null,
           "ready_for_approval": false
         },
-        "note_for_agent": "Customer calls it a renewal, but the account shows only the initial subscription_create charge (paid, attempt 1) from 6 days ago, so the 7-day window looks met. Please check credit usage since the charge (under 50) before approving; the refund also cancels the plan."
+        "note_for_agent": "Customer calls it a renewal, but the only charge on file is the initial subscription creation charge. Please check credit usage since the charge (under 50 needed) in Settings > Usage before approving."
       },
       "action": "propose-billing-action",
       "cited": [
@@ -814,23 +828,23 @@
       "billing_action": "refund",
       "calls": [
         {
-          "cost_usd": 0.0038974,
-          "duration_ms": 2783,
+          "cost_usd": 0.003917400000000001,
+          "duration_ms": 2095,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0321632,
-          "duration_ms": 7102,
+          "cost_usd": 0.0320312,
+          "duration_ms": 7062,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 16.2
+      "seconds": 17.6
     },
     {
       "id": "T-16",
@@ -839,11 +853,11 @@
       "tier": 2,
       "topic": "billing-invoices",
       "urgency": "normal",
-      "reason": "Customer wants this month's Pro invoice reissued with their company name and VAT number, which needs someone to edit the invoice on their account.",
+      "reason": "Customer wants this month's Pro invoice reissued with their company name and VAT number, which needs someone to edit it on their account.",
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Omar,\n\nThanks for getting in touch. Invoices can't be edited once they're issued, because they are tax documents. But your Pro payment is from the last 90 days, so we can issue a copy with your company details added.\n\nTo do that, could you reply with your VAT number? You mentioned the company name as Haddad Design Ltd. Please also tell us if the address should appear on the copy, and what it should be.\n\nFor future invoices, you can add the company name, address and VAT number yourself. Go to Settings > Billing > Manage billing, then \"Billing information\". They will appear on all invoices from then on.\n\nOnce we have your VAT number, we'll get the copy sorted for you.\n\nBuildbox Support",
+        "reply": "Hi Omar,\n\nThanks for getting in touch. Invoices can't be edited once they're issued, but we can send you a copy with your company details added. Your Pro payment is recent, so it's within the 90 days we cover.\n\nTo set that up, could you please send us your VAT number? We have Haddad Design Ltd as the company name from your message. If you'd like an address on the invoice, please send that too.\n\nTo get your details onto future invoices, open Settings > Billing > Manage billing and add them under \"Billing information\".\n\nOnce we have your VAT number, a teammate will prepare the copy for you.\n\nBuildbox Support",
         "cited_articles": [
           "KB-12"
         ],
@@ -855,9 +869,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Checked account data: one paid $20 Pro invoice from 2026-09-23, within the 90-day window, currently showing only Omar's name. VAT number still needed before a copy can be issued."
+        "note_for_agent": "Checked account data: the Pro invoice was created 2026-09-23, within the 90-day window, and shows only the customer's name. VAT number is still needed before issuing the copy."
       },
       "action": "reply",
       "cited": [
@@ -866,23 +881,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0038934000000000004,
-          "duration_ms": 1776,
+          "cost_usd": 0.0038634000000000003,
+          "duration_ms": 1891,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0298692,
-          "duration_ms": 5467,
+          "cost_usd": 0.0379936,
+          "duration_ms": 8990,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 14.4
+      "seconds": 18.4
     },
     {
       "id": "T-17",
@@ -895,7 +910,7 @@
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Sofia,\n\nThanks for checking in. I looked at your account, and the $10 refund for your credit pack (200 credits) shows as succeeded, so it has been sent back to your original card.\n\nRefunds can take 5 to 10 business days to show on your statement, depending on your bank. If it has been longer than that, please contact your bank with the refund amount and date from our confirmation email, since they can see where the funds are on their side.\n\nIf it still hasn't appeared after that time, reply here and a teammate will look into it with you.\n\nBuildbox Support",
+        "reply": "Hi Sofia,\n\nThanks for checking in. I looked at your account, and the $10 refund for your credit pack (200 credits) shows as succeeded, so it has been issued to your original card.\n\nRefunds usually appear on your statement within 5 to 10 business days, depending on your bank, so it may simply not have shown up yet. We also send a confirmation email with the refund amount and date, so it's worth checking your inbox and spam folder for that.\n\nIf it still hasn't appeared after 10 business days, please reply and let us know. Your bank can also tell you whether it has received the refund.\n\nBuildbox Support",
         "cited_articles": [
           "KB-13"
         ],
@@ -907,9 +922,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Account data shows the $10 refund as succeeded, created 2026-09-23. The customer says support told her last week it was done, so the 5 to 10 business day window may not have passed. Please check the date before sending. I did not offer any new refund."
+        "note_for_agent": "Account data shows the $10 refund as succeeded and the charge as fully refunded. The sandbox timestamps don't show how many business days have passed, so I could not check whether the 5 to 10 day window is over."
       },
       "action": "reply",
       "cited": [
@@ -919,22 +935,22 @@
       "calls": [
         {
           "cost_usd": 0.0037254000000000002,
-          "duration_ms": 1601,
+          "duration_ms": 2140,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0268412,
-          "duration_ms": 4614,
+          "cost_usd": 0.0266192,
+          "duration_ms": 4695,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 10.2
+      "seconds": 12.5
     },
     {
       "id": "T-18",
@@ -943,11 +959,11 @@
       "tier": 2,
       "topic": "billing-charges",
       "urgency": "normal",
-      "reason": "Customer upgraded from Pro to Team and was charged an unexpected amount (likely proration), and asks about next month's billing, which needs someone to review their account charges.",
+      "reason": "Customer upgraded from Pro to Team and was charged an unexpected amount (likely proration) and needs someone to review the account charge and explain next month's billing.",
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Ken,\n\nThanks for asking. The charge looks right to me. When you upgrade, you are charged right away for the rest of the current month at the new price, minus a credit for the unused part of your old plan. This is called proration.\n\nOn your account, the upgrade invoice was $30.00. It was $50.00 for the remaining time on Team, minus a $20.00 credit for the unused time on Pro.\n\nYou won't be charged twice. Your Team plan renews on 23 October 2026 at the regular $50 per month, plus any tax that applies where you are. There is no extra $50 on top of the $30.\n\nIf anything still looks off, reply and we'll take a closer look.\n\nBuildbox Support",
+        "reply": "Hi Ken,\n\nThanks for checking. The charge looks right. When you upgrade, you are charged right away for the rest of the current month at the new price, minus a credit for the unused part of your old plan. This is called proration.\n\nOn your account, the upgrade invoice was $30.00: $50.00 for the remaining time on Team, minus a $20.00 credit for the unused time on Pro. That is why it wasn't $50.\n\nYou won't be charged twice for the same period. Your Team plan is active and its next renewal is on 23 October 2026, at the regular $50 per month (plus any tax that applies).\n\nIf you still think something is off, reply and we'll take another look.\n\nBuildbox Support",
         "cited_articles": [
           "KB-15",
           "KB-03"
@@ -960,9 +976,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Checked the account: the $30 invoice is a subscription_update with a -$20 Pro credit and a $50 Team line, and the next renewal is 2026-10-23 at $50. The customer did not ask for a refund, so no billing action is proposed."
+        "note_for_agent": "Verified invoice: $30 = $50 Team minus $20 Pro credit, and the Team subscription is active and renews 2026-10-23 at $50. No refund was requested."
       },
       "action": "reply",
       "cited": [
@@ -972,23 +989,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0039594,
-          "duration_ms": 1936,
+          "cost_usd": 0.0039394,
+          "duration_ms": 2464,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0294132,
-          "duration_ms": 4264,
+          "cost_usd": 0.0293312,
+          "duration_ms": 3959,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 11.0
+      "seconds": 11.7
     },
     {
       "id": "T-19",
@@ -997,11 +1014,11 @@
       "tier": 2,
       "topic": "billing-plan-changes",
       "urgency": "normal",
-      "reason": "Customer wants to cancel their Team subscription to avoid future charges and asks about access during a two-week migration, which needs account-level action.",
+      "reason": "Customer wants to cancel their Team subscription and asks about access timing, which needs an agent to act on their account.",
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Ana,\n\nThanks for letting us know. We've passed your request to cancel the Team subscription to a teammate, who will confirm it shortly.\n\nCancelling stops the next renewal, so you won't be charged again. You don't lose access right away. You keep the Team plan until the end of the period you've already paid for, which runs to October 23, 2026 on our records. That should give you the couple of weeks you need to finish migrating. After that date your account moves to the Free plan.\n\nIf you'd like a copy of your code, you can download it any time from the Project menu under Export.\n\nBuildbox Support",
+        "reply": "Hi Ana,\n\nThanks for letting us know. You won't lose access right away. Cancelling stops the next renewal, and you keep the Team plan until the end of the period you already paid for. Our records show that period ends on 2026-10-23, so you would have until then to finish migrating. After that, the account moves to Free and you won't be charged again.\n\nA teammate will confirm the cancellation with you shortly. You can also do it yourself in Settings > Billing > Manage billing > Cancel plan.\n\nBuildbox Support",
         "cited_articles": [
           "KB-15"
         ],
@@ -1012,12 +1029,13 @@
           "type": "cancel",
           "target_id": "sub_****vfuW",
           "amount_usd": 0,
-          "why": "Customer asked to cancel the Team subscription to stop future renewals. Per KB-15, cancelling keeps the plan until period end (2026-10-23) and is not a refund. No refund was requested.",
+          "why": "Customer asked to cancel the Team subscription to stop future renewals. Per KB-15, cancelling stops the next renewal and the plan stays active until period end (2026-10-23).",
           "unverified_conditions": [],
+          "also_cancel_subscription_id": "",
           "blocked": null,
           "ready_for_approval": true
         },
-        "note_for_agent": "Active Team subscription, period ends 2026-10-23, cancel_at_period_end is currently false. Cancel at period end, no refund requested or offered. I mentioned the ZIP export, which is in KB-11 but not cited, so please check that line or add the citation."
+        "note_for_agent": "Confirmed an active Team subscription with cancel_at_period_end false. Cancel at period end so access continues until 2026-10-23. Customer did not ask for a refund, so none was proposed."
       },
       "action": "propose-billing-action",
       "cited": [
@@ -1026,23 +1044,23 @@
       "billing_action": "cancel",
       "calls": [
         {
-          "cost_usd": 0.0038974,
-          "duration_ms": 2340,
+          "cost_usd": 0.0038174000000000003,
+          "duration_ms": 2257,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.028455199999999996,
-          "duration_ms": 14215,
+          "cost_usd": 0.0398254,
+          "duration_ms": 9713,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 23.2
+      "seconds": 19.2
     },
     {
       "id": "T-20",
@@ -1051,11 +1069,11 @@
       "tier": 2,
       "topic": "team-and-account",
       "urgency": "normal",
-      "reason": "Customer wants their login and billing emails changed to a personal address while keeping their Pro plan, which is an account email change that needs staff to review the account.",
+      "reason": "Customer wants login and billing emails changed to a personal address while keeping their Pro plan, which is an email change that needs account-level review.",
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Jonas,\n\nGood news: you can change this yourself, and your Pro plan stays as it is. The change only moves your login and billing email.\n\n1. Go to Settings > Account > Email.\n2. Enter your new personal email address.\n3. We send a confirmation link to that new address. Click it and the change happens.\n\nYour billing email on the subscription changes at the same time, so receipts will go to the new address afterwards. Make sure you can open the new inbox before you start, because the link has to be clicked from there.\n\nIf anything goes wrong, reply here and we will help.\n\nBuildbox Support",
+        "reply": "Hi Jonas,\n\nGood news: you can change this yourself and your Pro plan stays as it is.\n\n1. Go to Settings > Account > Email.\n2. Enter your personal email address.\n3. We send a confirmation link to that new address. Click it and the change is made.\n\nThe billing email on your subscription changes at the same time, so both your login and billing emails move together. Your Pro plan is not affected, and your account data stays on the same account. Just make sure you can open the inbox of the new address, because the change only happens once you click the link.\n\nIf anything goes wrong, reply here and we will help.\n\nBuildbox Support",
         "cited_articles": [
           "KB-10"
         ],
@@ -1067,9 +1085,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Account shows an active Pro subscription. KB-10 says the email change also updates the billing email. The KB does not say explicitly that the plan is unaffected, but the subscription stays on the same account."
+        "note_for_agent": "Account shows an active Pro subscription. KB-10 says the billing email changes with the login email. The KB does not say explicitly that the plan is unaffected, but the change is on the same account and subscription, so nothing suggests a plan change."
       },
       "action": "reply",
       "cited": [
@@ -1078,23 +1097,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0038334,
-          "duration_ms": 1588,
+          "cost_usd": 0.0037934,
+          "duration_ms": 1898,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0272032,
-          "duration_ms": 5335,
+          "cost_usd": 0.0275612,
+          "duration_ms": 3845,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 13.0
+      "seconds": 12.3
     },
     {
       "id": "T-21",
@@ -1107,7 +1126,7 @@
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Grace,\n\nSorry to hear about the trouble. Normally only the current Owner can make someone else the owner. Since the Owner can't log in, our support team can transfer ownership for you, but we need to verify the request first.\n\nTo do that, we need two things from you:\n\n1. A second Admin of your workspace to confirm the request. Please ask them to reply to us, or send us their name and the email they use in the workspace.\n2. Confirmation of the billing email address on file for the subscription.\n\nOnce we have both, a teammate will check them and move ownership to you. We'll reply here as soon as that's done, so please don't expect the change until then.\n\nBuildbox Support",
+        "reply": "Hi Grace,\n\nSorry to hear that, and thanks for the details. Normally only the current Owner can make someone else the owner. Since the Owner has left and can't log in, our support team can transfer ownership for you.\n\nTo do that, we need to verify the request with a second Admin of your workspace and with the billing email we have on file. Could you please reply with:\n\n1. The name and email of another Admin in the workspace, so we can confirm with them.\n2. The billing email address on the account, so we can check it matches what we have.\n\nOnce we have those, a teammate will verify the request and get the transfer moving.\n\nBuildbox Support",
         "cited_articles": [
           "KB-09"
         ],
@@ -1119,9 +1138,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Account data shows an active Team subscription under grace.kim@example.com but not workspace members or roles. Verify Grace is an Admin, the second Admin's confirmation and the billing email before transferring ownership."
+        "note_for_agent": "Account shows an active Team subscription under grace.kim@example.com. Per KB-09, verify with a second Admin and the billing email on file before transferring ownership. I can't see workspace members here, so confirm Grace is an Admin and find the second Admin."
       },
       "action": "reply",
       "cited": [
@@ -1131,22 +1151,22 @@
       "calls": [
         {
           "cost_usd": 0.0037314,
-          "duration_ms": 1972,
+          "duration_ms": 2138,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0294812,
-          "duration_ms": 5729,
+          "cost_usd": 0.0276192,
+          "duration_ms": 3963,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 13.0
+      "seconds": 11.4
     },
     {
       "id": "T-22",
@@ -1155,11 +1175,11 @@
       "tier": 2,
       "topic": "billing-charges",
       "urgency": "normal",
-      "reason": "Customer was charged $50 instead of the expected $20 Pro price, so someone needs to review their account charges.",
+      "reason": "Customer was charged $50 instead of the expected $20 Pro price and needs someone to review the charge on their account.",
       "account_looked_up": true,
       "draft": {
         "status": "draft",
-        "reply": "Hi Marco,\n\nThanks for reaching out. I checked your account, and the $50 charge is for the Team plan, not Pro. Your subscription is Team at $50 per month, and the charge was a single payment of $50 for the first month. Pro is $20 per month, and Team is $50 per month with 2,000 shared credits and 5 seats.\n\nIf you meant to pick Pro, we can look at switching you. Just let me know what you'd like. Please note that a downgrade from Team to Pro takes effect at the end of the current billing period, with no partial refund. If you'd like to ask about a refund, tell us and a teammate will review it.\n\nBuildbox Support",
+        "reply": "Hi Marco,\n\nThanks for checking. I looked at your account, and the $50 charge on September 23 is for the Team plan, which is $50 per month. Your subscription is set up as Team, not Pro. Pro is $20 per month, so I can see why the amount looked unexpected.\n\nIf you meant to be on Pro, you can switch by downgrading from Team to Pro. A downgrade takes effect at the end of your current billing period, and there is no partial refund for the remaining time. Your Team features stay active until then.\n\nIf you'd like to move to Pro, just tell us and a teammate will help. If Team is fine, you don't need to do anything.\n\nBuildbox Support",
         "cited_articles": [
           "KB-03",
           "KB-15"
@@ -1172,9 +1192,10 @@
           "target_id": "",
           "amount_usd": 0,
           "why": "",
-          "unverified_conditions": []
+          "unverified_conditions": [],
+          "also_cancel_subscription_id": ""
         },
-        "note_for_agent": "Account shows an active Team subscription with one paid $50 charge, no duplicates. Customer did not ask for a refund, so none proposed; I only mentioned the option. Confirm which plan they intended."
+        "note_for_agent": "Account shows an active Team subscription at $50 and a single paid $50 charge from subscription creation. Customer did not ask for a refund, so none is proposed."
       },
       "action": "reply",
       "cited": [
@@ -1184,23 +1205,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0036874,
-          "duration_ms": 2213,
+          "cost_usd": 0.0036974,
+          "duration_ms": 2205,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.0274972,
-          "duration_ms": 3760,
+          "cost_usd": 0.0295352,
+          "duration_ms": 5853,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 10.5
+      "seconds": 12.0
     },
     {
       "id": "T-23",
@@ -1209,12 +1230,12 @@
       "tier": 3,
       "topic": "deploys",
       "urgency": "high",
-      "reason": "All deploys across four projects have been stuck in Queued for 3 hours with no incident on the status page, and the customer has a launch tomorrow morning, so an engineer needs to investigate now.",
+      "reason": "Deploys across four projects have been stuck in Queued for 3 hours with no incident on the status page, and the customer has a launch tomorrow morning, so an engineer needs to investigate.",
       "account_looked_up": false,
       "escalation": {
-        "title": "All deploys stuck in Queued for 3 hours across 4 projects, status page shows all operational",
+        "title": "All deploys stuck in Queued for 3 hours across 4 projects while status page shows operational",
         "severity": "sev1",
-        "customer_impact": "Customer says every deploy has been Queued for 3 hours across 4 different projects, so they cannot publish. They have a launch tomorrow morning. Multiple projects stuck at once and a status page showing all clear point to a possible platform-wide deploy queue problem affecting other customers.",
+        "customer_impact": "Customer says every deploy has been Queued for 3 hours across 4 different projects, so they cannot publish anything. They have a launch tomorrow morning. Multiple projects stuck at once and a status page showing all clear suggest a platform-wide deploy queue problem that may affect other customers.",
         "evidence": [
           "Every deploy I start has been sitting on Queued for 3 hours",
           "across 4 different projects",
@@ -1225,20 +1246,20 @@
           "received 2026-09-20T13:20:00Z"
         ],
         "already_tried": [
-          "The customer says they started deploys on 4 different projects and all stayed in Queued. No other steps are mentioned."
+          "Customer says they started deploys on 4 different projects and all stayed Queued (dpl_7Hq2, dpl_7Hq9). No other steps were reported."
         ],
         "kb_checked": [
           "KB-04",
           "KB-05"
         ],
-        "why_not_tier_1_or_2": "KB-05 says deploys stuck in Queued for more than 15 minutes are on Buildbox's side and need support to pass on the project name and deploy id, and there is no customer-side fix.",
-        "suspected_area": "Deploy build queue or worker pool, possibly platform-wide, with status page monitoring not detecting it.",
+        "why_not_tier_1_or_2": "KB-05 says deploys stuck in Queued for more than 15 minutes are on our side and need an engineer, and the customer reports 3 hours across 4 projects, so no customer-side fix applies.",
+        "suspected_area": "Deploy build queue or worker pool stalled or not consuming jobs, with status page monitoring not detecting it.",
         "questions_for_engineering": [
-          "Are dpl_7Hq2 and dpl_7Hq9 in the queue, and is the build worker pool stalled or unhealthy for other customers' deploys too?",
-          "What is the current queue depth and oldest queued age, and did anything change (release, worker scaling, config) about 3 hours before 2026-09-20T13:20:00Z?",
-          "Why did status page checks not flag this, and should the incident be posted there?"
+          "Is the deploy queue backed up or are workers not picking up jobs, and are other customers' deploys also stuck in Queued?",
+          "What state are dpl_7Hq2 and dpl_7Hq9 in on the backend, and why were they not scheduled?",
+          "Why does the status page still show all systems operational, and should an incident be opened?"
         ],
-        "holding_reply_to_customer": "Hi Kai, thanks for the detail. You've told us all deploys have been Queued for 3 hours across 4 projects, including dpl_7Hq2 and dpl_7Hq9. That is not something you can fix on your side, so we have escalated it to engineering as urgent, given your launch tomorrow. We can't promise a fix time yet, but we will update you as soon as we hear back. Buildbox Support",
+        "holding_reply_to_customer": "Hi Kai, thanks for the details. You've told us all deploys on 4 projects have been Queued for 3 hours, including dpl_7Hq2 and dpl_7Hq9. That should not happen, and we have passed it to engineering as urgent, noting your launch tomorrow morning. We can't promise a fix time yet, but we will update you as soon as we hear back. Buildbox Support",
         "evidence_verified": [
           "Every deploy I start has been sitting on Queued for 3 hours",
           "across 4 different projects",
@@ -1257,23 +1278,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0041134,
-          "duration_ms": 2363,
+          "cost_usd": 0.0041034,
+          "duration_ms": 2333,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.033644,
-          "duration_ms": 6555,
+          "cost_usd": 0.033554,
+          "duration_ms": 6621,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 12.7
+      "seconds": 13.2
     },
     {
       "id": "T-24",
@@ -1282,44 +1303,42 @@
       "tier": 3,
       "topic": "github-sync",
       "urgency": "high",
-      "reason": "GitHub sync pushed an unrequested commit deleting 14 files including /api on main, and sync now shows Conflict after the customer's revert, so an engineer must investigate the data loss and sync state.",
+      "reason": "A sync commit deleted 14 files including the /api folder from a button color prompt, and sync now shows Conflict after a revert, so an engineer must investigate the unexpected data loss.",
       "account_looked_up": false,
       "escalation": {
-        "title": "GitHub sync pushed AI commit deleting 14 files (incl. /api) on a button-color prompt; Conflict after revert",
+        "title": "AI generation pushed commit to main deleting 14 files incl. /api; sync now in Conflict after customer revert",
         "severity": "sev1",
-        "customer_impact": "Rina Shah says a Buildbox AI commit to main in rina-shah/storefront deleted 14 files, including the whole /api folder, though she only asked for a button color change. She reverted on GitHub, but sync now shows Conflict, so sync is stopped for this project. Unrequested deletion pushed to a customer's repo is a data-loss-type bug and may affect other synced projects, so this stays sev1 until engineering rules out a wider cause.",
+        "customer_impact": "Customer says a Buildbox commit to main on rina-shah/storefront deleted 14 files, including the whole /api folder, from a prompt that only asked for a button color change. They reverted on GitHub, and sync is now stuck in Conflict. An unrequested destructive change from a small prompt may affect other customers with GitHub sync, so this is treated as possible wider data loss until engineering rules it out.",
         "evidence": [
           "Buildbox pushed a commit to main on GitHub called \"AI: update layout\" that deleted 14 files, including my whole /api folder",
           "my prompt was to change a button color",
           "Repo is rina-shah/storefront",
-          "I reverted on GitHub but sync now says Conflict",
-          "TICKET T-24 from rina.shah@example.com received 2026-09-21T08:02:00Z"
+          "I reverted on GitHub but sync now says Conflict"
         ],
         "already_tried": [
-          "Reverted the commit on GitHub. Sync then showed Conflict."
+          "Reverted the commit on GitHub",
+          "Sync now shows Conflict after the revert"
         ],
         "kb_checked": [
           "KB-07",
           "KB-01",
           "KB-11"
         ],
-        "why_not_tier_1_or_2": "KB-07 only says to pick which version to keep when Conflict appears, but it does not explain why a generation pushed a commit deleting 14 files the customer never asked to change, and picking a side risks re-applying or losing the deletions.",
-        "suspected_area": "GitHub sync push path or AI generation file handling: the generation for a small UI change appears to have produced a file set missing 14 files (possibly a stale or partial project snapshot), which sync committed as deletions. The Conflict likely comes from her GitHub revert touching the same files as Buildbox's state.",
+        "why_not_tier_1_or_2": "KB-07 only explains that Conflict asks the user to pick a version, and it does not explain or cover an AI generation deleting files that the prompt never touched, which looks like a bug that needs an engineer.",
+        "suspected_area": "GitHub sync push path or AI generation file-diff step: the generation for a button color prompt produced a commit deleting 14 files, and the customer's revert then collided with Buildbox state and triggered Conflict.",
         "questions_for_engineering": [
-          "For the \"AI: update layout\" commit on rina-shah/storefront, why did the generation or sync include deletions of 14 files, including /api, and did the generation itself remove them or did sync build the commit from an incomplete file tree?",
-          "Have other synced projects had commits with mass deletions that the prompt did not call for, in the same time window or on the same release?",
-          "What is the safest way to clear the Conflict for this project so her reverted GitHub main is kept and the /api files are not deleted again, and should we hold sync until then?"
+          "Why did the generation behind commit \"AI: update layout\" on rina-shah/storefront include deletions of 14 files, including /api, and did the project state in Buildbox also lose them?",
+          "Have other projects with GitHub sync had AI commits with mass deletions unrelated to the prompt recently?",
+          "What is the safest way to resolve the Conflict on this project so the reverted files on GitHub are kept and nothing more is overwritten?"
         ],
-        "holding_reply_to_customer": "Hi Rina, thanks for the clear report. You've told us an \"AI: update layout\" commit deleted 14 files, including /api, after a button color prompt, and that sync now shows Conflict after your revert. We've passed this to engineering as urgent. Please don't resolve the Conflict yet, and keep your reverted version on GitHub as the source of truth. We'll update you as soon as we learn more. Buildbox Support",
+        "holding_reply_to_customer": "Hi Rina, thank you for the clear report. You've told us an AI commit deleted 14 files, including /api, after a button color prompt, and that sync now shows Conflict after your revert. We've passed this to engineering as urgent. Please don't resolve the Conflict yet, and keep your reverted GitHub version as it is. We can't promise a fix time, but we'll update you as soon as we learn more. Buildbox Support",
         "evidence_verified": [
           "Buildbox pushed a commit to main on GitHub called \"AI: update layout\" that deleted 14 files, including my whole /api folder",
           "my prompt was to change a button color",
           "Repo is rina-shah/storefront",
           "I reverted on GitHub but sync now says Conflict"
         ],
-        "evidence_unverified": [
-          "TICKET T-24 from rina.shah@example.com received 2026-09-21T08:02:00Z"
-        ],
+        "evidence_unverified": [],
         "holding_reply_flags": []
       },
       "action": "escalate-engineering",
@@ -1327,23 +1346,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0042434,
-          "duration_ms": 2416,
+          "cost_usd": 0.0041834,
+          "duration_ms": 2461,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.032902,
-          "duration_ms": 9430,
+          "cost_usd": 0.032382,
+          "duration_ms": 9846,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 16.2
+      "seconds": 17.7
     },
     {
       "id": "T-25",
@@ -1357,35 +1376,38 @@
       "escalation": {
         "title": "HTTPS certificate stuck Pending for 3 days on verified custom domain shop.example.com",
         "severity": "sev2",
-        "customer_impact": "Customer's custom domain shop.example.com shows a certificate error to visitors. The domain is Verified but the certificate has stayed Pending for 3 days. No workaround has been reported. Nothing in the ticket points to other customers being affected.",
+        "customer_impact": "Customer says shop.example.com shows a certificate error to visitors, so the live site is not usable over HTTPS. The customer has given no workaround. Nothing in the ticket points to other customers being affected.",
         "evidence": [
-          "My domain shop.example.com has been Verified for 3 days but the certificate is still Pending.",
-          "CNAME points to edge.bbx.example, I checked with dig.",
-          "There's no CAA record.",
-          "Site shows a certificate error."
+          "shop.example.com",
+          "Verified for 3 days but the certificate is still Pending",
+          "CNAME points to edge.bbx.example",
+          "There's no CAA record",
+          "Site shows a certificate error"
         ],
         "already_tried": [
-          "Confirmed the CNAME points to edge.bbx.example using dig.",
-          "Checked that there is no CAA record."
+          "Confirmed the CNAME points to edge.bbx.example using dig",
+          "Checked for a CAA record and found none",
+          "Waited 3 days since the domain showed Verified"
         ],
         "kb_checked": [
           "KB-06",
           "KB-03",
           "KB-04"
         ],
-        "why_not_tier_1_or_2": "KB-06 says certificates normally issue within 30 minutes and that a case stuck Pending with correct DNS and no blocking CAA record needs an engineer, and the customer reports exactly that after 3 days.",
-        "suspected_area": "Automatic HTTPS certificate issuance for custom domains (certificate request or validation step after domain verification).",
+        "why_not_tier_1_or_2": "KB-06 says to check DNS and for a blocking CAA record when status stays Pending past 24 hours, and the customer has done both, so the documented answer is exhausted and an engineer must look at certificate issuance.",
+        "suspected_area": "Automatic HTTPS certificate issuance for custom domains (certificate request or ACME order stuck or failing after domain verification)",
         "questions_for_engineering": [
-          "What is the certificate request state and last error for shop.example.com, and is issuance failing or not being retried?",
-          "Are other custom domains verified in the last several days also stuck Pending, which would make this wider than one customer?",
-          "Does the customer's DNS setup (any AAAA record, proxy or extra records on shop.example.com) block the certificate challenge, and can you re-trigger issuance?"
+          "What is the state of the certificate order for shop.example.com, and is there an error or a stalled job (rate limit, failed challenge, queue)?",
+          "Are other custom domains also stuck in Pending after Verified, which would make this wider than one customer?",
+          "Can issuance be retried or re-triggered for this domain, and does the customer need to do anything?"
         ],
-        "holding_reply_to_customer": "Hi Felix, thanks for the details. You've told us the domain is Verified, the CNAME points to edge.bbx.example and there is no CAA record. A certificate should not take 3 days, so we have passed this to our engineers. We can't promise a fix time, but we will update you as soon as we hear back. Buildbox Support",
+        "holding_reply_to_customer": "Hi Felix, thanks for the detail. You've told us the domain is Verified, the CNAME points to edge.bbx.example, and there is no CAA record. That matches the checks we would suggest, so we are passing this to our engineers to look at the certificate request for shop.example.com. We can't promise a time yet, but we will update you as soon as we hear back. Buildbox Support",
         "evidence_verified": [
-          "My domain shop.example.com has been Verified for 3 days but the certificate is still Pending.",
-          "CNAME points to edge.bbx.example, I checked with dig.",
-          "There's no CAA record.",
-          "Site shows a certificate error."
+          "shop.example.com",
+          "Verified for 3 days but the certificate is still Pending",
+          "CNAME points to edge.bbx.example",
+          "There's no CAA record",
+          "Site shows a certificate error"
         ],
         "evidence_unverified": [],
         "holding_reply_flags": []
@@ -1396,22 +1418,22 @@
       "calls": [
         {
           "cost_usd": 0.004055400000000001,
-          "duration_ms": 2014,
+          "duration_ms": 2090,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.028672000000000003,
-          "duration_ms": 6637,
+          "cost_usd": 0.028702000000000002,
+          "duration_ms": 6378,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 13.3
+      "seconds": 13.9
     },
     {
       "id": "T-26",
@@ -1420,41 +1442,39 @@
       "tier": 3,
       "topic": "editor-and-generation",
       "urgency": "normal",
-      "reason": "Every prompt returns a 500 error across two projects and browsers while credits are still deducted, which is a product fault needing engineering investigation.",
+      "reason": "Every prompt returns a 500 error across projects and browsers while credits are still being deducted, which is a product fault needing engineering investigation.",
       "account_looked_up": false,
       "escalation": {
-        "title": "Generation returns 500 on every prompt in two projects, and credits are deducted on each failure",
+        "title": "Every prompt returns 500 in two projects, and credits are deducted on each failed generation",
         "severity": "sev1",
-        "customer_impact": "Maria Lopez says she cannot generate anything: every prompt fails with a 500 in both of the projects she tried. She also says about 30 credits were deducted for these failed generations, which KB-02 calls a bug. Two projects failing at once and credits charged on failure could mean a wider generation outage or billing fault, so this stays sev1 until engineering rules that out.",
+        "customer_impact": "Maria Lopez says she cannot generate anything in either of two projects since this morning, and about 30 credits were deducted for failed generations. Failures across two projects plus credits charged on errors point to a possible platform-wide generation fault and wrongful credit deduction, so this stays sev1 until engineering rules out a wider issue.",
         "evidence": [
           "Something went wrong (500)",
-          "Since this morning every prompt I send returns",
+          "every prompt I send returns",
           "I tried 8 times in two projects",
-          "my credits went down each time",
           "I lost about 30 credits for nothing",
           "Tried Chrome and Firefox"
         ],
         "already_tried": [
           "Retried the prompt 8 times across two projects",
-          "Tried Chrome and Firefox"
+          "Tried in Chrome and in Firefox"
         ],
         "kb_checked": [
           "KB-01",
           "KB-02"
         ],
-        "why_not_tier_1_or_2": "KB-01 only advises a hard refresh and a private window for browser problems, which does not help because the customer already failed in two browsers, and KB-02 says credits charged for a failed generation are a bug that support cannot fix or refund by itself.",
-        "suspected_area": "Generation backend returning 500, plus credit deduction happening before or despite a failed generation (credit ledger, refund-on-failure path).",
+        "why_not_tier_1_or_2": "KB-02 says failed generations should not use credits and to contact support because that is a bug, and KB-01 only offers a browser refresh, which does not help because the customer already failed in two browsers and the error is a server 500.",
+        "suspected_area": "Generation service returning 500 errors, plus credit deduction happening before or despite a failed generation (credit refund or rollback path).",
         "questions_for_engineering": [
-          "Is there a generation 500 spike or incident since the morning of 2026-09-21 across accounts, and does the status page reflect it?",
-          "For maria.lopez@example.com, what do the server logs show for the 8 failed generations, and which error causes the 500?",
-          "Why were credits deducted on failed generations, how many accounts are affected, and can the deducted credits be restored in bulk?"
+          "Is the generation endpoint returning 500s for other accounts since the morning of 2026-09-21, and is there an incident or status page mismatch?",
+          "Why are credits deducted when the generation fails, and can the deducted credits (about 30 by the customer's count) be found and restored for this account, and for any others affected?",
+          "What do server logs show for the 8 failed requests in Maria Lopez's two projects (error cause and time)?"
         ],
-        "holding_reply_to_customer": "Hi Maria, thanks for the detail. You've told us every prompt returns a 500 in two projects and that about 30 credits were deducted. Charging credits for a failed generation is not intended, so we've passed this to engineering to investigate both the error and the credits. We can't promise a fix time yet, but we'll update you as soon as we know more. Buildbox Support",
+        "holding_reply_to_customer": "Hi Maria, thanks for the details. You've told us every prompt returns \"Something went wrong (500)\" in two projects, in both Chrome and Firefox, and that about 30 credits were deducted. Failed generations should not use credits, so we've passed this to our engineers to investigate both the error and the credits. We can't give a fix time yet, but we'll update you as soon as we hear back. Buildbox Support",
         "evidence_verified": [
           "Something went wrong (500)",
-          "Since this morning every prompt I send returns",
+          "every prompt I send returns",
           "I tried 8 times in two projects",
-          "my credits went down each time",
           "I lost about 30 credits for nothing",
           "Tried Chrome and Firefox"
         ],
@@ -1467,22 +1487,22 @@
       "calls": [
         {
           "cost_usd": 0.0039694,
-          "duration_ms": 2336,
+          "duration_ms": 1932,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.033628000000000005,
-          "duration_ms": 9935,
+          "cost_usd": 0.033208,
+          "duration_ms": 9714,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 16.8
+      "seconds": 15.4
     },
     {
       "id": "T-27",
@@ -1491,45 +1511,45 @@
       "tier": 3,
       "topic": "data-and-backups",
       "urgency": "high",
-      "reason": "Live production database lost about 1,200 customer bookings after a redeploy, which is data loss affecting a real business now and needs an engineer to investigate and attempt recovery.",
+      "reason": "Live database lost about 1,200 customer bookings after a redeploy, which is data loss affecting a real business now and needs an engineer to investigate and attempt recovery.",
       "account_looked_up": false,
       "escalation": {
-        "title": "Live database empty (about 1,200 bookings gone) after text-only redeploy of grooming-bookings",
+        "title": "Live database empty after redeploy of grooming-bookings (about 1,200 bookings lost)",
         "severity": "sev1",
-        "customer_impact": "Customer says the live production database for 'grooming-bookings' has zero rows after a redeploy, losing about 1,200 real customer bookings. This is their live business. The preview database is reported fine. A redeploy wiping live data may point past this customer, so treat as possible data loss on deploy until engineering rules out a platform cause.",
+        "customer_impact": "Customer says the live database for 'grooming-bookings' has zero rows after a redeploy that only changed text. They report about 1,200 real customer bookings are gone and this is their real business. Preview data is intact. A redeploy wiping production data could affect other projects, so this stays sev1 until engineering rules that out.",
         "evidence": [
           "database empty after redeploy",
           "I redeployed my app last night (only changed some text)",
-          "now the live database has zero rows",
+          "the live database has zero rows",
           "We had about 1,200 customer bookings in there",
           "Preview database is fine",
-          "Project is 'grooming-bookings'",
-          "this is our real business"
+          "Project is 'grooming-bookings'"
         ],
         "already_tried": [
-          "Redeployed the app last night with only a text change. No other troubleshooting or recovery steps are mentioned in the ticket."
+          "Redeployed the app, changing only some text. This is what preceded the data loss, not a fix attempt.",
+          "The customer has not said they tried anything else, such as a rollback or a CSV export."
         ],
         "kb_checked": [
           "KB-04",
+          "KB-05",
           "KB-08",
           "KB-11"
         ],
-        "why_not_tier_1_or_2": "KB-11 says daily snapshots (7 days kept) are restored only by support, and KB-04 and KB-08 do not explain a Production database being emptied by a deploy, so this needs an engineer to find the cause and restore the data.",
-        "suspected_area": "Deploy pipeline and Production database handling: possible schema reset, migration or database re-provision on redeploy, or the live app pointing at a new or empty database (for example a Production vs Preview variable scope issue). Backup snapshot restore is also needed.",
+        "why_not_tier_1_or_2": "KB-11 says support restores the daily database snapshots (kept 7 days), but it does not explain why a text-only redeploy emptied the live database, and a possible platform-wide cause needs engineering before any restore.",
+        "suspected_area": "Production database handling during deploy (migration, schema reset or environment scope on redeploy), with the daily snapshot restore as the recovery path.",
         "questions_for_engineering": [
-          "Did the deploy last night for grooming-bookings run a migration, schema reset or re-provision that dropped or replaced the Production database, and did other projects deployed in the same window show the same effect?",
-          "Which daily snapshots exist for grooming-bookings (7 day retention), and can the latest one from before last night's deploy be restored, and to what time exactly?",
-          "Is the live app connected to the original Production database, or did a variable scope or connection change point it at an empty one?"
+          "What happened to the production database of 'grooming-bookings' in the deploy from the night of 2026-09-21 to 2026-09-22 (migration, reset, or a Production variable or database pointing at an empty one)?",
+          "Have other projects had a production database emptied or re-provisioned by a redeploy in the same period?",
+          "Does a daily snapshot from before that deploy exist for 'grooming-bookings', and can it be restored quickly and safely?"
         ],
-        "holding_reply_to_customer": "Hi Owen, thank you for reporting this. We understand how serious it is for your business. You've told us the live database for grooming-bookings is empty after your redeploy, and we have escalated it to engineering as urgent. Please avoid deploying or changing the project until we reply, so any snapshot stays useful. We will update you as soon as we know more. Buildbox Support",
+        "holding_reply_to_customer": "Hi Owen, I'm sorry, we know how serious this is. You've told us your live 'grooming-bookings' database has zero rows after last night's redeploy, and that the preview data is fine. We have escalated this to engineering as urgent, including whether a daily backup can be restored. Please don't redeploy or change the project until we reply. We can't promise a fix time yet, but we will update you as soon as we hear back. Buildbox Support",
         "evidence_verified": [
           "database empty after redeploy",
           "I redeployed my app last night (only changed some text)",
-          "now the live database has zero rows",
+          "the live database has zero rows",
           "We had about 1,200 customer bookings in there",
           "Preview database is fine",
-          "Project is 'grooming-bookings'",
-          "this is our real business"
+          "Project is 'grooming-bookings'"
         ],
         "evidence_unverified": [],
         "holding_reply_flags": []
@@ -1539,23 +1559,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0040594,
-          "duration_ms": 1950,
+          "cost_usd": 0.0040494,
+          "duration_ms": 2566,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.029932,
-          "duration_ms": 7288,
+          "cost_usd": 0.029882,
+          "duration_ms": 8463,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 12.8
+      "seconds": 14.3
     },
     {
       "id": "T-28",
@@ -1564,14 +1584,13 @@
       "tier": 3,
       "topic": "editor-and-generation",
       "urgency": "normal",
-      "reason": "Preview pane is blank in Safari 19 with a navigator.gpu (WebGPU) TypeError, and the customer already tried a hard refresh and a private window, so an engineer needs to investigate.",
+      "reason": "Preview renders blank in Safari 19 with a navigator.gpu WebGPU TypeError, and the documented fixes (hard refresh, private window) were already tried, so an engineer needs to investigate.",
       "account_looked_up": false,
       "escalation": {
-        "title": "Preview pane blank in Safari 19: navigator.gpu is undefined (WebGPU)",
+        "title": "Preview pane blank in Safari 19: TypeError on navigator.gpu.requestAdapter (works in Chrome)",
         "severity": "sev3",
-        "customer_impact": "Lucy Grant sees a blank white preview pane in Safari 19 on a Mac. The same project works in Chrome, so she has a workaround. Nothing in the ticket suggests other customers are affected, but Safari users in general may be.",
+        "customer_impact": "One customer (lucy.grant@example.com) sees a blank white preview pane in Safari 19 on Mac. The preview works in Chrome, so she has a workaround. Nothing in the ticket suggests other customers are affected, but Safari users in general may be.",
         "evidence": [
-          "Blank preview in Safari",
           "The preview pane is a blank white screen in Safari 19 on my Mac.",
           "Works fine in Chrome.",
           "TypeError: undefined is not an object (evaluating 'navigator.gpu.requestAdapter')"
@@ -1583,16 +1602,15 @@
         "kb_checked": [
           "KB-01"
         ],
-        "why_not_tier_1_or_2": "KB-01 lists Safari as supported and says to try a hard refresh and a private window with extensions off, but the customer already did the hard refresh and private window and the preview is still blank with a WebGPU error.",
-        "suspected_area": "Preview runtime calls navigator.gpu.requestAdapter without checking that WebGPU exists. In Safari 19, navigator.gpu is undefined (WebGPU may be unavailable or disabled), so the preview throws and renders nothing instead of falling back.",
+        "why_not_tier_1_or_2": "KB-01 says to try a hard refresh and then a private window with extensions off, and the customer has already done the hard refresh and the private window, and the console error points to missing WebGPU (navigator.gpu) in her Safari, which the KB does not cover.",
+        "suspected_area": "Preview pane front end calls navigator.gpu.requestAdapter without checking that WebGPU exists. In Safari 19 navigator.gpu is undefined, possibly because WebGPU is off or unsupported there. The preview needs a feature check and a fallback.",
         "questions_for_engineering": [
-          "Does the preview runtime require WebGPU, and should it feature-detect navigator.gpu and fall back to a non-GPU path in Safari 19?",
-          "Is this specific to Safari 19 or to WebGPU being disabled in this customer's Safari settings, and does it reproduce on a clean Safari 19 install?",
-          "Is the failing call in Buildbox preview code or in the code generated for this project, and does it affect other Safari users?"
+          "Does the preview runtime require WebGPU, and is navigator.gpu called without a feature check or fallback?",
+          "Is Safari 19 on the supported browser list in KB-01, and is WebGPU enabled by default there or does it sit behind a feature flag?",
+          "Are other Safari users reporting a blank preview, or did a recent preview release start calling navigator.gpu?"
         ],
-        "holding_reply_to_customer": "Hi Lucy, thanks for the detailed report. You've told us the preview is blank in Safari 19 but works in Chrome, and that a hard refresh and a private window didn't help. The console error you shared has gone to our engineers. We can't promise a fix time yet. For now, please keep using Chrome for the preview. We'll update you when we know more. Buildbox Support",
+        "holding_reply_to_customer": "Hi Lucy, thanks for the detail. You've told us the preview is blank in Safari 19 but works in Chrome, and that a hard refresh and a private window did not help. The console error you shared helps a lot. We've passed it to our engineers to look into. Until then, Chrome is the best way to keep working. We'll update you when we know more. Buildbox Support",
         "evidence_verified": [
-          "Blank preview in Safari",
           "The preview pane is a blank white screen in Safari 19 on my Mac.",
           "Works fine in Chrome.",
           "TypeError: undefined is not an object (evaluating 'navigator.gpu.requestAdapter')"
@@ -1605,23 +1623,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0042494,
-          "duration_ms": 1900,
+          "cost_usd": 0.0042594,
+          "duration_ms": 1946,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.029297999999999998,
-          "duration_ms": 6587,
+          "cost_usd": 0.029248,
+          "duration_ms": 6009,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 12.5
+      "seconds": 12.2
     },
     {
       "id": "T-29",
@@ -1630,42 +1648,42 @@
       "tier": 3,
       "topic": "environment-variables",
       "urgency": "normal",
-      "reason": "Production variable is set with the correct scope and redeployed twice, yet it is undefined on the live site while preview works, so the documented fix failed and an engineer must investigate.",
+      "reason": "Production-scoped MAPS_API_KEY is undefined on the live site after two redeploys while preview works, and the customer already checked the scope docs, so an engineer needs to investigate.",
       "account_looked_up": false,
       "escalation": {
         "title": "Production env var MAPS_API_KEY undefined on live site after two redeploys; Preview works",
         "severity": "sev2",
-        "customer_impact": "The customer's live site cannot read MAPS_API_KEY, which is set with the Production tag. The customer has told us this blocks the feature that uses the key in production. Preview works. Nothing in the ticket suggests other customers are affected.",
+        "customer_impact": "One customer (dev.patel@example.com) says the live site logs that MAPS_API_KEY is undefined, so anything that depends on the key is failing in production. Preview works, so they have no workaround on the live site. Nothing in the ticket points to other customers being affected.",
         "evidence": [
+          "MAPS_API_KEY is undefined",
           "I set MAPS_API_KEY as a Production variable",
           "it shows in Settings > Environment with the Production tag",
           "redeployed twice",
-          "The live site still logs \"MAPS_API_KEY is undefined\"",
           "Preview works"
         ],
         "already_tried": [
-          "Set MAPS_API_KEY as a Production variable and confirmed it shows with the Production tag in Settings > Environment",
+          "Set MAPS_API_KEY as a Production variable; it shows in Settings > Environment with the Production tag",
           "Redeployed twice",
           "Read the docs about scopes"
         ],
         "kb_checked": [
+          "KB-08",
           "KB-04",
-          "KB-05",
-          "KB-08"
+          "KB-05"
         ],
-        "why_not_tier_1_or_2": "KB-04 and KB-08 say a Production-scoped variable is available to the live site after the next deploy, and the customer says they set the scope correctly and redeployed twice, so the documented answer does not explain the value being undefined.",
-        "suspected_area": "Injection of Production-scoped environment variables into deploy builds or the runtime of the live app. Possible causes are a scope not saved server-side, a stale cache or snapshot from the deploy, or the app code reading the variable in a way that differs between Preview and Production.",
+        "why_not_tier_1_or_2": "KB-08 and KB-04 say a Production-scoped variable is applied on the next deploy, and the customer says they set the scope correctly and redeployed twice, so the documented answer does not explain the value still being undefined.",
+        "suspected_area": "Propagation of Production-scoped environment variables into the deploy build or runtime. Possible causes are a stale variable snapshot in the deploy, a scope mismatch in storage versus the UI, or a variable-name or code-side issue.",
         "questions_for_engineering": [
-          "For this customer's project, is MAPS_API_KEY stored with Production scope, and was it included in the environment of the two most recent production deploys?",
-          "Do the deploys the customer made after saving the variable use a fresh build, or could they reuse a cached snapshot from before the variable existed?",
-          "Have other projects reported a Production variable that is undefined at runtime while Preview works, to rule out a wider fault?"
+          "For this customer's project, does the latest Production deploy snapshot include MAPS_API_KEY, and is the stored scope Production?",
+          "Did both redeploys build after the variable was saved, or could they have used a cached or older variable set?",
+          "Is anyone else seeing Production variables missing at runtime after a deploy, or is this limited to this project?"
         ],
-        "holding_reply_to_customer": "Hi, thanks for the detail. You've told us MAPS_API_KEY has the Production tag, you redeployed twice, and the live site still logs it as undefined while Preview works. That doesn't match how scopes should behave, so we've passed it to our engineers to investigate. We can't see your deploys or logs, and we can't promise a fix time yet. We'll update you as soon as we hear back. Buildbox Support",
+        "holding_reply_to_customer": "Hi, thanks for the detail. You've told us MAPS_API_KEY is tagged Production, you redeployed twice, and the live site still logs it as undefined while Preview works. That doesn't match how scopes should behave, so we've passed it to our engineers to investigate. We can't see your deploys or logs, so please reply with your project name and the latest deploy id from Deploy history. We'll update you when we know more. Buildbox Support",
         "evidence_verified": [
+          "MAPS_API_KEY is undefined",
           "I set MAPS_API_KEY as a Production variable",
           "it shows in Settings > Environment with the Production tag",
           "redeployed twice",
-          "The live site still logs \"MAPS_API_KEY is undefined\"",
           "Preview works"
         ],
         "evidence_unverified": [],
@@ -1676,23 +1694,23 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0040614,
-          "duration_ms": 1577,
+          "cost_usd": 0.004121400000000001,
+          "duration_ms": 2469,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.029748000000000004,
-          "duration_ms": 7727,
+          "cost_usd": 0.029538000000000002,
+          "duration_ms": 7306,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 13.7
+      "seconds": 14.2
     },
     {
       "id": "T-30",
@@ -1701,40 +1719,38 @@
       "tier": 3,
       "topic": "credits-and-usage",
       "urgency": "normal",
-      "reason": "Credits deducted are double the amount shown before each generation since Monday's update, which looks like a product bug needing engineering investigation.",
+      "reason": "Customer is charged double the credits shown before each generation since Monday's update, which contradicts documented behavior and looks like a bug needing engineering investigation.",
       "account_looked_up": false,
       "escalation": {
-        "title": "Credits charged at 2x the pre-send cost on every generation since Monday update",
+        "title": "Credits charged at double the pre-send cost on every generation since Monday's update",
         "severity": "sev1",
-        "customer_impact": "Amy Walsh says every generation is charged double the credits shown before sending (2 shown, 4 used), on every prompt since Monday's update. Her credits run out twice as fast. Because it started with a release, it may affect all paying customers, so it is kept at sev1 until engineering rules that out.",
+        "customer_impact": "Amy Walsh says every generation is charged twice the credits shown before sending, so her credits run out twice as fast. Because it started with a platform update, it may affect all paid and free accounts. Wrong charges across many accounts is a sev1 until engineering rules it out.",
         "evidence": [
-          "Since the update on Monday",
-          "every generation takes double the credits shown before I send it",
-          "The prompt says 2 credits and my usage page shows 4 used",
-          "Happened on every prompt today",
-          "Screenshot of Settings > Usage attached"
+          "Since the update on Monday, every generation takes double the credits shown before I send it.",
+          "The prompt says 2 credits and my usage page shows 4 used.",
+          "Happened on every prompt today.",
+          "Screenshot of Settings > Usage attached."
         ],
         "already_tried": [
-          "Compared the credit cost shown in the prompt box with Settings > Usage and attached a screenshot. She does not mention any other troubleshooting."
+          "Compared the credit cost shown before sending a prompt with the amount on Settings > Usage, and attached a screenshot. She does not mention any other steps."
         ],
         "kb_checked": [
-          "KB-01",
-          "KB-02"
+          "KB-02",
+          "KB-03"
         ],
-        "why_not_tier_1_or_2": "KB-02 says the cost is shown before sending and only failed generations should not be charged, so it has no documented answer for successful generations billed at double the displayed cost.",
-        "suspected_area": "Credit metering or billing after Monday's release (2026-09-21): the usage ledger may be double-counting, or the pre-send cost estimate may no longer match the charged amount.",
+        "why_not_tier_1_or_2": "KB-02 says the cost shown before sending is what is charged and only covers refunds for failed generations, so a consistent 2x overcharge on successful generations is a billing or metering bug that needs an engineer.",
+        "suspected_area": "Credit metering or billing after Monday's release: usage recording may be counting each generation twice, or the pre-send cost estimate may no longer match the amount deducted.",
         "questions_for_engineering": [
-          "Did Monday's release change credit metering or the usage ledger, for example writing two entries per generation or applying a 2x multiplier?",
-          "Do other accounts show charged credits greater than the pre-send estimate since 2026-09-21, and how many generations and credits are affected?",
-          "Can affected accounts' overcharged credits be identified and restored, and does this account (amy.walsh@example.com) need a manual correction?"
+          "Did Monday's release change how generation credits are deducted or recorded, for example a duplicate usage event per generation?",
+          "Are other accounts showing deducted credits at 2x the pre-send estimate since Monday, and how many?",
+          "Once the cause is fixed, can affected accounts have their overcharged credits restored, and how do we identify Amy's?"
         ],
-        "holding_reply_to_customer": "Hi Amy, thank you for the clear report and screenshot. You've told us the prompt shows 2 credits but your usage page shows 4, on every prompt since Monday's update. That should not happen, so we have passed it to our engineers to investigate. We can't give a fix time yet. We will update you when we know more, and we will look at correcting any extra credits taken. Buildbox Support",
+        "holding_reply_to_customer": "Hi Amy, thanks for the detail and the screenshot. You've told us that every generation since Monday's update has used double the credits shown before sending. We've passed this to our engineers as a possible billing problem. We can't promise a fix time yet, but we'll update you as soon as we know more, including what happens to the extra credits. Buildbox Support",
         "evidence_verified": [
-          "Since the update on Monday",
-          "every generation takes double the credits shown before I send it",
-          "The prompt says 2 credits and my usage page shows 4 used",
-          "Happened on every prompt today",
-          "Screenshot of Settings > Usage attached"
+          "Since the update on Monday, every generation takes double the credits shown before I send it.",
+          "The prompt says 2 credits and my usage page shows 4 used.",
+          "Happened on every prompt today.",
+          "Screenshot of Settings > Usage attached."
         ],
         "evidence_unverified": [],
         "holding_reply_flags": []
@@ -1744,142 +1760,142 @@
       "billing_action": null,
       "calls": [
         {
-          "cost_usd": 0.0039234000000000005,
-          "duration_ms": 2022,
+          "cost_usd": 0.0040034,
+          "duration_ms": 2169,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         },
         {
-          "cost_usd": 0.035522,
-          "duration_ms": 11814,
+          "cost_usd": 0.034052,
+          "duration_ms": 10671,
           "models": [
             "claude-sonnet-5-5"
           ],
           "cached": false
         }
       ],
-      "seconds": 18.1
+      "seconds": 16.4
     }
   ],
   "digest": {
-    "headline": "A redeploy left one live database with zero rows out of about 1,200 bookings, and GitHub sync deleted a customer's /api folder, so data loss on deploy and sync is this week's top issue.",
+    "headline": "Two customers lost data this week (a live database emptied after a redeploy, and a GitHub sync commit that deleted 14 files), and both need engineering attention before anything else.",
     "themes": [
       {
-        "theme": "Unexpected or duplicate charges, refunds and invoices",
+        "theme": "Unexpected charges, refunds, cancellations and invoices",
         "kind": "billing and account",
         "ticket_ids": [
           "T-13",
-          "T-18",
-          "T-22",
           "T-14",
           "T-15",
           "T-16",
-          "T-17"
+          "T-17",
+          "T-18",
+          "T-19",
+          "T-22"
         ],
         "quote_ticket_id": "T-18",
         "quote": "Please explain, this looks wrong.",
-        "proposed_product_action": "We think a prorated price preview before confirming an upgrade, plus a disabled buy button after the first click on credit packs, would reduce the surprise charges in T-13, T-18 and T-22. Test it and compare charge disputes.",
+        "proposed_product_action": "We think a prorated-charge breakdown on the upgrade screen and a renewal reminder email a few days before charge would reduce the confusion and forgotten-cancel refunds seen in T-15, T-18 and T-22. Also test blocking a second credit pack purchase within a few minutes (T-13 rests on one ticket).",
         "owner": "billing",
-        "count": 7,
+        "count": 8,
         "quote_verified": true,
         "answered_by_kb": []
       },
       {
-        "theme": "Setting up domains, deploys, GitHub, keys and exports",
+        "theme": "Setup questions: domains, GitHub, keys, export, failed builds",
         "kind": "how-to question",
         "ticket_ids": [
           "T-02",
-          "T-08",
-          "T-09",
           "T-03",
           "T-04",
-          "T-06"
+          "T-06",
+          "T-08",
+          "T-09"
         ],
-        "quote_ticket_id": "T-08",
-        "quote": "Did I break something?",
-        "proposed_product_action": "We think a status line next to Verified that says the certificate is still being issued, and roughly how long it takes, would stop worry like T-08. Test it and check whether domain how-to tickets fall.",
-        "owner": "product",
+        "quote_ticket_id": "T-03",
+        "quote": "I don't want to lose it.",
+        "proposed_product_action": "We think inline hints at the moment of action would cut these tickets: a note that SSL can take time after a domain shows Verified, a warning on the GitHub connect screen about edits on main, and a secrets field prompt when a key is pasted into a prompt. Measure ticket volume on these six topics after shipping.",
+        "owner": "support/KB",
         "count": 6,
         "quote_verified": true,
         "answered_by_kb": []
       },
       {
-        "theme": "Plan choice, seats, ownership and cancellation",
+        "theme": "Plans, seats and account ownership",
         "kind": "billing and account",
         "ticket_ids": [
           "T-05",
           "T-07",
-          "T-19",
           "T-20",
           "T-21"
         ],
         "quote_ticket_id": "T-21",
         "quote": "The person who created our Team workspace left the company last month and nobody can log in as them.",
-        "proposed_product_action": "Based mainly on T-21, we think letting an Admin request an owner transfer, with identity checks, would remove a manual support step. Test it with a short form and measure resolution time.",
+        "proposed_product_action": "We believe a self-serve owner transfer and email change flow in account settings, plus a Pro vs Team comparison table on the pricing page, would remove these tickets. The owner transfer case (T-21) rests on one ticket.",
         "owner": "product",
-        "count": 5,
+        "count": 4,
         "quote_verified": true,
         "answered_by_kb": []
       },
       {
-        "theme": "Live app lost data or config after deploy or sync",
-        "kind": "product defect",
-        "ticket_ids": [
-          "T-27",
-          "T-24",
-          "T-29"
-        ],
-        "quote_ticket_id": "T-27",
-        "quote": "We had about 1,200 customer bookings in there.",
-        "proposed_product_action": "We think an automatic snapshot of the production database, plus a confirmation that lists files a sync commit will delete, would prevent most of this loss. Test it by enabling both for a small set of projects and comparing restore requests.",
-        "owner": "engineering",
-        "count": 3,
-        "quote_verified": true,
-        "answered_by_kb": []
-      },
-      {
-        "theme": "Editor errors and credits charged wrongly",
-        "kind": "product defect",
-        "ticket_ids": [
-          "T-26",
-          "T-30",
-          "T-28"
-        ],
-        "quote_ticket_id": "T-26",
-        "quote": "And my credits went down each time, I lost about 30 credits for nothing.",
-        "proposed_product_action": "We think automatically refunding credits whenever a generation fails with a server error would remove the sting of these failures. Test it on 500 errors first, then check whether T-30 double charging is the same bug.",
-        "owner": "engineering",
-        "count": 3,
-        "quote_verified": true,
-        "answered_by_kb": []
-      },
-      {
-        "theme": "Deploys and certificates stuck with no explanation",
+        "theme": "Live site will not go live: stuck deploys, pending SSL, missing production variables",
         "kind": "product defect",
         "ticket_ids": [
           "T-23",
-          "T-25"
+          "T-25",
+          "T-29"
         ],
         "quote_ticket_id": "T-23",
         "quote": "I have a launch tomorrow morning.",
-        "proposed_product_action": "We think a status page entry that flips automatically when deploy queue wait passes 15 minutes would cut support contacts like T-23. Test it for one month and compare ticket volume.",
+        "proposed_product_action": "We think a status page check that fails when deploys are queued longer than 15 minutes, plus an alert when a certificate stays Pending for over 1 hour, would surface these failures before customers write in. The env var case (T-29) rests on one ticket.",
+        "owner": "engineering",
+        "count": 3,
+        "quote_verified": true,
+        "answered_by_kb": []
+      },
+      {
+        "theme": "Editor errors and credits drained",
+        "kind": "product defect",
+        "ticket_ids": [
+          "T-26",
+          "T-28",
+          "T-30"
+        ],
+        "quote_ticket_id": "T-26",
+        "quote": "I lost about 30 credits for nothing.",
+        "proposed_product_action": "We believe automatically refunding credits for any generation that returns a 500 error, and showing the final credit cost before send, would remove the sense of being charged for failures. Test with the T-26 and T-30 accounts; the Safari blank preview (T-28) rests on one ticket and needs a fallback when WebGPU is missing.",
+        "owner": "engineering",
+        "count": 3,
+        "quote_verified": true,
+        "answered_by_kb": []
+      },
+      {
+        "theme": "Buildbox deleted customer data or files",
+        "kind": "product defect",
+        "ticket_ids": [
+          "T-24",
+          "T-27"
+        ],
+        "quote_ticket_id": "T-27",
+        "quote": "Please help urgently, this is our real business.",
+        "proposed_product_action": "We believe a confirmation step and an automatic snapshot before any redeploy that touches the live database, and before any sync commit that deletes more than a few files, would prevent this kind of loss. Test it on these two cases first; each rests on one ticket.",
         "owner": "engineering",
         "count": 2,
         "quote_verified": true,
         "answered_by_kb": []
       },
       {
-        "theme": "Credit balance and reset confusion",
+        "theme": "Credit balance and reset questions",
         "kind": "how-to question",
         "ticket_ids": [
           "T-01",
           "T-10"
         ],
         "quote_ticket_id": "T-01",
-        "quote": "I'm on Pro and it says I have 0 credits left.",
-        "proposed_product_action": "We think showing the next reset date and carry-over rule beside the credit balance, and on the zero-credits message, would answer these questions in the product. Test it with a small group and watch for repeat questions. This rests on two tickets.",
+        "quote": "It's only the 14th.",
+        "proposed_product_action": "We believe showing the reset date, rollover rule and pack expiry next to the credit balance would answer both questions in product. This rests on two tickets, so treat it as a small test.",
         "owner": "product",
         "count": 2,
         "quote_verified": true,
@@ -1892,9 +1908,9 @@
           "T-11",
           "T-12"
         ],
-        "quote_ticket_id": "T-11",
-        "quote": "Our security team is reviewing Buildbox before we roll it out to 40 people.",
-        "proposed_product_action": "We think a public trust page with SOC 2 status, hosting region and an NDA report request form would help buyers like T-11. Separately, decide whether to offer a nonprofit discount as in T-12, which rests on one ticket.",
+        "quote_ticket_id": "T-12",
+        "quote": "Team would really help us but $50 a month is a lot for us.",
+        "proposed_product_action": "We think a public trust page with SOC 2 status and data hosting location, and a decision on a nonprofit and education discount, would unblock these buyers. Each rests on one ticket, and a 40-seat rollout (T-11) is at stake.",
         "owner": "sales",
         "count": 2,
         "quote_verified": true,
